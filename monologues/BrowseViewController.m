@@ -28,7 +28,6 @@
     self.title = @"Boneyard";
     
     self.tableView.tintColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1];
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated {
