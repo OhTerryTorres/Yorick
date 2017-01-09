@@ -39,7 +39,7 @@
 
 -(void) checkUpdates {
     NSLog(@"checkUpdates");
-    NSString *strURL = [NSString stringWithFormat:@"http://www.terry-torres.com/yorick/checkUpdates.php"];
+    NSString *strURL = [NSString stringWithFormat:@"http://www.terry-torres.com/yorick/api/api.php?method=checkUpdates"];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
     //
     
@@ -49,7 +49,7 @@
                                NSLog(@"checkUpdates Connection begin");
                                
                                if (connectionError) {
-                                   
+                                   NSLog(@"connection error");
                                } else if (response != nil) {
                                    
                                    // receive returned value
@@ -80,7 +80,7 @@
 
 -(IBAction)updateMonologues:(id)sender {
     NSLog(@"in updateMonologues");
-    NSString *strURL = [NSString stringWithFormat:@"http://www.terry-torres.com/yorick/getUpdates.php"];
+    NSString *strURL = [NSString stringWithFormat:@"http://www.terry-torres.com/yorick/api/api.php?method=getUpdates"];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
     //
     
