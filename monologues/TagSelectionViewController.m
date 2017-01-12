@@ -125,7 +125,7 @@
         if (buttonIndex == 1) {
             NSString *customTag = [[alertView textFieldAtIndex:0] text];
             NSCharacterSet *doNotWant = [NSCharacterSet characterSetWithCharactersInString:@" -/:;()$&@\".,!?\'[]{}#%^*+=_|~<>€£¥•."];
-            NSMutableArray *bannedWords = [[NSMutableArray alloc] initWithObjects:@"fuck", @"shit", @"fuk", @"fuk", @"fag",@"faggot",@"faggo",@"nigger",@"nigga",@"cunt",@"asshole",@"bullshit",@"chink",@"christ",@"clit",@"cock",@"coon",@"cum",@"dick",@"dyke",@"gook",@"heeb",@"jizz",@"kike",@"poontang",@"spic",@"skeet",@"wetback", nil];
+            NSMutableArray *bannedWords = [[NSMutableArray alloc] initWithObjects:@"fuck", @"shit", @"fuk", @"fuk", @"fag",@"faggot",@"faggo",@"nigger",@"nigga",@"cunt",@"asshole",@"bullshit",@"chink",@"christ",@"clit",@"cock",@"coon",@"cum",@"dick",@"dyke",@"gook",@"heeb",@"pussy",@"jizz",@"kike",@"poontang",@"spic",@"skeet",@"wetback", nil];
             if ( [customTag rangeOfCharacterFromSet:doNotWant].location != NSNotFound ) {
                 UIAlertView * alert = [[UIAlertView alloc] initWithTitle:nil message:@"Try again without special characters." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 alert.tag = 2;
@@ -183,26 +183,23 @@
     if ( tag != nil ) {
         self.currentMonologue.tags = [self.currentMonologue.tags stringByAppendingString:[NSString stringWithFormat:@" !%@",tag]];
         NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-        NSString *safeText = [self.currentMonologue.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeTitle = [self.currentMonologue.title stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeNotes = [self.currentMonologue.notes stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeCharacter = [self.currentMonologue.character stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeAge = [self.currentMonologue.age stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeAuthorFirst = [self.currentMonologue.authorFirst stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeAuthorLast = [self.currentMonologue.authorLast stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeGender = [self.currentMonologue.gender stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeLength = [self.currentMonologue.length stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safePeriod = [self.currentMonologue.period stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeTags = [self.currentMonologue.tags stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *safeTone = [self.currentMonologue.tone stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        
+        NSString *safeNotes = [self.currentMonologue.notes stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+        safeNotes = [safeNotes stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+        safeNotes = [safeNotes stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
+        
+        NSString *safeText = [self.currentMonologue.text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+        safeText = [safeText stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
+        safeText = [safeNotes stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
         
         // Transfer monologue values and UUID via php
         NSLog(@"in updateTags");
-        NSString *strURL = [NSString stringWithFormat:@"http://www.terry-torres.com/yorick/updateTags.php?id=%@&uuid=%@&age=%@&authorFirst=%@&authorLast=%@&character=%@&gender=%@&length=%@&notes=%@&period=%@&text=%@&title=%@&tags=%@&tone=%@",self.currentMonologue.idNumber,uuid,safeAge,safeAuthorFirst,safeAuthorLast,safeCharacter,safeGender,safeLength,safeNotes,safePeriod,safeText,safeTitle,safeTags,safeTone];
+        NSString *strURL = @"http://www.terry-torres.com/yorick/api/api.php?method=updateMonologue";
         strURL = [strURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
-        //
-        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
+        [request setHTTPMethod:@"POST"];
+        NSString *body = [NSString stringWithFormat:@"{\"id\":\"%@\",\"uuid\":\"%@\",\"age\":\"%@\",\"authorFirst\":\"%@\",\"authorLast\":\"%@\",\"character\":\"%@\",\"gender\":\"%@\",\"length\":\"%@\",\"notes\":\"%@\",\"period\":\"%@\",\"text\":\"%@\",\"title\":\"%@\",\"tags\":\"%@\",\"tone\":\"%@\"}",self.currentMonologue.idNumber,uuid,self.currentMonologue.age,self.currentMonologue.authorFirst,self.currentMonologue.authorLast,self.currentMonologue.character,self.currentMonologue.gender,self.currentMonologue.length,safeNotes,self.currentMonologue.period,safeText,self.currentMonologue.title,self.currentMonologue.tags,self.currentMonologue.tone];
+        [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
         
         self.tableView.userInteractionEnabled = NO;
         
