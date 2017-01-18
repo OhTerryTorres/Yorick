@@ -44,7 +44,7 @@
     //
     
     [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
+                                       queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                NSLog(@"checkUpdates Connection begin");
                                
@@ -67,11 +67,13 @@
                                    if ( updatesOnDevice != self.latestUpdateCount ) {
                                        NSLog(@"updates on device is %d",self.latestUpdateCount);
                                        NSLog(@"updates in database is %d", [strResults intValue]);
-                                           UIBarButtonItem *updateButton = [[UIBarButtonItem alloc]
+                                            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                UIBarButtonItem *updateButton = [[UIBarButtonItem alloc]
                                                                           initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                           target:self
                                                                           action:@selector(updateMonologues:)];
-                                           self.navigationItem.rightBarButtonItem = updateButton;
+                                                self.navigationItem.rightBarButtonItem = updateButton;
+                                            }];
                                    }
                                    
                                    NSLog(@"Connection complete");
@@ -88,7 +90,7 @@
     NSMutableArray *updatedMonologues = [[NSMutableArray alloc] init];
     
     [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
+                                       queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                NSLog(@"updateMonologues Connection begin");
                                
