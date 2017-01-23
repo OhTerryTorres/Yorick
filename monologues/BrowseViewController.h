@@ -20,8 +20,6 @@
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property (strong, nonatomic) NSMutableDictionary *monologueDictionary;
-
 @property (strong, nonatomic) MonologueMasterlist *masterlist;
 
 - (IBAction)showSettings:(id)sender;

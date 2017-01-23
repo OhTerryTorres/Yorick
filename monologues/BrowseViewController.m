@@ -25,6 +25,8 @@
     self.navigationController.tabBarController.tabBar.userInteractionEnabled = YES;
     self.tabBarController.tabBar.userInteractionEnabled = YES;
     
+    [self loadMonologuesArray];
+    
     self.title = @"Boneyard";
     
     self.tableView.tintColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1];
@@ -103,7 +105,7 @@
                                                                                  error:nil];
                                    NSLog(@"updateMonologues Async JSON: %@", jsonArray);
                                    
-                                   
+                                   NSMutableDictionary* newMonologueDictionary = [[NSMutableDictionary alloc] init];
                                    
                                    // Set up dictionary with titles and their hashtags
                                    // This will be stored and used in the gallery later.
@@ -146,14 +148,14 @@
                                    documentPath = [documentPath stringByAppendingPathComponent:@"monologueList.plist"];
                                 
                                    
-                                   self.monologueDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:documentPath];
-                                   NSMutableArray *keys = [[self.monologueDictionary allKeys]mutableCopy];
+                                   newMonologueDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:documentPath];
+                                   NSMutableArray *keys = [[newMonologueDictionary allKeys]mutableCopy];
                                    NSLog(@"keys.count on load is %lu",(unsigned long)keys.count);
                                    
                                    for (int i = 0; i < updatedMonologues.count; i++) {
                                        NSMutableDictionary *currentMonologueDictionary = [[NSMutableDictionary alloc] initWithDictionary:updatedMonologues[i]];
                                        NSString *keyString = [currentMonologueDictionary objectForKey:@"id"];
-                                       [self.monologueDictionary setObject:currentMonologueDictionary forKey:keyString];
+                                       [newMonologueDictionary setObject:currentMonologueDictionary forKey:keyString];
                                        NSLog(@"keyString is %@", keyString);
                                    }
                                    
@@ -170,13 +172,13 @@
                                            NSLog(@"the file does exist!");
                                        }
                                        
-                                       [self.monologueDictionary writeToFile:documentPath atomically:YES];
+                                       [newMonologueDictionary writeToFile:documentPath atomically:YES];
                                        
                                        NSLog(@"strResults is %@",strResults);
                                        
                                        
                                        
-                                       NSMutableArray *keys = [[self.monologueDictionary allKeys]mutableCopy];
+                                       NSMutableArray *keys = [[newMonologueDictionary allKeys]mutableCopy];
                                        NSLog(@"keys.count on write is %lu",(unsigned long)keys.count);
                                        
                                        NSMutableDictionary *monologueDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:documentPath];
@@ -218,30 +220,24 @@
     // in particular need to be within or without the IF statement.
     // ****
     
-    if ( self.tableView != self.searchDisplayController.searchResultsTableView ) {
-        [self loadMonologuesArray];
-        
-        if ( [[NSUserDefaults standardUserDefaults] objectForKey:@"settingsList"] ) {
-            if ( self.tableView == self.searchDisplayController.searchResultsTableView ) {
-                searchResults = [[MonologueMasterlist filterMonologues:searchResults] mutableCopy];
-            } else {
-                NSLog(@"GLAGLA1");
-                monologuesArray = [[MonologueMasterlist filterMonologues:monologuesArray] mutableCopy];
-                // *****
-                // This updates the alphabetical index with the filtered monologuesArray
-                self.masterlist.sections = [self.masterlist getAlphabeticalSections:monologuesArray];
-            }
-        }
-        
-        [self searchTagNotification];
-        
-        if ( self.tableView != self.searchDisplayController.searchResultsTableView ) {
-            searchResults = [MonologueMasterlist sortMonologues:searchResults];
+    if ( [[NSUserDefaults standardUserDefaults] objectForKey:@"settingsList"] ) {
+        if ( self.tableView == self.searchDisplayController.searchResultsTableView ) {
+            searchResults = [[MonologueMasterlist filterMonologues:searchResults] mutableCopy];
         } else {
-            monologuesArray = [MonologueMasterlist sortMonologues:monologuesArray];
+            NSLog(@"GLAGLA1");
+            monologuesArray = [[MonologueMasterlist filterMonologues:monologuesArray] mutableCopy];
+            // *****
+            // This updates the alphabetical index with the filtered monologuesArray
+            self.masterlist.sections = [self.masterlist getAlphabeticalSections:monologuesArray];
         }
-        
-        
+    }
+    
+    [self searchTagNotification];
+    
+    if ( self.tableView != self.searchDisplayController.searchResultsTableView ) {
+        searchResults = [MonologueMasterlist sortMonologues:searchResults];
+    } else {
+        monologuesArray = [MonologueMasterlist sortMonologues:monologuesArray];
     }
     
     // This displays the amount of monologues currently in the list
@@ -374,8 +370,6 @@
     // Make sure the reuse identifier in the Prototype Cell says "cell"
     // self.tableView (as opposed to just tableView) below was crucial to stop crashing during searches
     currentMonologue.cell = [[MonologueTableViewCell alloc] init];
-    MonologueTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
     
     currentMonologue.cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     currentMonologue.cell.titleLabel.text = currentMonologue.title;
@@ -390,24 +384,15 @@
     // adjust the range to include dependent chars
     stringRange = [excerptString rangeOfComposedCharacterSequencesForRange:stringRange];
     // Now you can create the short string
-    currentMonologue.cell.excerptLabel.text = [excerptString substringWithRange:stringRange];
+    excerptString = [excerptString substringWithRange:stringRange];
+    excerptString = [self excerptLabelFilter:excerptString];
+    currentMonologue.cell.excerptLabel.text = excerptString;
     
-    cell = currentMonologue.cell;
-    
-    return cell;
+    return currentMonologue.cell;
     
 }
 
 -(NSString*)excerptLabelFilter:(NSString *)targetString {
-    NSScanner *theScanner;
-    NSString *text = nil;
-    theScanner = [NSScanner scannerWithString: targetString];
-    while ([theScanner isAtEnd] == NO) {
-        [theScanner scanUpToString:@"[" intoString:NULL] ;
-            [theScanner scanUpToString:@"]" intoString:&text] ;
-            targetString = [targetString stringByReplacingOccurrencesOfString:
-                            [NSString stringWithFormat:@"%@]", text] withString:@""];
-    }
     targetString = [targetString stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@" "];
     targetString = [targetString stringByReplacingOccurrencesOfString:@"\n\n" withString:@" "];
     targetString = [targetString stringByReplacingOccurrencesOfString:@"\n" withString:@" "];

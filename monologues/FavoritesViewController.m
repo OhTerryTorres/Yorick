@@ -106,8 +106,6 @@
     // Make sure the reuse identifier in the Prototype Cell says "cell"
     // self.tableView (as opposed to just tableView) below was crucial to stop crashing during searches
     currentMonologue.cell = [[MonologueTableViewCell alloc] init];
-    MonologueTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
     
     currentMonologue.cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     currentMonologue.cell.titleLabel.text = currentMonologue.title;
@@ -124,9 +122,8 @@
     // Now you can create the short string
     currentMonologue.cell.excerptLabel.text = [excerptString substringWithRange:stringRange];
     
-    cell = currentMonologue.cell;
-    
-    return cell;
+
+    return currentMonologue.cell;
 }
 
 -(NSString*)excerptLabelFilter:(NSString *)targetString {
