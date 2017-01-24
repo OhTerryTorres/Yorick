@@ -21,6 +21,7 @@
 {
     [super viewDidLoad];
     
+    
     self.navigationController.tabBarController.tabBar.userInteractionEnabled = YES;
     self.tabBarController.tabBar.userInteractionEnabled = YES;
     
@@ -233,7 +234,7 @@
     FavoriteMonologueViewController *mvc = [segue destinationViewController];
     // Pass the selected object to the new view controller.
     // What's the selected cell.
-    NSIndexPath *path = [[NSIndexPath alloc] init];
+    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
     // indexPathForSelectedRow loads two variables into path: section and row.
     // Now we ask for just the row and set that to c.
     Monologue *c = nil;
@@ -245,7 +246,6 @@
         mvc.detailsDataSource = [[NSArray alloc] initWithArray:searchResults];
     } else {
 
-        path = [self.tableView indexPathForSelectedRow];
         c = favoriteMonologuesArray[path.row];
         // For swipe gesture
         mvc.detailsDataSource = [[NSArray alloc] initWithArray:favoriteMonologuesArray];

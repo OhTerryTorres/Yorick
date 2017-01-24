@@ -403,12 +403,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-    NSString *c = [[NSString alloc] init];
+
     
     // Dealing with tags
     // This will perform a tag search in the Browse screen.
     if ( indexPath.section == monologueTags ) {
-        c = self.tagsArray[path.row];
+        NSString *c = self.tagsArray[path.row];
         NSString *object = [NSString stringWithFormat:@"!%@",c];
         NSLog(@"object in Favorites is %@",object);
         [self.tabBarController setSelectedIndex:1];
@@ -418,7 +418,7 @@
     
     // Dealing with edit options
     if ( indexPath.section == monologueEdit ) {
-        c = self.editArray[path.row];
+        NSString *c = self.editArray[path.row];
         if ( [c isEqual:@"Add Tag"] ) {
             [self addTag];
         } else if ( [c isEqual:@"Edit"] ) {

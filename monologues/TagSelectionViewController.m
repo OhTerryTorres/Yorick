@@ -190,7 +190,7 @@
         
         NSString *safeText = [self.currentMonologue.text stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
         safeText = [safeText stringByReplacingOccurrencesOfString:@"\t" withString:@" "];
-        safeText = [safeNotes stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
+        safeText = [safeText stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
         
         // Transfer monologue values and UUID via php
         NSLog(@"in updateTags");

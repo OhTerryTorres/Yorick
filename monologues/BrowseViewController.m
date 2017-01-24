@@ -105,8 +105,6 @@
                                                                                  error:nil];
                                    NSLog(@"updateMonologues Async JSON: %@", jsonArray);
                                    
-                                   NSMutableDictionary* newMonologueDictionary = [[NSMutableDictionary alloc] init];
-                                   
                                    // Set up dictionary with titles and their hashtags
                                    // This will be stored and used in the gallery later.
                                    //NSMutableDictionary *achievementTitlesWithHashtags = [[NSMutableDictionary alloc] init];
@@ -148,7 +146,7 @@
                                    documentPath = [documentPath stringByAppendingPathComponent:@"monologueList.plist"];
                                 
                                    
-                                   newMonologueDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:documentPath];
+                                   NSMutableDictionary* newMonologueDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:documentPath];
                                    NSMutableArray *keys = [[newMonologueDictionary allKeys]mutableCopy];
                                    NSLog(@"keys.count on load is %lu",(unsigned long)keys.count);
                                    
@@ -164,9 +162,6 @@
                                    
                                    
                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                       
-                                       
-                                       
                                        
                                        if ( [[NSFileManager defaultManager] fileExistsAtPath:documentPath] ) {
                                            NSLog(@"the file does exist!");
@@ -501,7 +496,7 @@
         MonologueViewController *mvc = [segue destinationViewController];
         // Pass the selected object to the new view controller.
         // What's the selected cell.
-        NSIndexPath *path = [[NSIndexPath alloc]init];
+        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
         // indexPathForSelectedRow loads two variables into path: section and row.
         // Now we ask for just the row and set that to c.
         Monologue *c = nil;
@@ -513,7 +508,6 @@
             // For swipe gesture
             mvc.detailIndex = [searchResults indexOfObject:c];
         } else {
-            path = [self.tableView indexPathForSelectedRow];
             // Use the same code from cellForRowAtIndexPath to access the appropriate monologue from self.masterlist.sections
             c = [[self.masterlist.sections valueForKey:[[[self.masterlist.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:path.section]] objectAtIndex:path.row];
             // For swipe gesture

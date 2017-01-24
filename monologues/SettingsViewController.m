@@ -149,27 +149,20 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    // * 2 to make enough rows for pickers, as well
     return self.settingsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Make sure the reuse identifier in the Prototype Cell says "cell"
-    // self.tableView (as opposed to just tableView) below was crucial to stop crashing during searches
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
 
-    
     // Configure the cell...
     // This figures out what is in row 0, 1, etc.
     // Different view for search results
-    Setting *setting = nil;
-    setting = [self.settingsArray objectAtIndex:indexPath.row];
+    Setting *setting = [self.settingsArray objectAtIndex:indexPath.row];
+
+    [setting.cell setNeedsUpdateConstraints];
     
-    cell = setting.cell;
-    [cell setNeedsUpdateConstraints];
-    
-    return cell;
+    return setting.cell;
     
 }
 

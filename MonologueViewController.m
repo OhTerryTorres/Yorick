@@ -206,10 +206,9 @@
         [cell.textLabel setTextColor:[UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:0.5]];
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
-        MonologueTableViewCell *monologueCell = [[MonologueTableViewCell alloc] init];
         Monologue *currentMonologue = [relatedMonologues objectAtIndex:indexPath.row];
         
-        monologueCell = [tableView dequeueReusableCellWithIdentifier:@"related"];
+        MonologueTableViewCell * monologueCell = [tableView dequeueReusableCellWithIdentifier:@"related"];
         monologueCell.titleLabel.text = currentMonologue.title;
         monologueCell.characterLabel.text = currentMonologue.character;
         monologueCell.excerptLabel.text = currentMonologue.text;
