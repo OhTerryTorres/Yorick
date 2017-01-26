@@ -11,7 +11,6 @@
 @implementation TagSelectionTableViewCell
 
 - (void)awakeFromNib {
-    [super awakeFromNib];
     // Initialization code
     [super awakeFromNib];
 }

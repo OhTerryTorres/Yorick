@@ -9,6 +9,7 @@
 #import "MonologueMasterlist.h"
 
 @implementation MonologueMasterlist {
+    // **** Does this need to exist?
     NSString *sortMethod;
 }
 

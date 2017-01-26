@@ -12,7 +12,7 @@
 
 @interface Setting : NSObject
 
-@property (strong, nonatomic) NSArray *settings;
+@property (strong, nonatomic) NSArray *options;
 @property (strong, nonatomic) SettingTableViewCell *cell;
 @property (nonatomic) NSInteger pickerRowDefault;
 @property (nonatomic) CGRect maintainFrame;

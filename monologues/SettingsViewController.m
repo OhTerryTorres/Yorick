@@ -97,7 +97,7 @@
         } else {
             setting.currentSetting = arrayOfCurrentSetting[0];
         }
-        setting.settings = [[NSArray alloc] initWithArray:arrayOfCurrentSetting];
+        setting.options = [[NSArray alloc] initWithArray:arrayOfCurrentSetting];
         setting.title = [NSString stringWithFormat:@"%@",[arrayOfTitles objectAtIndex:i]];
         setting.defaultSetting = arrayOfCurrentSetting[0];
         
@@ -190,7 +190,7 @@
     Setting *setting = nil;
     setting = [self.settingsArray objectAtIndex:pickerView.tag];
     
-    NSMutableArray *array = [setting.settings mutableCopy];
+    NSMutableArray *array = [setting.options mutableCopy];
     
     return array.count;
 }
@@ -202,7 +202,7 @@
     Setting *setting = nil;
     setting = [self.settingsArray objectAtIndex:pickerView.tag];
     
-    NSMutableArray *array = [setting.settings mutableCopy];
+    NSMutableArray *array = [setting.options mutableCopy];
     
     return [array objectAtIndex:row];
 }
@@ -216,8 +216,8 @@
     // There could be some confustion as to when to use "picker" or "setting.picker" here
     
     Setting *setting = self.settingsArray[pickerView.tag];
-    setting.currentSetting = [setting.settings objectAtIndex:[pickerView selectedRowInComponent:0]];
-    setting.cell.settingLabel.text = [setting.settings objectAtIndex:[pickerView selectedRowInComponent:0]];
+    setting.currentSetting = [setting.options objectAtIndex:[pickerView selectedRowInComponent:0]];
+    setting.cell.settingLabel.text = [setting.options objectAtIndex:[pickerView selectedRowInComponent:0]];
     NSString *objectForKeyString = [NSString stringWithFormat:@"%@Setting",setting.title];
     [defaults setObject:setting.currentSetting forKey:objectForKeyString];
     
