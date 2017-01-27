@@ -388,11 +388,11 @@
     
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    BrowseViewController *bvc = [segue destinationViewController];
+    MonologuesListViewController *mlvc = [segue destinationViewController];
     NSIndexPath *path = [self.tableView indexPathForSelectedRow];
     NSString *c = self.tagsArray[path.row];
-    bvc.searchDisplayController.active = YES;
-    bvc.searchBar.text = [NSString stringWithFormat:@"!%@",c];
+    mlvc.searchController.active = YES;
+    mlvc.searchController.searchBar.text = [NSString stringWithFormat:@"!%@",c];
     // Exclamation point (!) will search for monologue tags in particular
     // as opposed to just a blanket search for all text anywhere.
 }

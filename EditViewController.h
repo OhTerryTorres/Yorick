@@ -19,7 +19,7 @@
 
 @property (nonatomic, copy) NSString *text;
 
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *editNavigationBar;
 @property (weak, nonatomic) IBOutlet UIView *headerPaddingView;
 

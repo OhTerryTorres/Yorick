@@ -33,7 +33,6 @@
     NSMutableDictionary *monologueDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:documentPath];
     
     NSArray *keys = [monologueDictionary allKeys];
-    NSLog(@"keys.count in compile is %lu",(unsigned long)keys.count);
     
     int i = 0;
     

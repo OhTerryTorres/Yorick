@@ -17,6 +17,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Initialze or load monologueManager
+    self.manager = [[MonologueManager alloc] init];
+    
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
     return YES;

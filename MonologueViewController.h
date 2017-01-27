@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Monologue.h"
-#import "BrowseViewController.h"
+#import "MonologuesListViewController.h"
 #import "UYLTextCell.h"
 #import "AppDelegate.h"
 #import "MonologueMasterlist.h"

@@ -79,8 +79,7 @@
     self.indexOfNewTab = [[theTabBar items] indexOfObject:item];
     if ( self.indexOfNewTab == self.selectedIndex ) {
         [self scrollToTop];
-    } else //[self setSelectedIndex:self.indexOfNewTab];
-    NSLog(@"self.indexOfNewTab is %lu",self.indexOfNewTab);
+    }
 }
 
 

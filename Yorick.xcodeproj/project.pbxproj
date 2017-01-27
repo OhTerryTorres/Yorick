@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */; };
 		CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C11E382FF5009E6871 /* MonologueDataService.m */; };
 		CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C41E38304F009E6871 /* MonologueManager.m */; };
 		CE3FAAA51AEAD862008C28CB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA41AEAD862008C28CB /* CFNetwork.framework */; };
@@ -38,7 +39,7 @@
 		CEE18375195DC11D00FA14BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18374195DC11D00FA14BA /* main.m */; };
 		CEE18379195DC11D00FA14BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18378195DC11D00FA14BA /* AppDelegate.m */; };
 		CEE1837C195DC11D00FA14BA /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE1837A195DC11D00FA14BA /* Main_iPhone.storyboard */; };
-		CEE18382195DC11D00FA14BA /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18381195DC11D00FA14BA /* BrowseViewController.m */; };
+		CEE18382195DC11D00FA14BA /* MonologuesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18381195DC11D00FA14BA /* MonologuesListViewController.m */; };
 		CEE18387195DC11D00FA14BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEE18386195DC11D00FA14BA /* Images.xcassets */; };
 		CEE1838E195DC11D00FA14BA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1838D195DC11D00FA14BA /* XCTest.framework */; };
 		CEE1838F195DC11D00FA14BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE18368195DC11D00FA14BA /* Foundation.framework */; };
@@ -76,6 +77,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE08037F1E3BD6A9005EDDAF /* BrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseViewController.h; sourceTree = "<group>"; };
+		CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseViewController.m; sourceTree = "<group>"; };
 		CE3801C01E382FF5009E6871 /* MonologueDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueDataService.h; sourceTree = "<group>"; };
 		CE3801C11E382FF5009E6871 /* MonologueDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonologueDataService.m; sourceTree = "<group>"; };
 		CE3801C31E38304F009E6871 /* MonologueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueManager.h; sourceTree = "<group>"; };
@@ -129,8 +132,8 @@
 		CEE18377195DC11D00FA14BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CEE18378195DC11D00FA14BA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CEE1837B195DC11D00FA14BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		CEE18380195DC11D00FA14BA /* BrowseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrowseViewController.h; sourceTree = "<group>"; };
-		CEE18381195DC11D00FA14BA /* BrowseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrowseViewController.m; sourceTree = "<group>"; };
+		CEE18380195DC11D00FA14BA /* MonologuesListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonologuesListViewController.h; sourceTree = "<group>"; };
+		CEE18381195DC11D00FA14BA /* MonologuesListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonologuesListViewController.m; sourceTree = "<group>"; };
 		CEE18386195DC11D00FA14BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CEE1838C195DC11D00FA14BA /* YorickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YorickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE1838D195DC11D00FA14BA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -175,6 +178,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE0803821E3BDB6B005EDDAF /* ListViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEE18380195DC11D00FA14BA /* MonologuesListViewController.h */,
+				CEE18381195DC11D00FA14BA /* MonologuesListViewController.m */,
+				CE08037F1E3BD6A9005EDDAF /* BrowseViewController.h */,
+				CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */,
+				CEB5284F197573DE0053176B /* FavoritesViewController.h */,
+				CEB52850197573DE0053176B /* FavoritesViewController.m */,
+			);
+			name = ListViewControllers;
+			sourceTree = "<group>";
+		};
 		CE3801BD1E38297F009E6871 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +213,12 @@
 		CE3801BE1E3829DB009E6871 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE3801C01E382FF5009E6871 /* MonologueDataService.h */,
+				CE3801C11E382FF5009E6871 /* MonologueDataService.m */,
+				CE3801C31E38304F009E6871 /* MonologueManager.h */,
+				CE3801C41E38304F009E6871 /* MonologueManager.m */,
+				CE94127C1AC35A8A00A1F849 /* MonologueMasterlist.h */,
+				CE94127D1AC35A8A00A1F849 /* MonologueMasterlist.m */,
 				CEB528491975667E0053176B /* Monologue.h */,
 				CEB5284A1975667E0053176B /* Monologue.m */,
 				CEAAE3171AB863390006CF95 /* Setting.h */,
@@ -208,12 +230,9 @@
 		CE3801BF1E382A18009E6871 /* Contollers */ = {
 			isa = PBXGroup;
 			children = (
-				CEE18380195DC11D00FA14BA /* BrowseViewController.h */,
-				CEE18381195DC11D00FA14BA /* BrowseViewController.m */,
+				CE0803821E3BDB6B005EDDAF /* ListViewControllers */,
 				CEB00BF3196B3FA50006B03F /* MonologueViewController.h */,
 				CEB00BF4196B3FA50006B03F /* MonologueViewController.m */,
-				CEB5284F197573DE0053176B /* FavoritesViewController.h */,
-				CEB52850197573DE0053176B /* FavoritesViewController.m */,
 				CEA0FFB91976EF97004626F1 /* FavoriteMonologueViewController.h */,
 				CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */,
 				CEAAE3211AB866C60006CF95 /* SettingsViewController.h */,
@@ -282,12 +301,6 @@
 				CED35AEE1C5F03D500496BD4 /* Main_iPad.storyboard */,
 				CEE18377195DC11D00FA14BA /* AppDelegate.h */,
 				CEE18378195DC11D00FA14BA /* AppDelegate.m */,
-				CE3801C01E382FF5009E6871 /* MonologueDataService.h */,
-				CE3801C11E382FF5009E6871 /* MonologueDataService.m */,
-				CE3801C31E38304F009E6871 /* MonologueManager.h */,
-				CE3801C41E38304F009E6871 /* MonologueManager.m */,
-				CE94127C1AC35A8A00A1F849 /* MonologueMasterlist.h */,
-				CE94127D1AC35A8A00A1F849 /* MonologueMasterlist.m */,
 				CE3801BE1E3829DB009E6871 /* Models */,
 				CE3801BD1E38297F009E6871 /* Views */,
 				CE3801BF1E382A18009E6871 /* Contollers */,
@@ -441,10 +454,11 @@
 				CEAAE3191AB863390006CF95 /* Setting.m in Sources */,
 				CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */,
 				CE4EF2341B05779B0045C811 /* TagSelectionTableViewCell.m in Sources */,
-				CEE18382195DC11D00FA14BA /* BrowseViewController.m in Sources */,
+				CEE18382195DC11D00FA14BA /* MonologuesListViewController.m in Sources */,
 				CEC9AA1D1A144C2500ECC830 /* NavigationController.m in Sources */,
 				CEF777351A32493E003E9513 /* DTCustomColoredAccessory.m in Sources */,
 				CEE18375195DC11D00FA14BA /* main.m in Sources */,
+				CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */,
 				CE3FAAAF1AEADBDB008C28CB /* MBProgressHUD.m in Sources */,
 				CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */,
 				CE94127E1AC35A8A00A1F849 /* MonologueMasterlist.m in Sources */,

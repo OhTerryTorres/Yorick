@@ -21,4 +21,7 @@
 @property (strong, nonatomic) NSString *currentSetting;
 @property (strong, nonatomic) NSString *defaultSetting;
 
+-(id)init;
+-(id)initWithTitle:(NSString*)title;
+
 @end
