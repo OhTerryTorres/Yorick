@@ -1,6 +1,6 @@
 //
 //  EditViewController.m
-//  monologues
+//  Yorick
 //
 //  Created by TerryTorres on 9/17/14.
 //  Copyright (c) 2014 Terry Torres. All rights reserved.

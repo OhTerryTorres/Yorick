@@ -1,6 +1,6 @@
 //
 //  Monologue.h
-//  monologues
+//  Yorick
 //
 //  Created by TerryTorres on 6/27/14.
 //  Copyright (c) 2014 Terry Torres. All rights reserved.
@@ -36,5 +36,7 @@
 // *****
 // This is mostly vestigal, except for when being used to find related monologues
 @property (nonatomic) int matches;
+
+-(id)initWithidNumber:(int)idNumber title:(NSString*)title authorFirst:(NSString*)authorFirst authorLast:(NSString*)authorLast character:(NSString*)character text:(NSString*)text  gender:(NSString*)gender tone:(NSString*)tone period:(NSString*)period age:(NSString*)age length:(NSString*)length notes:(NSString*)notes tags:(NSString*)tags;
 
 @end

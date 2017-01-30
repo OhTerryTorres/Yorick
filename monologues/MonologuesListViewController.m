@@ -1,6 +1,6 @@
 //
 //  FirstViewController.m
-//  monologues
+//  Yorick
 //
 //  Created by TerryTorres on 6/27/14.
 //  Copyright (c) 2014 Terry Torres. All rights reserved.
@@ -20,6 +20,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // *****
+    // This may not be necessary
+    self.navigationController.tabBarController.tabBar.userInteractionEnabled = YES;
+    self.tabBarController.tabBar.userInteractionEnabled = YES;
     
     // *****
     // This should ultimately be moved to which screen is the first the user sees.
@@ -29,10 +33,7 @@
     self.manager = appDelegate.manager;
     
     // Initialize the data service for this tableview.
-    self.dataService = [[MonologueDataService alloc] initWithManager:self.manager andDisplayArray:self.manager.monologues];
-    self.tableView.delegate = self.dataService;
-    self.tableView.dataSource = self.dataService;
-    self.dataService.manager = self.manager;
+    [self setUpDataService];
     
     // Initialize search controller
     [self setUpSearchController];
@@ -48,27 +49,31 @@
     // UI
     self.navigationController.tabBarController.tabBar.userInteractionEnabled = YES;
     self.tabBarController.tabBar.userInteractionEnabled = YES;
-    self.title = @"Boneyard";
+    
     self.tableView.tintColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1];
+}
+
+-(void)setUpDataService {
+    self.dataService = [[MonologueDataService alloc] initWithManager:self.manager andDisplayArray:self.manager.monologues];
+    self.tableView.delegate = self.dataService;
+    self.tableView.dataSource = self.dataService;
+    self.dataService.manager = self.manager;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self updateDisplayArrayForFilters];
+    [self.tableView reloadData];
     
+}
+
+-(void)updateDisplayArrayForFilters {
     NSLog(@"Filtering based on searchString");
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
         self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:self.searchController.searchBar.text];
     }
     self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
-    
-    int count = (int)self.dataService.displayArray.count;
-    NSString *headerTitle = [NSString stringWithFormat:@"Boneyard (%d)",count];
-    
-    [self.navigationItem setTitle:headerTitle];
-    
-    [self.tableView reloadData];
-    
 }
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -113,6 +118,7 @@
 -(void)setUpSearchController {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
+    self.searchController.searchBar.barTintColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1.0];
     self.searchController.searchBar.delegate = self;
     
     [self.searchController.searchBar sizeToFit];

@@ -1,6 +1,6 @@
 //
 //  Monologue.m
-//  monologues
+//  Yorick
 //
 //  Created by TerryTorres on 6/27/14.
 //  Copyright (c) 2014 Terry Torres. All rights reserved.
@@ -9,6 +9,32 @@
 #import "Monologue.h"
 
 @implementation Monologue
+
+-(id)initWithidNumber:(int)idNumber title:(NSString*)title authorFirst:(NSString*)authorFirst authorLast:(NSString*)authorLast character:(NSString*)character text:(NSString*)text  gender:(NSString*)gender tone:(NSString*)tone period:(NSString*)period age:(NSString*)age length:(NSString*)length notes:(NSString*)notes tags:(NSString*)tags{
+    self.idNumber = [NSString stringWithFormat:@"%d",idNumber];
+    self.title = title;
+    self.sortTitle = title;
+    if ( [title hasPrefix:@"The "] ){
+        self.sortTitle = [title substringFromIndex:4];
+    } else if ( [title hasPrefix:@"A "] ) {
+        self.sortTitle = [title substringFromIndex:2];
+    } else if ( [title hasPrefix:@"An "] ) {
+        self.sortTitle = [title substringFromIndex:3];
+    }
+    self.authorFirst = authorFirst;
+    self.authorLast = authorLast;
+    self.character = character;
+    self.text = text;
+    
+    self.gender = gender;
+    self.tone = tone;
+    self.period = period;
+    self.age = age;
+    self.length = length;
+    self.notes = notes;
+    self.tags = tags;
+    return self;
+}
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     //Encode properties, other class variables, etc

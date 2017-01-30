@@ -1,6 +1,6 @@
 //
 //  FilterTableViewCell.h
-//  monologues
+//  Yorick
 //
 //  Created by TerryTorres on 9/8/14.
 //  Copyright (c) 2014 Terry Torres. All rights reserved.

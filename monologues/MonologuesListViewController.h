@@ -13,6 +13,7 @@
 #import "DTCustomColoredAccessory.h"
 #import "MonologueManager.h"
 #import "MonologueDataService.h"
+#import "SearchBar.h"
 
 @interface MonologuesListViewController : UITableViewController <UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
 
