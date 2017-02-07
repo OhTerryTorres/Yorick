@@ -11,8 +11,8 @@
 @interface SettingTableViewCell : UITableViewCell
 
 @property (nonatomic) BOOL colored;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *settingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *settingLabel;
 @property (strong, nonatomic) IBOutlet UIPickerView *pickerView;
 
 

@@ -30,10 +30,6 @@
     [self setUpTextView];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    //[self.textView setFont:[UIFont boldSystemFontOfSize:30]];
-}
-
 
 #pragma mark: Display Setup
 

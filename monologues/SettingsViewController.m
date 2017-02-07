@@ -72,14 +72,14 @@
         // **********
         if ( [setting.title isEqualToString:@"size"] ) {
             setting.cell.titleLabel.text = @"Text Size";
-            setting.cell.frame = CGRectOffset(setting.cell.frame, 10, 50);
-            
+
             UIView *separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
             separatorLineView.backgroundColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
             [setting.cell.contentView addSubview:separatorLineView];
         }
         
         setting.cell.pickerView = [[UIPickerView alloc] init];
+        [setting.cell.pickerView setShowsSelectionIndicator:false];
         setting.cell.pickerView.delegate = self;
         setting.cell.pickerView.dataSource = self;
         setting.cell.pickerView.tag = i;
@@ -106,10 +106,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    // Configure the cell...
-    // This figures out what is in row 0, 1, etc.
-    // Different view for search results
     Setting *setting = [self.manager.settings objectAtIndex:indexPath.row];
 
     [setting.cell setNeedsUpdateConstraints];

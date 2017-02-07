@@ -27,7 +27,7 @@
 
 @end
 
-@implementation FavoriteMonologueViewController
+@implementation FavoriteMonologueViewController 
 
 //THIS allows for unwind segues, would should save time and space.
 - (IBAction)cancelEdit:(UIStoryboardSegue *)segue {}

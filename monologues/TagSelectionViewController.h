@@ -12,8 +12,8 @@
 
 @interface TagSelectionViewController : UITableViewController
 
-@property (strong,nonatomic) MonologueManager *manager;
-@property (strong,nonatomic) Monologue *currentMonologue;
-@property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) MonologueManager *manager;
+@property (nonatomic) Monologue *currentMonologue;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 
 @end

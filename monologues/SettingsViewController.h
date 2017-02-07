@@ -13,7 +13,7 @@
 
 @interface SettingsViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (strong, nonatomic) MonologueManager *manager;
+@property (weak, nonatomic) MonologueManager *manager;
 
 - (IBAction)clearSettings:(id)sender;
 

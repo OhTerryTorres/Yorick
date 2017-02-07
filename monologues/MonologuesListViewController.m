@@ -65,10 +65,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self getManagerFromAppDelegate];
-    [self updateDisplayArrayForFilters];
-    [self setHeaderTitle];
-    [self.tableView reloadData];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self getManagerFromAppDelegate];
+        [self updateDisplayArrayForFilters];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setHeaderTitle];
+            [self.tableView reloadData];
+        });
+    });
     
 }
 
@@ -123,20 +128,25 @@
 
 // When the user types in the search bar, this method gets called.
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSString *searchString = searchController.searchBar.text;
     
-    // Check if the user cancelled or deleted the search term so we can display the full list instead.
-    if (![searchString isEqualToString:@""]) {
-        [self.dataService.displayArray removeAllObjects];
-        self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:searchString];
-        self.dataService.searchActive = TRUE;
-    }
-    else {
-        self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
-        self.dataService.searchActive = FALSE;
-    }
-    [self.tableView reloadData];
-    [self setHeaderTitle];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *searchString = searchController.searchBar.text;
+        
+        // Check if the user cancelled or deleted the search term so we can display the full list instead.
+        if (![searchString isEqualToString:@""]) {
+            [self.dataService.displayArray removeAllObjects];
+            self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:searchString];
+            self.dataService.searchActive = TRUE;
+        }
+        else {
+            self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
+            self.dataService.searchActive = FALSE;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self setHeaderTitle];
+        });
+    });
 }
 
 

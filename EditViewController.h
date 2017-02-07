@@ -19,10 +19,10 @@
 }
 
 
-@property (strong, nonatomic) MonologueManager *manager;
-@property (strong, nonatomic) Monologue *currentMonologue;
+@property (weak, nonatomic) MonologueManager *manager;
+@property (nonatomic) Monologue *currentMonologue;
 
-@property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *editNavigationBar;
 @property (weak, nonatomic) IBOutlet UIView *headerPaddingView;
 

@@ -13,9 +13,9 @@
 
 @interface FavoriteMonologueViewController : MonologueViewController
 
-@property (nonatomic, strong) UYLTextCell *prototypeCellEdit;
+@property (nonatomic) UYLTextCell *prototypeCellEdit;
 
-@property (nonatomic, strong) NSArray *editArray;
+@property (nonatomic) NSArray *editArray;
 
 - (IBAction)favoriteButtonAction:(id)sender;
 

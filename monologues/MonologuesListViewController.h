@@ -10,7 +10,6 @@
 #import "Monologue.h"
 #import "MonologueViewController.h"
 #import "AppDelegate.h"
-#import "DTCustomColoredAccessory.h"
 #import "MonologueManager.h"
 #import "MonologueDataService.h"
 #import "SearchBar.h"
@@ -19,7 +18,8 @@
 
 @property (nonatomic, strong) UISearchController * searchController;
 
-@property (strong, nonatomic) MonologueManager *manager;
+// App Delegate will always have a reference to the manager, so let's keep this relatioship weak
+@property (weak, nonatomic) MonologueManager *manager;
 @property (strong, nonatomic) MonologueDataService *dataService;
 
 -(void)passManagerToAppDelegate;

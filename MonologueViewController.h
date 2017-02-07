@@ -18,28 +18,28 @@
 
 @property (nonatomic) NSMutableArray *relatedMonologues;
 
-@property (nonatomic, strong) UYLTextCell *prototypeCellText;
+@property (nonatomic) UYLTextCell *prototypeCellText;
 
-@property (nonatomic, strong) UYLTextCell *prototypeCellNotes;
+@property (nonatomic) UYLTextCell *prototypeCellNotes;
 
-@property (nonatomic, strong) UYLTextCell *prototypeCellTags;
+@property (nonatomic) UYLTextCell *prototypeCellTags;
 
-@property (strong, nonatomic) MonologueTableViewCell *prototypeCellRelated;
+@property (nonatomic) MonologueTableViewCell *prototypeCellRelated;
 
-@property (nonatomic, strong) NSArray *tagsArray;
+@property (nonatomic) NSArray *tagsArray;
 
 @property (nonatomic) CGFloat cgFloatY;
 
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *favoriteButtonOutlet;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteButtonOutlet;
 
 - (IBAction)favoriteButtonAction:(id)sender;
 
-@property (strong, nonatomic) NSArray *detailsDataSource;
+@property (nonatomic) NSArray *detailsDataSource;
 
 @property unsigned long detailIndex;
 
-@property (strong, nonatomic) MonologueManager *manager;
+@property (weak, nonatomic) MonologueManager *manager;
 
 @property (nonatomic) int barsHidden;
 

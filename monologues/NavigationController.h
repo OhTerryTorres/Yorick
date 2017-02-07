@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DTCustomColoredAccessory.h"
 
 @interface NavigationController : UINavigationController
 

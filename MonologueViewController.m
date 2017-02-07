@@ -74,11 +74,15 @@
 #pragma mark: Display Setup
 
 - (void)loadData {
-    [self setFavoriteStatus];
-    self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
-    [self compileRelatedMonologuesfromArrayOfMonologues: self.detailsDataSource];
-    [self.tableView reloadData];
-    [self loadHeaderTitle];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
+        [self compileRelatedMonologuesfromArrayOfMonologues: self.detailsDataSource];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self loadHeaderTitle];
+            [self setFavoriteStatus];
+        });
+    });
 }
 
 -(void)setFavoriteStatus {
