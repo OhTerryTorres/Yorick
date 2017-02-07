@@ -15,22 +15,32 @@
 @implementation MonologuesListViewController
 
 
-#pragma mark: View Changing Methods
+#pragma mark: App Delegate Access
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // *****
-    // This may not be necessary
-    self.navigationController.tabBarController.tabBar.userInteractionEnabled = YES;
-    self.tabBarController.tabBar.userInteractionEnabled = YES;
-    
+-(void)passManagerToAppDelegate {
+    AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
+    appDelegate.manager = self.manager;
+}
+-(void)getManagerFromAppDelegate {
     // *****
     // This should ultimately be moved to which screen is the first the user sees.
     //
     // Access Appdelegate to get our Monologue Manager
     AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
     self.manager = appDelegate.manager;
+}
+
+#pragma mark: View Changing Methods
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self getManagerFromAppDelegate];
+    
+    // *****
+    // This may not be necessary
+    self.navigationController.tabBarController.tabBar.userInteractionEnabled = YES;
+    self.tabBarController.tabBar.userInteractionEnabled = YES;
     
     // Initialize the data service for this tableview.
     [self setUpDataService];
@@ -53,6 +63,22 @@
     self.tableView.tintColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getManagerFromAppDelegate];
+    [self updateDisplayArrayForFilters];
+    [self setHeaderTitle];
+    [self.tableView reloadData];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self passManagerToAppDelegate];
+}
+
+
+#pragma mark: Display Setup
+
 -(void)setUpDataService {
     self.dataService = [[MonologueDataService alloc] initWithManager:self.manager andDisplayArray:self.manager.monologues];
     self.tableView.delegate = self.dataService;
@@ -60,56 +86,18 @@
     self.dataService.manager = self.manager;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self updateDisplayArrayForFilters];
-    [self.tableView reloadData];
-    
+-(void)setHeaderTitle {
+    NSString *headerTitle = [NSString stringWithFormat:@"%@ (%lu)",self.title, (unsigned long)self.dataService.displayArray.count];
+    [self.navigationItem setTitle:headerTitle];
 }
 
 -(void)updateDisplayArrayForFilters {
     NSLog(@"Filtering based on searchString");
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
         self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:self.searchController.searchBar.text];
-    }
-    self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
-}
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-    // This prepares the monologue to appear in the monologue screen.
-    // Get the new view controller using [segue destinationViewController].
-    MonologueViewController *mvc = [segue destinationViewController];
-    // Pass the selected object to the new view controller.
-    // What's the selected cell.
-    NSIndexPath *path = sender;
-    // indexPathForSelectedRow loads two variables into path: section and row.
-    // Now we ask for just the row and set that to c.
-    Monologue *c = nil;
-    if ( self.dataService.searchActive ) {
-        c = self.dataService.displayArray[path.row];
-        // For swipe gesture
-        mvc.detailsDataSource = [[NSArray alloc] initWithArray:self.dataService.displayArray];
-        // For swipe gesture
-        mvc.detailIndex = [self.dataService.displayArray indexOfObject:c];
     } else {
-        // Use the same code from cellForRowAtIndexPath to access the appropriate monologue from self.masterlist.sections
-        c = [[self.dataService.sections valueForKey:[[[self.dataService.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:path.section]] objectAtIndex:path.row];
-        // For swipe gesture
-        mvc.detailsDataSource = [[NSArray alloc] initWithArray:self.dataService.displayArray];
-        // For swipe gesture
-        mvc.detailIndex = [self.dataService.displayArray indexOfObject:c];
+        self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
     }
-    
-    mvc.currentMonologue = c;
-    
-    
-    // This keeps the MonologueViewController from skipping any lines in the monologue when accessed from the Browse Screen.
-    mvc.edgesForExtendedLayout = UIRectEdgeNone;
-    
 }
 
 
@@ -148,14 +136,55 @@
         self.dataService.searchActive = FALSE;
     }
     [self.tableView reloadData];
+    [self setHeaderTitle];
 }
 
 
-
-// This allows the Browse screen to display a search when a tag is touched in the Monologue screen.
+// This enables the Monologue List View Controller to use the didSelectRow method from the Data Service class to perform a segue.
 -(void)segueByNotification:(NSNotification*)notification {
     NSIndexPath* indexPath = [notification.userInfo objectForKey:@"indexPath"];
     [self performSegueWithIdentifier:@"segue" sender:indexPath];
+}
+
+
+#pragma mark: Prepare For Segue
+
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    // This prepares the monologue to appear in the monologue screen.
+    // Get the new view controller using [segue destinationViewController].
+    MonologueViewController *mvc = [segue destinationViewController];
+    // Pass the selected object to the new view controller.
+    // What's the selected cell.
+    NSIndexPath *path = sender;
+    // indexPathForSelectedRow loads two variables into path: section and row.
+    // Now we ask for just the row and set that to c.
+    Monologue *c = nil;
+    if ( self.dataService.searchActive || self.dataService.isForFavorites ) {
+        c = self.dataService.displayArray[path.row];
+        // For swipe gesture
+        mvc.detailsDataSource = [[NSArray alloc] initWithArray:self.dataService.displayArray];
+        // For swipe gesture
+        mvc.detailIndex = [self.dataService.displayArray indexOfObject:c];
+    } else {
+        // Use the same code from cellForRowAtIndexPath to access the appropriate monologue from self.masterlist.sections
+        c = [[self.dataService.sections valueForKey:[[[self.dataService.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:path.section]] objectAtIndex:path.row];
+        // For swipe gesture
+        mvc.detailsDataSource = [[NSArray alloc] initWithArray:self.dataService.displayArray];
+        // For swipe gesture
+        mvc.detailIndex = [self.dataService.displayArray indexOfObject:c];
+    }
+    // Make sure the manager is being passed to
+    mvc.manager = self.manager;
+    
+    mvc.currentMonologue = c;
+    
+    
+    // This keeps the MonologueViewController from skipping any lines in the monologue when accessed from the Browse Screen.
+    mvc.edgesForExtendedLayout = UIRectEdgeNone;
+    
 }
 
 

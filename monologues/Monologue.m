@@ -36,12 +36,15 @@
     return self;
 }
 
+#pragma mark: NSCODING
+
 - (void)encodeWithCoder:(NSCoder *)encoder {
     //Encode properties, other class variables, etc
     [encoder encodeObject:self.title forKey:@"title"];
+    [encoder encodeObject:self.sortTitle forKey:@"sortTitle"];
     [encoder encodeObject:self.authorFirst forKey:@"authorFirst"];
     [encoder encodeObject:self.authorLast forKey:@"authorLast"];
-    [encoder encodeObject:self.authorLast forKey:@"character"];
+    [encoder encodeObject:self.character forKey:@"character"];
     [encoder encodeObject:self.text forKey:@"text"];
     
     [encoder encodeObject:self.gender forKey:@"gender"];
@@ -59,6 +62,7 @@
     if ( self = [super init] ) {
         //decode properties, other class vars
         self.title = [decoder decodeObjectForKey:@"title"];
+        self.sortTitle = [decoder decodeObjectForKey:@"sortTitle"];
         self.authorFirst = [decoder decodeObjectForKey:@"authorFirst"];
         self.authorLast = [decoder decodeObjectForKey:@"authorLast"];
         self.character = [decoder decodeObjectForKey:@"character"];

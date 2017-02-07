@@ -22,24 +22,19 @@
     self.dataService.isForFavorites = YES;
 }
 
-
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
     self.title = @"Digs";
-    // This displays the amount of monologues currently in the list
-    NSString *headerTitle = [NSString stringWithFormat:@"%@ (%d)",self.title, self.dataService.displayArray.count];
-    [self.navigationItem setTitle:headerTitle];
-    
+    [super viewWillAppear:animated];
 }
 
 -(void)updateDisplayArrayForFilters {
     NSLog(@"Filtering based on searchString");
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
-        self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.favoriteMonologues] forSearchString:self.searchController.searchBar.text];
+        self.dataService.displayArray = [self.manager filterMonologues: self.manager.favoriteMonologues forSearchString:self.searchController.searchBar.text];
+    } else {
+        self.dataService.displayArray = self.manager.favoriteMonologues;
     }
-    self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.favoriteMonologues];
-    NSLog(@"self.dataService.displayArray.count is %d",self.dataService.displayArray.count);
+    NSLog(@"self.dataService.displayArray.count is %lu",(unsigned long)self.dataService.displayArray.count);
 }
 
 -(void)setUpDataService {
@@ -49,6 +44,22 @@
     self.dataService.manager = self.manager;
 }
 
+// When the user types in the search bar, this method gets called.
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *searchString = searchController.searchBar.text;
+    
+    // Check if the user cancelled or deleted the search term so we can display the full list instead.
+    if (![searchString isEqualToString:@""]) {
+        [self.dataService.displayArray removeAllObjects];
+        self.dataService.displayArray = [self.manager filterMonologues:self.manager.favoriteMonologues forSearchString:searchString];
+        self.dataService.searchActive = TRUE;
+    }
+    else {
+        self.dataService.displayArray = self.manager.favoriteMonologues;
+        self.dataService.searchActive = FALSE;
+    }
+    [self.tableView reloadData];
+}
 
 
 

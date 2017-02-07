@@ -16,28 +16,42 @@
 
 @end
 
-@implementation EditViewController {
-    BOOL settingText;
-}
+@implementation EditViewController
+
+
+#pragma mark: View Changing Methods
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    NSLog(@"self.currentMonologue.title is %@", self.currentMonologue.title);
+    NSLog(@"self.currentMonologue.text is %@", self.currentMonologue.text);
+    [self setUpHeader];
+    [self setUpTextView];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    //[self.textView setFont:[UIFont boldSystemFontOfSize:30]];
+}
+
+
+#pragma mark: Display Setup
+
+-(void)setUpHeader {
+    self.headerPaddingView.backgroundColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1.0];
+    self.editNavigationBar.tintColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+}
+
+-(void)setUpTextView {
+    self.textView.text = self.currentMonologue.text;
     
     // All this is going to help us fit the text onto the screen, prep it for editing mode, and have it appear where it's supposed it.
-    self.textView.text = self.text;
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0,0,320,450)];
+    [self.textView setContentSize:CGSizeMake(self.textView.frame.size.width, self.textView.frame.size.height)];
+    
     CGRect frame = self.textView.frame;
     frame.size.height = self.textView.contentSize.height;
     self.textView.frame = frame;
-
-    
-    self.headerPaddingView.backgroundColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1.0];
-    self.editNavigationBar.tintColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
-    
-    
-    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0,0,320,450)];
-    [self.textView setContentSize:CGSizeMake(self.textView.frame.size.width, self.textView.frame.size.height)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
@@ -51,19 +65,10 @@
     self.textView.layoutManager.allowsNonContiguousLayout = NO;
     
     [self.textView becomeFirstResponder];
-    
-    
-    // This stores the original text for later restoration.
-    NSString *editKey = [NSString stringWithFormat:@"%@ edit",self.title];
-    NSString *restoreKey = [NSString stringWithFormat:@"%@ restore",self.title];
-    if ( ![[NSUserDefaults standardUserDefaults] objectForKey:editKey] ) {
-        NSString *restoreText = self.text;
-        NSLog(@"restoreKey in edit is %@",restoreKey);
-        NSLog(@"restoreText in edit is %@",restoreText);
-        [[NSUserDefaults standardUserDefaults] setValue:self.text forKey:restoreKey];
-    }
 }
 
+
+#pragma mark: TextView Methods
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -84,10 +89,6 @@
     caretVisibilityTimer = nil;
 }
 
-// ALSO dealing with the caret
-// 
-// This is the best method I have now, but something has to be better than this.
-//
 - (void)scrollCaretToVisible
 {
     // This is where the cursor is at.
@@ -146,6 +147,7 @@
     self.textView.scrollIndicatorInsets = insets;
 }
 
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -154,13 +156,15 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ( [segue.identifier isEqualToString:@"saveEdit"] ) {
-        NSLog(@"saving");
-        // here, once the monologue is edited, we store in standardDefaults with a key dependent on the title of the monologue
-        // key example: "A Midsummer Night's Dream 04 edit"
-        NSString *editKey = [NSString stringWithFormat:@"%@ edit",self.title];
-        [[NSUserDefaults standardUserDefaults] setValue:self.textView.text forKey:editKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        Monologue *editedMonologue = [[Monologue alloc] initWithidNumber:[self.currentMonologue.idNumber intValue] title:self.currentMonologue.title authorFirst:self.currentMonologue.authorFirst authorLast:self.currentMonologue.authorLast character:self.currentMonologue.character text:self.textView.text gender:self.currentMonologue.gender tone:self.currentMonologue.tone period:self.currentMonologue.period age:self.currentMonologue.age length:self.currentMonologue.length notes:self.currentMonologue.notes tags:self.currentMonologue.tags];
+        int index = [self.manager getIndexOfEditedMonologueByTitle:self.currentMonologue.title];
+        if (index > -1) { // if index is -1, the monologue was not found.
+            self.manager.editedMonologues[index] = editedMonologue;
+        } else {
+            [self.manager.editedMonologues addObject: editedMonologue];
+        }
     }
+
 }
 
 

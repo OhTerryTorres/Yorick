@@ -32,4 +32,23 @@
     // Configure the view for the selected state
 }
 
+#pragma mark: Format Excerpt Label
+
+-(void)setExcerptLabelWithString:(NSString*)string {
+    string = [string stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@" "];
+    string = [string stringByReplacingOccurrencesOfString:@"\n\n" withString:@" "];
+    string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+
+    NSUInteger length = [string length];
+    if (length > 300) { length = 300; };
+    // define the range you're interested in
+    NSRange stringRange = {0, MIN([string length], length)};
+    // adjust the range to include dependent chars
+    stringRange = [string rangeOfComposedCharacterSequencesForRange:stringRange];
+    // Now you can create the short string
+    string = [string substringWithRange:stringRange];
+    
+    self.excerptLabel.text = string;
+}
+
 @end

@@ -12,7 +12,7 @@
 
 @interface TagSelectionViewController : UITableViewController
 
-@property (strong,nonatomic) NSMutableArray *allTags;
+@property (strong,nonatomic) MonologueManager *manager;
 @property (strong,nonatomic) Monologue *currentMonologue;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
 

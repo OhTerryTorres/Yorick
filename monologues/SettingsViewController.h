@@ -9,21 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Setting.h"
 #import "SettingTableViewCell.h"
+#import "AppDelegate.h"
 
 @interface SettingsViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (strong, nonatomic) Setting *genderSetting;
-@property (strong, nonatomic) Setting *toneSetting;
-@property (strong, nonatomic) Setting *periodSetting;
-@property (strong, nonatomic) Setting *ageSetting;
-@property (strong, nonatomic) Setting *lengthSetting;
-
-@property (strong, nonatomic) Setting *sizeSetting;
-@property (strong, nonatomic) Setting *sortSetting;
-
-@property (strong, nonatomic) NSMutableArray *settingsArray;
-
-@property (nonatomic) UIView *layer;
+@property (strong, nonatomic) MonologueManager *manager;
 
 - (IBAction)clearSettings:(id)sender;
 

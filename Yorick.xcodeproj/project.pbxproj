@@ -79,6 +79,7 @@
 /* Begin PBXFileReference section */
 		CE08037F1E3BD6A9005EDDAF /* BrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseViewController.h; sourceTree = "<group>"; };
 		CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseViewController.m; sourceTree = "<group>"; };
+		CE0803841E3FC67E005EDDAF /* Managerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Managerial.h; sourceTree = "<group>"; };
 		CE3801C01E382FF5009E6871 /* MonologueDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueDataService.h; sourceTree = "<group>"; };
 		CE3801C11E382FF5009E6871 /* MonologueDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonologueDataService.m; sourceTree = "<group>"; };
 		CE3801C31E38304F009E6871 /* MonologueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueManager.h; sourceTree = "<group>"; };
@@ -191,6 +192,30 @@
 			name = ListViewControllers;
 			sourceTree = "<group>";
 		};
+		CE0803831E3FC2FE005EDDAF /* DetailViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEB00BF3196B3FA50006B03F /* MonologueViewController.h */,
+				CEB00BF4196B3FA50006B03F /* MonologueViewController.m */,
+				CEA0FFB91976EF97004626F1 /* FavoriteMonologueViewController.h */,
+				CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */,
+				CEAAE3211AB866C60006CF95 /* SettingsViewController.h */,
+				CEAAE3221AB866C60006CF95 /* SettingsViewController.m */,
+			);
+			name = DetailViewControllers;
+			sourceTree = "<group>";
+		};
+		CE0803851E42D94C005EDDAF /* UtilityViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEFC85A019CA3246003739D7 /* EditViewController.h */,
+				CEFC85A119CA3246003739D7 /* EditViewController.m */,
+				CE4EF22F1B0576410045C811 /* TagSelectionViewController.h */,
+				CE4EF2301B0576410045C811 /* TagSelectionViewController.m */,
+			);
+			name = UtilityViewControllers;
+			sourceTree = "<group>";
+		};
 		CE3801BD1E38297F009E6871 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,16 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				CE0803821E3BDB6B005EDDAF /* ListViewControllers */,
-				CEB00BF3196B3FA50006B03F /* MonologueViewController.h */,
-				CEB00BF4196B3FA50006B03F /* MonologueViewController.m */,
-				CEA0FFB91976EF97004626F1 /* FavoriteMonologueViewController.h */,
-				CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */,
-				CEAAE3211AB866C60006CF95 /* SettingsViewController.h */,
-				CEAAE3221AB866C60006CF95 /* SettingsViewController.m */,
-				CEFC85A019CA3246003739D7 /* EditViewController.h */,
-				CEFC85A119CA3246003739D7 /* EditViewController.m */,
-				CE4EF22F1B0576410045C811 /* TagSelectionViewController.h */,
-				CE4EF2301B0576410045C811 /* TagSelectionViewController.m */,
+				CE0803831E3FC2FE005EDDAF /* DetailViewControllers */,
+				CE0803851E42D94C005EDDAF /* UtilityViewControllers */,
 				CEC9AA181A140BA100ECC830 /* TabBarController.h */,
 				CEC9AA191A140BA100ECC830 /* TabBarController.m */,
 				CEC9AA1B1A144C2500ECC830 /* NavigationController.h */,
@@ -301,6 +318,7 @@
 				CED35AEE1C5F03D500496BD4 /* Main_iPad.storyboard */,
 				CEE18377195DC11D00FA14BA /* AppDelegate.h */,
 				CEE18378195DC11D00FA14BA /* AppDelegate.m */,
+				CE0803841E3FC67E005EDDAF /* Managerial.h */,
 				CE3801BE1E3829DB009E6871 /* Models */,
 				CE3801BD1E38297F009E6871 /* Views */,
 				CE3801BF1E382A18009E6871 /* Contollers */,

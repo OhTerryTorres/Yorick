@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface EditViewController : UIViewController <UITextViewDelegate> {
     UIEdgeInsets noteTextViewInsets;
@@ -17,7 +18,9 @@
     // This shit helps the cursor/caret stay visible
 }
 
-@property (nonatomic, copy) NSString *text;
+
+@property (strong, nonatomic) MonologueManager *manager;
+@property (strong, nonatomic) Monologue *currentMonologue;
 
 @property (strong, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *editNavigationBar;

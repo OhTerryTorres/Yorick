@@ -14,14 +14,13 @@
 
 @property (strong, nonatomic) NSArray *options;
 @property (strong, nonatomic) SettingTableViewCell *cell;
-@property (nonatomic) NSInteger pickerRowDefault;
 @property (nonatomic) CGRect maintainFrame;
 @property (nonatomic) BOOL pickerCellIsShowing;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *currentSetting;
-@property (strong, nonatomic) NSString *defaultSetting;
 
 -(id)init;
 -(id)initWithTitle:(NSString*)title;
+-(int)indexOfCurrentSetting;
 
 @end

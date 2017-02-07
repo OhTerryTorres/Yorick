@@ -18,7 +18,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Initialze or load monologueManager
-    self.manager = [[MonologueManager alloc] init];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"managerData"] != nil) {
+        NSData* managerData = [[NSUserDefaults standardUserDefaults] objectForKey:@"managerData"];
+        self.manager = [NSKeyedUnarchiver unarchiveObjectWithData:managerData];
+        NSLog(@"MANAGER loaded from defaults");
+    } else {
+        self.manager = [[MonologueManager alloc] init];
+    }
     
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
@@ -50,7 +56,10 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    NSData* managerData = [NSKeyedArchiver archivedDataWithRootObject:self.manager];
+    [[NSUserDefaults standardUserDefaults] setObject:managerData forKey:@"managerData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"MANAGER saved to defaults");
 }
 
 

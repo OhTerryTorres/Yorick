@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "Monologue.h"
+#import "MonologueManager.h"
 #import "MonologuesListViewController.h"
 #import "UYLTextCell.h"
-#import "AppDelegate.h"
-#import "MonologueMasterlist.h"
 
 @interface MonologueViewController : UITableViewController
 
 @property (nonatomic) Monologue *currentMonologue;
+
+@property (nonatomic) NSMutableArray *relatedMonologues;
 
 @property (nonatomic, strong) UYLTextCell *prototypeCellText;
 
@@ -38,9 +39,17 @@
 
 @property unsigned long detailIndex;
 
-@property (strong, nonatomic) MonologueMasterlist *masterlist;
+@property (strong, nonatomic) MonologueManager *manager;
 
 @property (nonatomic) int barsHidden;
 
+
+- (void)loadData;
+-(void)addMonologueToFavorites;
+-(void)monologueTransitionForIndexPath:(NSIndexPath*)indexPath;
+-(void)maintainView;
+-(void)passManagerToAppDelegate;
+-(Monologue*)getRelatedMonologueForIndexPath:(NSIndexPath*)indexPath;
+- (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

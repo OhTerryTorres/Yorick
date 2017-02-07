@@ -22,4 +22,9 @@
 @property (strong, nonatomic) MonologueManager *manager;
 @property (strong, nonatomic) MonologueDataService *dataService;
 
+-(void)passManagerToAppDelegate;
+-(void)getManagerFromAppDelegate;
+-(void)setHeaderTitle;
+-(void)updateDisplayArrayForFilters;
+
 @end

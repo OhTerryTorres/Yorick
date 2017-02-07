@@ -16,5 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *excerptLabel;
 
+-(void)setExcerptLabelWithString:(NSString*)string;
+
 
 @end
