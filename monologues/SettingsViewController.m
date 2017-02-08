@@ -74,7 +74,7 @@
             setting.cell.titleLabel.text = @"Text Size";
 
             UIView *separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
-            separatorLineView.backgroundColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+            separatorLineView.backgroundColor = [YorickStyle color1];
             [setting.cell.contentView addSubview:separatorLineView];
         }
         

@@ -90,11 +90,11 @@
     if ( [self.manager.favoriteMonologues containsObject:self.currentMonologue] ) {
         // Add image to button for normal state
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
-        self.favoriteButtonOutlet.tintColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
     } else {
         // gray
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
-        self.favoriteButtonOutlet.tintColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
     }
 }
 
@@ -212,16 +212,13 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-    // Background color
-    //view.tintColor = [UIColor colorWithRed:183.0/255.0 green:172.0/255.0 blue:167.0/255.0 alpha:1.0];
-    
+
     // Text Color
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    //[header.textLabel setTextColor:[UIColor whiteColor]];
     
     // Another way to set the background color
     // Note: does not preserve gradient effect of original header
-    header.contentView.backgroundColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:0.5];
+    header.contentView.backgroundColor = [YorickStyle color2];
 
 }
 
@@ -291,7 +288,7 @@
     if ( indexPath.section == monologueTags) {
         NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
         cell.textLabel.text = currentTag;
-        [cell.textLabel setTextColor:[UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:0.5]];
+        [cell.textLabel setTextColor:[YorickStyle color2]];
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
         Monologue *currentMonologue = [self getRelatedMonologueForIndexPath:indexPath];
@@ -478,11 +475,11 @@
     if ( [self.manager.favoriteMonologues containsObject:self.currentMonologue] ) {
         // gray
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
-        self.favoriteButtonOutlet.tintColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
         [self.manager.favoriteMonologues removeObject:self.currentMonologue];
     } else {
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
-        self.favoriteButtonOutlet.tintColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
         [self.manager.favoriteMonologues addObject:self.currentMonologue];
     }
 }

@@ -21,7 +21,7 @@
 -(void)awakeFromNib {
     [super awakeFromNib];
     self.translucent = YES;
-    self.barTintColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1.0];
+    self.barTintColor = [YorickStyle color2];
 }
 
 @end

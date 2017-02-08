@@ -34,8 +34,8 @@
 #pragma mark: Display Setup
 
 -(void)setUpHeader {
-    self.headerPaddingView.backgroundColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1.0];
-    self.editNavigationBar.tintColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+    self.headerPaddingView.backgroundColor = [YorickStyle color2];
+    self.editNavigationBar.tintColor = [YorickStyle color1];
 }
 
 -(void)setUpTextView {

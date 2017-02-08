@@ -19,13 +19,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Digs";
     self.dataService.isForFavorites = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    self.title = @"Digs";
-    [super viewWillAppear:animated];
-}
 
 -(void)updateDisplayArrayForFilters {
     NSLog(@"Filtering based on searchString");

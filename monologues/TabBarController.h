@@ -11,6 +11,7 @@
 #import "BrowseViewController.h"
 #import "FavoritesViewController.h"
 #import "SettingsViewController.h"
+#import "YorickStyle.h"
 
 @interface TabBarController : UITabBarController <UITabBarControllerDelegate, UITabBarDelegate>
 
