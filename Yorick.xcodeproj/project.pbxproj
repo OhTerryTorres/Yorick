@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */; };
+		CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */; };
 		CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C11E382FF5009E6871 /* MonologueDataService.m */; };
 		CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C41E38304F009E6871 /* MonologueManager.m */; };
 		CE3FAAA51AEAD862008C28CB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA41AEAD862008C28CB /* CFNetwork.framework */; };
@@ -77,6 +78,8 @@
 /* Begin PBXFileReference section */
 		CE08037F1E3BD6A9005EDDAF /* BrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowseViewController.h; sourceTree = "<group>"; };
 		CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseViewController.m; sourceTree = "<group>"; };
+		CE1D57DA1E4B6E2800BB3988 /* YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YorickStyle.h; sourceTree = "<group>"; };
+		CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YorickStyle.m; sourceTree = "<group>"; };
 		CE3801C01E382FF5009E6871 /* MonologueDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueDataService.h; sourceTree = "<group>"; };
 		CE3801C11E382FF5009E6871 /* MonologueDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonologueDataService.m; sourceTree = "<group>"; };
 		CE3801C31E38304F009E6871 /* MonologueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueManager.h; sourceTree = "<group>"; };
@@ -307,6 +310,8 @@
 				CED35AEE1C5F03D500496BD4 /* Main_iPad.storyboard */,
 				CEE18377195DC11D00FA14BA /* AppDelegate.h */,
 				CEE18378195DC11D00FA14BA /* AppDelegate.m */,
+				CE1D57DA1E4B6E2800BB3988 /* YorickStyle.h */,
+				CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */,
 				CE3801BE1E3829DB009E6871 /* Models */,
 				CE3801BD1E38297F009E6871 /* Views */,
 				CE3801BF1E382A18009E6871 /* Contollers */,
@@ -461,6 +466,7 @@
 				CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */,
 				CEE18382195DC11D00FA14BA /* MonologuesListViewController.m in Sources */,
 				CEC9AA1D1A144C2500ECC830 /* NavigationController.m in Sources */,
+				CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */,
 				CEF777351A32493E003E9513 /* DTCustomColoredAccessory.m in Sources */,
 				CEE18375195DC11D00FA14BA /* main.m in Sources */,
 				CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */,

@@ -12,6 +12,7 @@ build/
 *.xcworkspace
 !default.xcworkspace
 xcuserdata
+Yorick.xcodeproj/xcuserdata/*
 profile
 *.moved-aside
 DerivedData

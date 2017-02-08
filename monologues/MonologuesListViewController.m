@@ -60,18 +60,22 @@
     self.navigationController.tabBarController.tabBar.userInteractionEnabled = YES;
     self.tabBarController.tabBar.userInteractionEnabled = YES;
     
-    self.tableView.tintColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1];
+    self.tableView.tintColor = [YorickStyle color2];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"%@ async", self.title);
         [self getManagerFromAppDelegate];
         [self updateDisplayArrayForFilters];
+        NSLog(@"%@ async DONE", self.title);
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"%@ main", self.title);
             [self setHeaderTitle];
             [self.tableView reloadData];
+            NSLog(@"%@ main DONE", self.title);
         });
     });
     
@@ -111,7 +115,7 @@
 -(void)setUpSearchController {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
-    self.searchController.searchBar.barTintColor = [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1.0];
+    self.searchController.searchBar.barTintColor = [YorickStyle color2];
     self.searchController.searchBar.delegate = self;
     
     [self.searchController.searchBar sizeToFit];

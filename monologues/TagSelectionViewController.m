@@ -28,7 +28,7 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     
-    self.navigationBar.tintColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+    self.navigationBar.tintColor = [YorickStyle color1];
     
 }
 -(void)viewDidAppear:(BOOL)animated {

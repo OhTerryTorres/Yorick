@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Monologue.h"
 #import "FavoriteMonologueViewController.h"
+#import "YorickStyle.h"
 
 @interface TagSelectionViewController : UITableViewController
 

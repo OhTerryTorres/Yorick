@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YorickStyle.h"
 
 @interface SettingTableViewCell : UITableViewCell
 

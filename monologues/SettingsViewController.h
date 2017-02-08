@@ -10,6 +10,7 @@
 #import "Setting.h"
 #import "SettingTableViewCell.h"
 #import "AppDelegate.h"
+#import "YorickStyle.h"
 
 @interface SettingsViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 

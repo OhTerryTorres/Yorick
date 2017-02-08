@@ -147,7 +147,7 @@
     if ( indexPath.section == monologueTags ) {
         NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
         cell.textLabel.text = currentTag;
-        [cell.textLabel setTextColor:[UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:0.5]];
+        [cell.textLabel setTextColor:[YorickStyle color2]];
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
         Monologue *currentMonologue = [self getRelatedMonologueForIndexPath:indexPath];
@@ -157,7 +157,7 @@
     } else if ( indexPath.section == monologueEdit ) {
         NSString *currentEdit = [self.editArray objectAtIndex:indexPath.row];
         cell.textLabel.text = currentEdit;
-        [cell.textLabel setTextColor:[UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:0.5]];
+        [cell.textLabel setTextColor:[YorickStyle color2]];
 
         cell.userInteractionEnabled = YES;
     } else {

@@ -18,7 +18,7 @@
 
     // Configure the view for the selected state
     if (self.colored == YES ) {
-        self.settingLabel.textColor = [UIColor colorWithRed:36.0/255.0 green:115.0/255.0 blue:119.0/255.0 alpha:0.6];
+        self.settingLabel.textColor = [YorickStyle color2];
     } else if (self.colored == NO) {
         self.settingLabel.textColor = [UIColor grayColor];
     }
