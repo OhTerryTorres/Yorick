@@ -39,12 +39,19 @@
 #pragma mark: OVERRIDING SUPERCLASS METHODS
 
 - (void)loadData {
-    NSArray* tempSource = [[NSArray alloc] initWithArray:self.detailsDataSource];
-    self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
-    [super loadData];
-    self.detailsDataSource = [[NSArray alloc] initWithArray:tempSource];
-    tempSource = nil;
-    [self retrieveEditedMonologue];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
+        NSArray* tempSource = [[NSArray alloc] initWithArray:self.detailsDataSource];
+        self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
+        [self compileRelatedMonologuesfromArrayOfMonologues: self.detailsDataSource];
+        self.detailsDataSource = [[NSArray alloc] initWithArray:tempSource];
+        [self retrieveEditedMonologue];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [self loadHeaderTitle];
+            [self setFavoriteStatus];
+        });
+    });
 }
 
 -(void)loadHeaderTitle {

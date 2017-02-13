@@ -52,5 +52,8 @@
 -(void)passManagerToAppDelegate;
 -(Monologue*)getRelatedMonologueForIndexPath:(NSIndexPath*)indexPath;
 - (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+-(void)setFavoriteStatus;
+-(void)compileRelatedMonologuesfromArrayOfMonologues:(NSArray*)sourceMonologues;
+-(NSArray*)loadTagsIntoArray:(NSString*)tags;
 
 @end

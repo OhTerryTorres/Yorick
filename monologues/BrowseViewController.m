@@ -74,8 +74,6 @@
     //
     
     __block NSMutableArray *jsonArray = [[NSMutableArray alloc] init];
-    __block NSMutableArray *localMonologues = self.manager.monologues;
-    NSMutableArray *updatedMonologues = [[NSMutableArray alloc] init];
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
@@ -90,6 +88,8 @@
                                                                                options:0
                                                                                  error:nil];
                                    NSLog(@"updateMonologues Async JSON: %@", jsonArray);
+                                   
+                                   NSMutableArray *updatedMonologues = [[NSMutableArray alloc] init];
                                    
                                    // Loop through JSON array
                                    for ( int i = 0; i < jsonArray.count; i++ ) {
@@ -114,32 +114,14 @@
                                    NSString *strResults = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                    NSLog(@"%@", strResults);
                                    
-                                   // Access plist on device an replace old monologues with updatedMonologues.
-                                   // Put in an IF statement for monologues with new titles and new ids.
-                                   
-                                   NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-                                   documentPath = [documentPath stringByAppendingPathComponent:@"monologueList.plist"];
-                                
-                                   
-                                   NSMutableDictionary* newMonologueDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:documentPath];
-                                   NSMutableArray *keys = [[newMonologueDictionary allKeys]mutableCopy];
-                                   NSLog(@"keys.count on load is %lu",(unsigned long)keys.count);
-                                   
-                                   for (int i = 0; i < localMonologues.count; i++) {
-                                       Monologue *localMonologue = localMonologues[i];
-                                       for (int ii = 0; ii < updatedMonologues.count; ii++) {
-                                           Monologue *updatedMonologue = updatedMonologues[ii];
-                                           if ( [localMonologue.title isEqualToString:updatedMonologue.title] ) {
-                                               localMonologue = updatedMonologue;
-                                           }
-                                       }
-                                   }
-                                   
-                                   [self.manager addTagsFromArrayOfMonologues:updatedMonologues];
+                                   [self.manager updateMonologuesWithArrayOfMonologues:updatedMonologues];
                                    self.manager.latestUpdateCount = updatedMonologues.count;
                                    
                                    NSLog(@"here we go!!");
                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                       self.navigationItem.rightBarButtonItem = nil;
+                                       [self.manager addTagsFromArrayOfMonologues:updatedMonologues];
+                                       
                                        [self updateDisplayArrayForFilters];
                                        [self.tableView reloadData];
                                        [self setHeaderTitle];

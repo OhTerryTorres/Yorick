@@ -218,7 +218,7 @@
     
     // Another way to set the background color
     // Note: does not preserve gradient effect of original header
-    header.contentView.backgroundColor = [YorickStyle color2];
+    header.contentView.backgroundColor = [YorickStyle color1];
 
 }
 

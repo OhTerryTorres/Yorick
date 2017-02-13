@@ -36,11 +36,11 @@
     
     
     [tabBarItem0 setImage: [[UIImage imageNamed:@"favorites-unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [tabBarItem0 setSelectedImage: [UIImage imageNamed:@"favorites-selected"]];
+    [tabBarItem0 setSelectedImage: [[UIImage imageNamed:@"favorites-selected"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
     [tabBarItem1 setImage: [[UIImage imageNamed:@"browse-unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [tabBarItem1 setSelectedImage: [UIImage imageNamed:@"browse-selected"]];
+    [tabBarItem1 setSelectedImage: [[UIImage imageNamed:@"browse-selected"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
     [tabBarItem2 setImage: [[UIImage imageNamed:@"filters-unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [tabBarItem2 setSelectedImage: [UIImage imageNamed:@"filters-selected"]];
+    [tabBarItem2 setSelectedImage: [[UIImage imageNamed:@"filters-selected"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
     
     [tabBarItem0 setTitleTextAttributes:@{ NSForegroundColorAttributeName : [YorickStyle color3] }
                                forState:UIControlStateNormal];
