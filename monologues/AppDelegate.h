@@ -19,9 +19,6 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-// *****
-// Consider setting this to weak, so that once it's passed the manger on to ther other screens,
-// App Delegate doesn't have to worry about it?
 @property (strong, nonatomic) MonologueManager *manager;
 
 -(void)saveContext;

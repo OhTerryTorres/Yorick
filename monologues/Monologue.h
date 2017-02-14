@@ -33,8 +33,7 @@
 // Trying to minimize the proliferation of this value to reduce headaches, but I may have to reverse that thought
 @property (nonatomic, copy) NSString *sortTitle;
 
-// *****
-// This is mostly vestigal, except for when being used to find related monologues
+// Used for finded related monologues
 @property (nonatomic) int matches;
 
 -(id)initWithidNumber:(int)idNumber title:(NSString*)title authorFirst:(NSString*)authorFirst authorLast:(NSString*)authorLast character:(NSString*)character text:(NSString*)text  gender:(NSString*)gender tone:(NSString*)tone period:(NSString*)period age:(NSString*)age length:(NSString*)length notes:(NSString*)notes tags:(NSString*)tags;

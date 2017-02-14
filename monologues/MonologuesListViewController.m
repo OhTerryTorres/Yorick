@@ -20,13 +20,9 @@
 -(void)passManagerToAppDelegate {
     AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
     appDelegate.manager = self.manager;
-    NSLog(@"%@: Passed manager tp app delegate", self.title);
+    NSLog(@"%@: Passed manager to app delegate", self.title);
 }
 -(void)getManagerFromAppDelegate {
-    // *****
-    // This should ultimately be moved to which screen is the first the user sees.
-    //
-    // Access Appdelegate to get our Monologue Manager
     AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
     self.manager = appDelegate.manager;
     NSLog(@"%@: Received manager from app delegate", self.title);
@@ -38,11 +34,6 @@
 {
     [super viewDidLoad];
     [self getManagerFromAppDelegate];
-    
-    // *****
-    // This may not be necessary
-    self.navigationController.tabBarController.tabBar.userInteractionEnabled = YES;
-    self.tabBarController.tabBar.userInteractionEnabled = YES;
     
     // Initialize the data service for this tableview.
     [self setUpDataService];
@@ -89,39 +80,33 @@
 #pragma mark: Display Setup
 
 -(void)setUpDataService {
-    NSLog(@"%@: setUpDataService", self.title);
     self.dataService = [[MonologueDataService alloc] initWithManager:self.manager andDisplayArray:self.manager.monologues];
     self.tableView.delegate = self.dataService;
     self.tableView.dataSource = self.dataService;
     self.dataService.manager = self.manager;
-    NSLog(@"%@: setUpDataService DONE", self.title);
 }
 
 -(void)setHeaderTitle {
-    NSLog(@"%@: setUpDataService", self.title);
     NSString *headerTitle = [NSString stringWithFormat:@"%@ (%lu)",self.title, (unsigned long)self.dataService.displayArray.count];
     [self.navigationItem setTitle:headerTitle];
-    NSLog(@"%@: setUpDataService DONE", self.title);
 }
 
 -(void)updateDisplayArrayForFilters {
-    NSLog(@"%@: Filtering based on searchString",self.title);
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
         self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:self.searchController.searchBar.text];
     } else {
         self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
     }
-    NSLog(@"%@: Filtering based on searchString DONE",self.title);
 }
 
 
 #pragma mark: UISearchController & Notification Methods
 
 -(void)setUpSearchController {
-    NSLog(@"%@: setUpSearchController", self.title);
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.barTintColor = [YorickStyle color2];
+    self.searchController.searchBar.tintColor  = [YorickStyle color1];
     self.searchController.searchBar.delegate = self;
     
     [self.searchController.searchBar sizeToFit];
@@ -134,26 +119,24 @@
     
     self.definesPresentationContext = YES;
     self.searchController.dimsBackgroundDuringPresentation = NO;
-    NSLog(@"%@: setUpSearchController DONE", self.title);
 }
 
 // When the user types in the search bar, this method gets called.
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *searchString = searchController.searchBar.text;
-        
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
         // Check if the user cancelled or deleted the search term so we can display the full list instead.
         if (![searchString isEqualToString:@""]) {
-            [self.dataService.displayArray removeAllObjects];
-            self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:searchString];
+            tempArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:searchString];
             self.dataService.searchActive = TRUE;
         }
         else {
-            self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
+            tempArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
             self.dataService.searchActive = FALSE;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            self.dataService.displayArray = tempArray;
             [self.tableView reloadData];
             [self setHeaderTitle];
         });

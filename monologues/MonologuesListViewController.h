@@ -12,7 +12,6 @@
 #import "AppDelegate.h"
 #import "MonologueManager.h"
 #import "MonologueDataService.h"
-#import "SearchBar.h"
 #import "YorickStyle.h"
 
 @interface MonologuesListViewController : UITableViewController <UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>

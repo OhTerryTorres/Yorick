@@ -22,10 +22,6 @@
     appDelegate.manager = self.manager;
 }
 -(void)getManagerFromAppDelegate {
-    // *****
-    // This should ultimately be moved to which screen is the first the user sees.
-    //
-    // Access Appdelegate to get our Monologue Manager
     AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
     self.manager = appDelegate.manager;
 }

@@ -20,7 +20,6 @@
 		CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4EF2301B0576410045C811 /* TagSelectionViewController.m */; };
 		CE659EE01974A8C200364269 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE659EDF1974A8C200364269 /* CoreData.framework */; };
 		CEA0FFBB1976EF97004626F1 /* FavoriteMonologueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */; };
-		CEA7F9DD1A17F15D006F2A93 /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA7F9DC1A17F15D006F2A93 /* SearchBar.m */; };
 		CEAAE3191AB863390006CF95 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE3181AB863390006CF95 /* Setting.m */; };
 		CEAAE3231AB866C60006CF95 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE3221AB866C60006CF95 /* SettingsViewController.m */; };
 		CEAAE3261AB9F7840006CF95 /* MonologueTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE3251AB9F7840006CF95 /* MonologueTableViewCell.m */; };
@@ -98,8 +97,6 @@
 		CE659EDF1974A8C200364269 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CEA0FFB91976EF97004626F1 /* FavoriteMonologueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteMonologueViewController.h; sourceTree = "<group>"; };
 		CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteMonologueViewController.m; sourceTree = "<group>"; };
-		CEA7F9DB1A17F15D006F2A93 /* SearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
-		CEA7F9DC1A17F15D006F2A93 /* SearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
 		CEAAE3171AB863390006CF95 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		CEAAE3181AB863390006CF95 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
 		CEAAE3211AB866C60006CF95 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -222,8 +219,6 @@
 				CEAAE3251AB9F7840006CF95 /* MonologueTableViewCell.m */,
 				CEC1C9F219BE406500D5B197 /* SettingTableViewCell.h */,
 				CEC1C9F319BE406500D5B197 /* SettingTableViewCell.m */,
-				CEA7F9DC1A17F15D006F2A93 /* SearchBar.m */,
-				CEA7F9DB1A17F15D006F2A93 /* SearchBar.h */,
 				CEF777331A32493E003E9513 /* DTCustomColoredAccessory.h */,
 				CEF777341A32493E003E9513 /* DTCustomColoredAccessory.m */,
 				CEB00BF6196B72C30006B03F /* UYLTextCell.h */,
@@ -487,7 +482,6 @@
 				CEC9AA1A1A140BA100ECC830 /* TabBarController.m in Sources */,
 				CEA0FFBB1976EF97004626F1 /* FavoriteMonologueViewController.m in Sources */,
 				CEB5284B1975667E0053176B /* Monologue.m in Sources */,
-				CEA7F9DD1A17F15D006F2A93 /* SearchBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

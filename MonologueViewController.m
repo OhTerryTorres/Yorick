@@ -35,10 +35,6 @@
     appDelegate.manager = self.manager;
 }
 -(void)getManagerFromAppDelegate {
-    // *****
-    // This should ultimately be moved to which screen is the first the user sees.
-    //
-    // Access Appdelegate to get our Monologue Manager
     AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
     self.manager = appDelegate.manager;
 }
@@ -393,15 +389,6 @@
     return UITableViewAutomaticDimension;
 }
 
-//
-// Create a prototype cell for each new data section
-//
-// ******** Is this nonsense??
-// This bit is more complicated. A new prototype cell is created for each individual section.
-// The existence of the prototype cell is what allows each cell's height change depending on
-// its content. As a result, there needs to be a different prototype for each section, so
-// they can each be the appropriate size.
-
 - (UYLTextCell *)prototypeCellText
 {
     if (!_prototypeCellText)
@@ -454,7 +441,7 @@
 
 -(void)setFavoriteStatus {
     // Decides color of Favorite button
-    if ( [self.manager.favoriteMonologues containsObject:self.currentMonologue] || [self.manager.favoriteMonologues containsObject:[self.manager getMonologueForTitle:self.currentMonologue.title]] ) {
+    if ( [self.manager.favoriteMonologues containsObject:self.currentMonologue] || [self.manager.favoriteMonologues containsObject:[self.manager getFavoriteMonologueForTitle:self.currentMonologue.title]] || [self.manager.editedMonologues containsObject:[self.manager getEditedMonologueForTitle:self.currentMonologue.title]] ) {
         // Add image to button for normal state
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
