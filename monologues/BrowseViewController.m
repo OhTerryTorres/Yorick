@@ -19,13 +19,14 @@
 
 - (void)viewDidLoad
 {
+    self.title = @"Boneyard";
     [super viewDidLoad];
     // Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(tagSearchFromFavorites:)
                                                  name:@"tagSearchFromFavorites"
                                                object:nil];
-    self.title = @"Boneyard";
+    [self.tableView setContentOffset:CGPointMake(0, 0 - self.tableView.contentInset.top) animated:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -65,6 +66,7 @@
                                    }
                                    NSLog(@"Update check complete");
                                }}];
+    NSLog(@"checkUpdates DONE");
 }
 
 -(IBAction)updateMonologues:(id)sender {
@@ -126,6 +128,9 @@
                                        [self.tableView reloadData];
                                        [self setHeaderTitle];
                                        NSLog(@"Connection complete");
+                                       
+                                       PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Library Updated"];
+                                       [self.navigationController.view addSubview:popUp];
                                    }];
                                    
                                }}];

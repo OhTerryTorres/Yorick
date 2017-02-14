@@ -63,19 +63,41 @@
     }
 }
 
-
 -(void)scrollToTop {
-    if (self.indexOfNewTab == 0) {
-        NavigationController *nc = [self.viewControllers objectAtIndex:0];
-        // **** is this line necessary? ^^^
-        BrowseViewController *vc = [nc.viewControllers objectAtIndex:0];
-        [vc.tableView setContentOffset:CGPointMake(0, 0 - vc.tableView.contentInset.top) animated:YES];
-    } else if (self.indexOfNewTab == 1) {
+    if (self.indexOfNewTab == 1) {
         NavigationController *nc = [self.viewControllers objectAtIndex:1];
-        FavoritesViewController *vc = [nc.viewControllers objectAtIndex:0];
+        MonologueViewController *vc = [nc.viewControllers objectAtIndex:0];
         [vc.tableView setContentOffset:CGPointMake(0, 0 - vc.tableView.contentInset.top) animated:YES];
     }
 }
 
+
+- (void)hideTabBar {
+    UITabBar *tabBar = self.tabBar;
+    UIView *parent = tabBar.superview; // UILayoutContainerView
+    
+    CGRect tabFrame = tabBar.frame;
+    tabFrame.origin.y += tabBar.frame.size.height;
+    tabBar.frame = tabFrame;
+    
+    CGRect parentFrame = parent.frame;
+    parentFrame.size.height += tabFrame.size.height;
+    parent.frame = parentFrame;
+    
+}
+
+- (void)showTabBar {
+    UITabBar *tabBar = self.tabBar;
+    UIView *parent = tabBar.superview; // UILayoutContainerView
+    
+    CGRect tabFrame = tabBar.frame;
+    tabFrame.origin.y -= tabBar.frame.size.height;
+    tabBar.frame = tabFrame;
+    
+    CGRect parentFrame = parent.frame;
+    parentFrame.size.height -= tabFrame.size.height;
+    parent.frame = parentFrame;
+
+}
 
 @end

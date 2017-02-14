@@ -85,19 +85,6 @@
     });
 }
 
--(void)setFavoriteStatus {
-    // Decides color of Favorite button
-    if ( [self.manager.favoriteMonologues containsObject:self.currentMonologue] ) {
-        // Add image to button for normal state
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
-        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
-    } else {
-        // gray
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
-        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
-    }
-}
-
 -(NSArray*)loadTagsIntoArray:(NSString*)tags {
     // Dealing with tags here
     NSString *sep = @" ";
@@ -465,6 +452,19 @@
 
 #pragma mark: User Interaction
 
+-(void)setFavoriteStatus {
+    // Decides color of Favorite button
+    if ( [self.manager.favoriteMonologues containsObject:self.currentMonologue] || [self.manager.favoriteMonologues containsObject:[self.manager getMonologueForTitle:self.currentMonologue.title]] ) {
+        // Add image to button for normal state
+        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
+        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
+    } else {
+        // gray
+        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
+        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
+    }
+}
+
 - (IBAction)favoriteButtonAction:(id)sender {
 
     [self addMonologueToFavorites];
@@ -477,10 +477,19 @@
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
         [self.manager.favoriteMonologues removeObject:self.currentMonologue];
+        if ( [self.manager.editedMonologues containsObject:self.currentMonologue] ) {
+            [self.manager.editedMonologues removeObject:self.currentMonologue];
+        }
+        
+        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Removed from Digs"];
+        [self.navigationController.view addSubview:popUp];
     } else {
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
         [self.manager.favoriteMonologues addObject:self.currentMonologue];
+        
+        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Added to Digs"];
+        [self.navigationController.view addSubview:popUp];
     }
 }
 
@@ -501,15 +510,18 @@
         [UIView animateWithDuration:0.2
                          animations:^{
                              self.navigationController.navigationBarHidden = YES;
+                             TabBarController* tbc = (TabBarController*)self.tabBarController;
+                             [tbc hideTabBar];
                          }];
     } else {
         self.barsHidden = 2;
         [UIView animateWithDuration:0.2
                          animations:^{
                              self.navigationController.navigationBarHidden = NO;
+                             TabBarController* tbc = (TabBarController*)self.tabBarController;
+                             [tbc showTabBar];
                          }];
     }
-    NSLog(@"self.barsHidden is %d",self.barsHidden);
 }
 
 

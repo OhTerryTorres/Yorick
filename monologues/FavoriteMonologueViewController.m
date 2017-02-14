@@ -29,11 +29,19 @@
 
 @implementation FavoriteMonologueViewController 
 
+
 //THIS allows for unwind segues, would should save time and space.
 - (IBAction)cancelEdit:(UIStoryboardSegue *)segue {}
-- (IBAction)saveEdit:(UIStoryboardSegue *)segue {}
+- (IBAction)saveEdit:(UIStoryboardSegue *)segue {
+    PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Monolouge Updated"];
+    [self.navigationController.view addSubview:popUp];
+}
 - (IBAction)cancelTag:(UIStoryboardSegue *)segue {}
-- (IBAction)saveTag:(UIStoryboardSegue *)segue {[self.tableView reloadData];}
+- (IBAction)saveTag:(UIStoryboardSegue *)segue {
+    [self.tableView reloadData];
+    PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Tags Updated"];
+    [self.navigationController.view addSubview:popUp];
+}
 
 
 #pragma mark: OVERRIDING SUPERCLASS METHODS
@@ -335,6 +343,9 @@
     self.editArray = nil;
     self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", nil];
     [self maintainView];
+    
+    PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Monologue Restored"];
+    [self.navigationController.view addSubview:popUp];
 }
 
 

@@ -20,6 +20,7 @@
 -(void)passManagerToAppDelegate {
     AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
     appDelegate.manager = self.manager;
+    NSLog(@"%@: Passed manager tp app delegate", self.title);
 }
 -(void)getManagerFromAppDelegate {
     // *****
@@ -28,6 +29,7 @@
     // Access Appdelegate to get our Monologue Manager
     AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
     self.manager = appDelegate.manager;
+    NSLog(@"%@: Received manager from app delegate", self.title);
 }
 
 #pragma mark: View Changing Methods
@@ -47,9 +49,7 @@
     
     // Initialize search controller
     [self setUpSearchController];
-    
-    [self.tableView reloadData];
-    
+        
     // Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(segueByNotification:)
@@ -67,15 +67,15 @@
     [super viewWillAppear:animated];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"%@ async", self.title);
+        NSLog(@"%@: async", self.title);
         [self getManagerFromAppDelegate];
         [self updateDisplayArrayForFilters];
-        NSLog(@"%@ async DONE", self.title);
+        NSLog(@"%@: async DONE", self.title);
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%@ main", self.title);
+            NSLog(@"%@: main", self.title);
             [self setHeaderTitle];
             [self.tableView reloadData];
-            NSLog(@"%@ main DONE", self.title);
+            NSLog(@"%@: main DONE", self.title);
         });
     });
     
@@ -89,30 +89,36 @@
 #pragma mark: Display Setup
 
 -(void)setUpDataService {
+    NSLog(@"%@: setUpDataService", self.title);
     self.dataService = [[MonologueDataService alloc] initWithManager:self.manager andDisplayArray:self.manager.monologues];
     self.tableView.delegate = self.dataService;
     self.tableView.dataSource = self.dataService;
     self.dataService.manager = self.manager;
+    NSLog(@"%@: setUpDataService DONE", self.title);
 }
 
 -(void)setHeaderTitle {
+    NSLog(@"%@: setUpDataService", self.title);
     NSString *headerTitle = [NSString stringWithFormat:@"%@ (%lu)",self.title, (unsigned long)self.dataService.displayArray.count];
     [self.navigationItem setTitle:headerTitle];
+    NSLog(@"%@: setUpDataService DONE", self.title);
 }
 
 -(void)updateDisplayArrayForFilters {
-    NSLog(@"Filtering based on searchString");
+    NSLog(@"%@: Filtering based on searchString",self.title);
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
         self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:self.searchController.searchBar.text];
     } else {
         self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
     }
+    NSLog(@"%@: Filtering based on searchString DONE",self.title);
 }
 
 
 #pragma mark: UISearchController & Notification Methods
 
 -(void)setUpSearchController {
+    NSLog(@"%@: setUpSearchController", self.title);
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.barTintColor = [YorickStyle color2];
@@ -128,6 +134,7 @@
     
     self.definesPresentationContext = YES;
     self.searchController.dimsBackgroundDuringPresentation = NO;
+    NSLog(@"%@: setUpSearchController DONE", self.title);
 }
 
 // When the user types in the search bar, this method gets called.

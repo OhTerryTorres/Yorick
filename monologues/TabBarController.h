@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "NavigationController.h"
-#import "BrowseViewController.h"
-#import "FavoritesViewController.h"
+#import "MonologueViewController.h"
 #import "SettingsViewController.h"
 #import "YorickStyle.h"
 
 @interface TabBarController : UITabBarController <UITabBarControllerDelegate, UITabBarDelegate>
 
 @property (nonatomic) unsigned long indexOfNewTab;
+
+- (void)hideTabBar;
+- (void)showTabBar;
 
 @end

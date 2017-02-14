@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MonologuesListViewController.h"
+#import "PopUpView.h"
 
 @interface BrowseViewController : MonologuesListViewController
 

@@ -12,6 +12,8 @@
 #import "MonologuesListViewController.h"
 #import "UYLTextCell.h"
 #import "YorickStyle.h"
+#import "PopUpView.h"
+#import "TabBarController.h"
 
 @interface MonologueViewController : UITableViewController
 

@@ -12,12 +12,12 @@
 
 @interface Setting : NSObject
 
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *currentSetting;
 @property (strong, nonatomic) NSArray *options;
 @property (strong, nonatomic) SettingTableViewCell *cell;
 @property (nonatomic) CGRect maintainFrame;
 @property (nonatomic) BOOL pickerCellIsShowing;
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *currentSetting;
 
 -(id)init;
 -(id)initWithTitle:(NSString*)title;
