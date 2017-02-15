@@ -42,7 +42,7 @@
     self.textView.text = self.currentMonologue.text;
     
     // All this is going to help us fit the text onto the screen, prep it for editing mode, and have it appear where it's supposed it.
-    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0,0,320,450)];
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0,0,self.textView.superview.frame.size.width,self.textView.superview.frame.size.height)];
     [self.textView setContentSize:CGSizeMake(self.textView.frame.size.width, self.textView.frame.size.height)];
     
     CGRect frame = self.textView.frame;

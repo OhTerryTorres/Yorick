@@ -336,7 +336,7 @@
 // Restore monologue to default.
 
 -(void)restoreMonologue {
-    self.currentMonologue = [self.manager getMonologueForIDNumber:self.currentMonologue.idNumber];
+    self.currentMonologue = [[self.manager getMonologueForIDNumber:self.currentMonologue.idNumber] copy];
     
     self.editArray = nil;
     self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", nil];

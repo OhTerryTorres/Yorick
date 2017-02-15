@@ -93,9 +93,9 @@
 
 -(void)updateDisplayArrayForFilters {
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
-        self.dataService.displayArray = [[self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:self.searchController.searchBar.text] mutableCopy];
+        self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:self.searchController.searchBar.text];
     } else {
-        self.dataService.displayArray = [[self.manager filterMonologuesForSettings:self.manager.monologues] mutableCopy];
+        self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
     }
 }
 
@@ -136,7 +136,7 @@
             self.dataService.searchActive = FALSE;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.dataService.displayArray = [tempArray mutableCopy];
+            self.dataService.displayArray = tempArray;
             [self.tableView reloadData];
             [self setHeaderTitle];
         });

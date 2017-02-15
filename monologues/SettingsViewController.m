@@ -154,10 +154,8 @@
     // Get writting the setting object by referring to the tag of the current pickerView,
     // which we generated in the while loop back at loadsettings
     Setting *setting =  [self.manager.settings objectAtIndex:pickerView.tag];
-    
-    NSMutableArray *array = [setting.options mutableCopy];
-    
-    return array.count;
+        
+    return setting.options.count;
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
