@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */; };
 		CE08FD441E521A9800A067EE /* PopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08FD431E521A9800A067EE /* PopUpView.m */; };
+		CE1A4C501E5502A500077ADA /* UILabel+LabelCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1A4C4F1E5502A500077ADA /* UILabel+LabelCategory.m */; };
 		CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */; };
 		CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C11E382FF5009E6871 /* MonologueDataService.m */; };
 		CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C41E38304F009E6871 /* MonologueManager.m */; };
@@ -80,6 +81,8 @@
 		CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseViewController.m; sourceTree = "<group>"; };
 		CE08FD421E521A9800A067EE /* PopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopUpView.h; sourceTree = "<group>"; };
 		CE08FD431E521A9800A067EE /* PopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopUpView.m; sourceTree = "<group>"; };
+		CE1A4C4E1E5502A500077ADA /* UILabel+LabelCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+LabelCategory.h"; sourceTree = "<group>"; };
+		CE1A4C4F1E5502A500077ADA /* UILabel+LabelCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+LabelCategory.m"; sourceTree = "<group>"; };
 		CE1D57DA1E4B6E2800BB3988 /* YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YorickStyle.h; sourceTree = "<group>"; };
 		CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YorickStyle.m; sourceTree = "<group>"; };
 		CE3801C01E382FF5009E6871 /* MonologueDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueDataService.h; sourceTree = "<group>"; };
@@ -240,6 +243,8 @@
 				CEB5284A1975667E0053176B /* Monologue.m */,
 				CEAAE3171AB863390006CF95 /* Setting.h */,
 				CEAAE3181AB863390006CF95 /* Setting.m */,
+				CE1A4C4E1E5502A500077ADA /* UILabel+LabelCategory.h */,
+				CE1A4C4F1E5502A500077ADA /* UILabel+LabelCategory.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -468,6 +473,7 @@
 				CEC9AA1D1A144C2500ECC830 /* NavigationController.m in Sources */,
 				CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */,
 				CEF777351A32493E003E9513 /* DTCustomColoredAccessory.m in Sources */,
+				CE1A4C501E5502A500077ADA /* UILabel+LabelCategory.m in Sources */,
 				CEE18375195DC11D00FA14BA /* main.m in Sources */,
 				CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */,
 				CE3FAAAF1AEADBDB008C28CB /* MBProgressHUD.m in Sources */,

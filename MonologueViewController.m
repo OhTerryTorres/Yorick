@@ -322,6 +322,9 @@
         if ( [textSizeString isEqualToString:@"Largest"] ) {
             textSize = 38;
         }
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+            textSize *= 2;
+        }
         textCell.cellTextLabel.font = [UIFont systemFontOfSize:textSize];
         // .font is defined here in cases of resizing, stylistic choices, etc
         textCell.cellNotesLabel.text = self.currentMonologue.notes;
@@ -368,13 +371,18 @@
             
             // *** iPad code
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-                size.height *= 0.5;
+                size.height *= 0.4;
             }
             break;
         case monologueNotes:
             [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
-            [self.prototypeCellNotes layoutIfNeeded];
+            [self.prototypeCellNotes setNeedsLayout];
+            // *** iPad code OMGTB
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+                size.height *= 0.5;
+            }
             size = [self.prototypeCellNotes.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            
             break;
         case monologueTags:
             [self configureCell:self.prototypeCellTags forRowAtIndexPath:indexPath];
