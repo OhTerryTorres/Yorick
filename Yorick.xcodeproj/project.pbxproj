@@ -30,7 +30,6 @@
 		CEC1C9F419BE406500D5B197 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC1C9F319BE406500D5B197 /* SettingTableViewCell.m */; };
 		CEC9AA1A1A140BA100ECC830 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC9AA191A140BA100ECC830 /* TabBarController.m */; };
 		CEC9AA1D1A144C2500ECC830 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC9AA1C1A144C2500ECC830 /* NavigationController.m */; };
-		CED35AF01C5F03D600496BD4 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED35AEE1C5F03D500496BD4 /* Main_iPad.storyboard */; };
 		CEE18369195DC11D00FA14BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE18368195DC11D00FA14BA /* Foundation.framework */; };
 		CEE1836B195DC11D00FA14BA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1836A195DC11D00FA14BA /* CoreGraphics.framework */; };
 		CEE1836D195DC11D00FA14BA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1836C195DC11D00FA14BA /* UIKit.framework */; };
@@ -47,6 +46,7 @@
 		CEE1839A195DC11D00FA14BA /* monologuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18399195DC11D00FA14BA /* monologuesTests.m */; };
 		CEEB728F1C57FAEA0018BC00 /* monologueListOLD.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEEB728E1C57FAEA0018BC00 /* monologueListOLD.plist */; };
 		CEEB72971C5839AD0018BC00 /* monologueList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEEB72961C5839AD0018BC00 /* monologueList.plist */; };
+		CEF3F1FF1E53FAE800242D04 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF3F1FD1E53FAE800242D04 /* Main_iPad.storyboard */; };
 		CEF777351A32493E003E9513 /* DTCustomColoredAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF777341A32493E003E9513 /* DTCustomColoredAccessory.m */; };
 		CEF7A65A1C5B0A5800EB0059 /* monologueListID.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF7A6591C5B0A5800EB0059 /* monologueListID.plist */; };
 		CEFC85A219CA3246003739D7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFC85A119CA3246003739D7 /* EditViewController.m */; };
@@ -117,7 +117,6 @@
 		CEC9AA191A140BA100ECC830 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		CEC9AA1B1A144C2500ECC830 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		CEC9AA1C1A144C2500ECC830 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
-		CED35AEF1C5F03D600496BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		CEE18365195DC11D00FA14BA /* Yorick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yorick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE18368195DC11D00FA14BA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CEE1836A195DC11D00FA14BA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,6 +138,7 @@
 		CEE18399195DC11D00FA14BA /* monologuesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = monologuesTests.m; sourceTree = "<group>"; };
 		CEEB728E1C57FAEA0018BC00 /* monologueListOLD.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueListOLD.plist; sourceTree = "<group>"; };
 		CEEB72961C5839AD0018BC00 /* monologueList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueList.plist; sourceTree = "<group>"; };
+		CEF3F1FE1E53FAE800242D04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		CEF777331A32493E003E9513 /* DTCustomColoredAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCustomColoredAccessory.h; sourceTree = "<group>"; };
 		CEF777341A32493E003E9513 /* DTCustomColoredAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCustomColoredAccessory.m; sourceTree = "<group>"; };
 		CEF7A6591C5B0A5800EB0059 /* monologueListID.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueListID.plist; sourceTree = "<group>"; };
@@ -307,7 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				CEE1837A195DC11D00FA14BA /* Main_iPhone.storyboard */,
-				CED35AEE1C5F03D500496BD4 /* Main_iPad.storyboard */,
+				CEF3F1FD1E53FAE800242D04 /* Main_iPad.storyboard */,
 				CEE18377195DC11D00FA14BA /* AppDelegate.h */,
 				CEE18378195DC11D00FA14BA /* AppDelegate.m */,
 				CE1D57DA1E4B6E2800BB3988 /* YorickStyle.h */,
@@ -439,7 +439,7 @@
 				CEEB728F1C57FAEA0018BC00 /* monologueListOLD.plist in Resources */,
 				CEE1837C195DC11D00FA14BA /* Main_iPhone.storyboard in Resources */,
 				CEE18373195DC11D00FA14BA /* InfoPlist.strings in Resources */,
-				CED35AF01C5F03D600496BD4 /* Main_iPad.storyboard in Resources */,
+				CEF3F1FF1E53FAE800242D04 /* Main_iPad.storyboard in Resources */,
 				CEF7A65A1C5B0A5800EB0059 /* monologueListID.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,14 +504,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CED35AEE1C5F03D500496BD4 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CED35AEF1C5F03D600496BD4 /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
 		CEE18371195DC11D00FA14BA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -534,6 +526,14 @@
 				CEE18397195DC11D00FA14BA /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CEF3F1FD1E53FAE800242D04 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEF3F1FE1E53FAE800242D04 /* Base */,
+			);
+			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -21,6 +21,9 @@
 #define monologueTags 2
 #define monologueRelated 3
 
+#define IDIOM    UI_USER_INTERFACE_IDIOM()
+#define IPAD     UIUserInterfaceIdiomPad
+
 @interface MonologueViewController ()
 
 @end
@@ -362,8 +365,11 @@
             [self configureCell:self.prototypeCellText forRowAtIndexPath:indexPath];
             [self.prototypeCellText layoutIfNeeded];
             size = [self.prototypeCellText.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            NSLog(@"monologueText size.height is %f",size.height);
-            NSLog(@"monologueText size.width is %f",size.width);
+            
+            // *** iPad code
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+                size.height *= 0.5;
+            }
             break;
         case monologueNotes:
             [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];

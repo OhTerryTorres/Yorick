@@ -200,6 +200,9 @@
             [self configureCell:self.prototypeCellText forRowAtIndexPath:indexPath];
             [self.prototypeCellText layoutIfNeeded];
             size = [self.prototypeCellText .contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+                size.height *= 0.5;
+            }
             break;
         case monologueNotes:
             [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
