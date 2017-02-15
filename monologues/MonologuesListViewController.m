@@ -93,9 +93,9 @@
 
 -(void)updateDisplayArrayForFilters {
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
-        self.dataService.displayArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:self.searchController.searchBar.text];
+        self.dataService.displayArray = [[self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:self.searchController.searchBar.text] mutableCopy];
     } else {
-        self.dataService.displayArray = [self.manager filterMonologuesForSettings:self.manager.monologues];
+        self.dataService.displayArray = [[self.manager filterMonologuesForSettings:self.manager.monologues] mutableCopy];
     }
 }
 
@@ -125,7 +125,7 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *searchString = searchController.searchBar.text;
-        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        NSArray *tempArray = [[NSArray alloc] init];
         // Check if the user cancelled or deleted the search term so we can display the full list instead.
         if (![searchString isEqualToString:@""]) {
             tempArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:searchString];
@@ -136,7 +136,7 @@
             self.dataService.searchActive = FALSE;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.dataService.displayArray = tempArray;
+            self.dataService.displayArray = [tempArray mutableCopy];
             [self.tableView reloadData];
             [self setHeaderTitle];
         });

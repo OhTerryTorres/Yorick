@@ -463,17 +463,16 @@
         // gray
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
-        [self.manager.favoriteMonologues removeObject:self.currentMonologue];
-        if ( [self.manager.editedMonologues containsObject:[self.manager getEditedMonologueForIDNumber:self.currentMonologue.idNumber]] ) {
-            [self.manager.editedMonologues removeObject:self.currentMonologue];
-        }
+        // This makes it so that a monologue can be removed from Digs in both the Digs and Boneyard screen.
+        [self.manager.favoriteMonologues removeObject:[self.manager getFavoritesMonologueForIDNumber:self.currentMonologue.idNumber]];
         
         PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Removed from Digs"];
         [self.tabBarController.view addSubview:popUp];
     } else {
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
-        [self.manager.favoriteMonologues addObject:self.currentMonologue];
+        Monologue *favoriteMonologue = [self.currentMonologue copy];
+        [self.manager.favoriteMonologues addObject:favoriteMonologue];
         
         PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Added to Digs"];
         [self.tabBarController.view addSubview:popUp];

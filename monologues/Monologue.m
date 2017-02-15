@@ -81,4 +81,28 @@
 }
 
 
+-(id) copyWithZone: (NSZone *) zone
+{
+    Monologue *copy = [[Monologue allocWithZone: zone] init];
+    
+    copy.idNumber = self.idNumber;
+    copy.title = self.title;
+    copy.sortTitle = self.title;
+    copy.sortTitle = self.sortTitle;
+    copy.authorFirst = self.authorFirst;
+    copy.authorLast = self.authorLast;
+    copy.character = self.character;
+    copy.text = self.text;
+    
+    copy.gender = self.gender;
+    copy.tone = self.tone;
+    copy.period = self.period;
+    copy.age = self.age;
+    copy.length = self.length;
+    copy.notes = self.notes;
+    copy.tags = self.tags;
+    
+    return copy;
+}
+
 @end

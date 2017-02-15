@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "YorickStyle.h"
+#import "MonologueViewController.h"
 
 @interface EditViewController : UIViewController <UITextViewDelegate> {
     UIEdgeInsets noteTextViewInsets;

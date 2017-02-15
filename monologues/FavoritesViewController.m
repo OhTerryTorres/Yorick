@@ -27,7 +27,7 @@
 -(void)updateDisplayArrayForFilters {
     NSLog(@"Filtering based on searchString");
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
-        self.dataService.displayArray = [self.manager filterMonologues: self.manager.favoriteMonologues forSearchString:self.searchController.searchBar.text];
+        self.dataService.displayArray = [[self.manager filterMonologues: self.manager.favoriteMonologues forSearchString:self.searchController.searchBar.text] mutableCopy];
     } else {
         self.dataService.displayArray = self.manager.favoriteMonologues;
     }
@@ -50,7 +50,7 @@
         // Check if the user cancelled or deleted the search term so we can display the full list instead.
         if (![searchString isEqualToString:@""]) {
             [self.dataService.displayArray removeAllObjects];
-            self.dataService.displayArray = [self.manager filterMonologues:self.manager.favoriteMonologues forSearchString:searchString];
+            self.dataService.displayArray = [[self.manager filterMonologues:self.manager.favoriteMonologues forSearchString:searchString] mutableCopy];
             self.dataService.searchActive = TRUE;
         }
         else {

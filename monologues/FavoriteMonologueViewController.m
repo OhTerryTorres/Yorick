@@ -53,7 +53,7 @@
         self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
         [self compileRelatedMonologuesfromArrayOfMonologues: self.detailsDataSource];
         self.detailsDataSource = [[NSArray alloc] initWithArray:tempSource];
-        [self retrieveEditedMonologue];
+        [self setUpEditOptions];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [self loadHeaderTitle];
@@ -70,10 +70,9 @@
 }
 
 // This also alters available edit options
--(void)retrieveEditedMonologue {
-    Monologue* editedMonologue = [self.manager getEditedMonologueForIDNumber:self.currentMonologue.idNumber];
-    if ( editedMonologue != nil ) {
-        self.currentMonologue = editedMonologue;
+-(void)setUpEditOptions {
+    Monologue* comparativeMonologue = [self.manager getMonologueForIDNumber:self.currentMonologue.idNumber];
+    if ( ![comparativeMonologue.text isEqualToString:self.currentMonologue.text] ) {
         self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", @"Restore", nil];
     } else {
         self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", nil];
@@ -337,7 +336,6 @@
 // Restore monologue to default.
 
 -(void)restoreMonologue {
-    [self.manager.editedMonologues removeObject:self.currentMonologue];
     self.currentMonologue = [self.manager getMonologueForIDNumber:self.currentMonologue.idNumber];
     
     self.editArray = nil;
