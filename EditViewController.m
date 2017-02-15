@@ -152,7 +152,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ( [segue.identifier isEqualToString:@"saveEdit"] ) {
-        Monologue *editedMonologue = [[Monologue alloc] initWithidNumber:[self.currentMonologue.idNumber intValue] title:self.currentMonologue.title authorFirst:self.currentMonologue.authorFirst authorLast:self.currentMonologue.authorLast character:self.currentMonologue.character text:self.textView.text gender:self.currentMonologue.gender tone:self.currentMonologue.tone period:self.currentMonologue.period age:self.currentMonologue.age length:self.currentMonologue.length notes:self.currentMonologue.notes tags:self.currentMonologue.tags];
+        Monologue *editedMonologue = [[Monologue alloc] initWithidNumber: self.currentMonologue.idNumber title:self.currentMonologue.title authorFirst:self.currentMonologue.authorFirst authorLast:self.currentMonologue.authorLast character:self.currentMonologue.character text:self.textView.text gender:self.currentMonologue.gender tone:self.currentMonologue.tone period:self.currentMonologue.period age:self.currentMonologue.age length:self.currentMonologue.length notes:self.currentMonologue.notes tags:self.currentMonologue.tags];
         int index = [self.manager getIndexOfEditedMonologueByTitle:self.currentMonologue.title];
         if (index > -1) { // if index is -1, the monologue was not found.
             self.manager.editedMonologues[index] = editedMonologue;

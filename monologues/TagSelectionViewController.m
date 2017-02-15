@@ -196,7 +196,7 @@
         strURL = [strURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
         [request setHTTPMethod:@"POST"];
-        NSString *body = [NSString stringWithFormat:@"{\"id\":\"%@\",\"uuid\":\"%@\",\"age\":\"%@\",\"authorFirst\":\"%@\",\"authorLast\":\"%@\",\"character\":\"%@\",\"gender\":\"%@\",\"length\":\"%@\",\"notes\":\"%@\",\"period\":\"%@\",\"text\":\"%@\",\"title\":\"%@\",\"tags\":\"%@\",\"tone\":\"%@\"}",self.currentMonologue.idNumber,uuid,self.currentMonologue.age,self.currentMonologue.authorFirst,self.currentMonologue.authorLast,self.currentMonologue.character,self.currentMonologue.gender,self.currentMonologue.length,safeNotes,self.currentMonologue.period,safeText,safeTitle,self.currentMonologue.tags,self.currentMonologue.tone];
+        NSString *body = [NSString stringWithFormat:@"{\"id\":\"%d\",\"uuid\":\"%@\",\"age\":\"%@\",\"authorFirst\":\"%@\",\"authorLast\":\"%@\",\"character\":\"%@\",\"gender\":\"%@\",\"length\":\"%@\",\"notes\":\"%@\",\"period\":\"%@\",\"text\":\"%@\",\"title\":\"%@\",\"tags\":\"%@\",\"tone\":\"%@\"}",self.currentMonologue.idNumber,uuid,self.currentMonologue.age,self.currentMonologue.authorFirst,self.currentMonologue.authorLast,self.currentMonologue.character,self.currentMonologue.gender,self.currentMonologue.length,safeNotes,self.currentMonologue.period,safeText,safeTitle,self.currentMonologue.tags,self.currentMonologue.tone];
         [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
         
         self.tableView.userInteractionEnabled = NO;

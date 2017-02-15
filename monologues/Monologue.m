@@ -11,7 +11,7 @@
 @implementation Monologue
 
 -(id)initWithidNumber:(int)idNumber title:(NSString*)title authorFirst:(NSString*)authorFirst authorLast:(NSString*)authorLast character:(NSString*)character text:(NSString*)text  gender:(NSString*)gender tone:(NSString*)tone period:(NSString*)period age:(NSString*)age length:(NSString*)length notes:(NSString*)notes tags:(NSString*)tags{
-    self.idNumber = [NSString stringWithFormat:@"%d",idNumber];
+    self.idNumber = idNumber;
     self.title = title;
     self.sortTitle = title;
     if ( [title hasPrefix:@"The "] ){

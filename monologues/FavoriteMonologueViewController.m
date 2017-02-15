@@ -34,13 +34,13 @@
 - (IBAction)cancelEdit:(UIStoryboardSegue *)segue {}
 - (IBAction)saveEdit:(UIStoryboardSegue *)segue {
     PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Monolouge Updated"];
-    [self.navigationController.view addSubview:popUp];
+    [self.tabBarController.view addSubview:popUp];
 }
 - (IBAction)cancelTag:(UIStoryboardSegue *)segue {}
 - (IBAction)saveTag:(UIStoryboardSegue *)segue {
     [self.tableView reloadData];
     PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Tags Updated"];
-    [self.navigationController.view addSubview:popUp];
+    [self.tabBarController.view addSubview:popUp];
 }
 
 
@@ -71,7 +71,7 @@
 
 // This also alters available edit options
 -(void)retrieveEditedMonologue {
-    Monologue* editedMonologue = [self.manager getEditedMonologueForTitle:self.currentMonologue.title];
+    Monologue* editedMonologue = [self.manager getEditedMonologueForIDNumber:self.currentMonologue.idNumber];
     if ( editedMonologue != nil ) {
         self.currentMonologue = editedMonologue;
         self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", @"Restore", nil];
@@ -304,7 +304,7 @@
          
          int i = 0;
          for (Monologue* monologue in mvc.detailsDataSource) {
-             if( [monologue.title isEqualToString:passedMonologue.title]) {
+             if( monologue.idNumber == passedMonologue.idNumber ) {
                  mvc.detailIndex = i;
                  break;
              }
@@ -338,14 +338,14 @@
 
 -(void)restoreMonologue {
     [self.manager.editedMonologues removeObject:self.currentMonologue];
-    self.currentMonologue = [self.manager getMonologueForTitle:self.currentMonologue.title];
+    self.currentMonologue = [self.manager getMonologueForIDNumber:self.currentMonologue.idNumber];
     
     self.editArray = nil;
     self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", nil];
     [self maintainView];
     
     PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Monologue Restored"];
-    [self.navigationController.view addSubview:popUp];
+    [self.tabBarController.view addSubview:popUp];
 }
 
 

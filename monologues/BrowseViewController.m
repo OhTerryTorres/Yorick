@@ -130,7 +130,7 @@
                                        NSLog(@"Connection complete");
                                        
                                        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Library Updated"];
-                                       [self.navigationController.view addSubview:popUp];
+                                       [self.tabBarController.view addSubview:popUp];
                                    }];
                                    
                                }}];

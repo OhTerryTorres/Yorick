@@ -11,7 +11,7 @@
 
 @interface Monologue : NSObject
 
-@property (nonatomic, copy) NSString *idNumber;
+@property (nonatomic) int idNumber;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *authorFirst;
 @property (nonatomic, copy) NSString *authorLast;

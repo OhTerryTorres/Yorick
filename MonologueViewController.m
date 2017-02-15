@@ -124,7 +124,7 @@
         comparativeMonologue.matches = matches;
         
         // This makes sure that the current monologue isn't added to the list
-        if ( ![comparativeMonologue.title isEqualToString:self.currentMonologue.title] ) {
+        if ( comparativeMonologue.idNumber != self.currentMonologue.idNumber ) {
             [self.relatedMonologues addObject:comparativeMonologue];
         }
         
@@ -441,7 +441,7 @@
 
 -(void)setFavoriteStatus {
     // Decides color of Favorite button
-    if ( [self.manager.favoriteMonologues containsObject:self.currentMonologue] || [self.manager.favoriteMonologues containsObject:[self.manager getFavoriteMonologueForTitle:self.currentMonologue.title]] || [self.manager.editedMonologues containsObject:[self.manager getEditedMonologueForTitle:self.currentMonologue.title]] ) {
+    if ( [self.manager monologueWithIDNumberIsInFavorites:self.currentMonologue.idNumber] ) {
         // Add image to button for normal state
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
@@ -459,24 +459,24 @@
 }
 
 -(void)addMonologueToFavorites {
-    if ( [self.manager.favoriteMonologues containsObject:self.currentMonologue] ) {
+    if ( [self.manager monologueWithIDNumberIsInFavorites:self.currentMonologue.idNumber] ) {
         // gray
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
         [self.manager.favoriteMonologues removeObject:self.currentMonologue];
-        if ( [self.manager.editedMonologues containsObject:self.currentMonologue] ) {
+        if ( [self.manager.editedMonologues containsObject:[self.manager getEditedMonologueForIDNumber:self.currentMonologue.idNumber]] ) {
             [self.manager.editedMonologues removeObject:self.currentMonologue];
         }
         
         PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Removed from Digs"];
-        [self.navigationController.view addSubview:popUp];
+        [self.tabBarController.view addSubview:popUp];
     } else {
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
         [self.manager.favoriteMonologues addObject:self.currentMonologue];
         
         PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Added to Digs"];
-        [self.navigationController.view addSubview:popUp];
+        [self.tabBarController.view addSubview:popUp];
     }
 }
 
@@ -639,16 +639,12 @@
 
 -(void)getNewDetailIndex {
     NSLog(@"self.detailDataSource.count is %lu",(unsigned long)self.detailsDataSource.count);
-    NSMutableArray *monologueTitles = [[NSMutableArray alloc] init];
-    
     int i = 0;
     
     while ( i < self.detailsDataSource.count ) {
         Monologue *monologue = self.detailsDataSource[i];
-        NSString *title = monologue.title;
-        [monologueTitles addObject:title];
-        
-        if ( [title isEqualToString:self.currentMonologue.title] ) {
+
+        if ( monologue.idNumber == self.currentMonologue.idNumber ) {
             self.detailIndex = i;
             NSLog(@"self.detailIndex is %lu",self.detailIndex);
         }
