@@ -274,6 +274,10 @@
     if ( indexPath.section == monologueTags) {
         NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
         cell.textLabel.text = currentTag;
+        // *** iPad code
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+            cell.textLabel.font = [UIFont systemFontOfSize:37];
+        }
         [cell.textLabel setTextColor:[YorickStyle color2]];
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
@@ -368,7 +372,6 @@
             [self configureCell:self.prototypeCellText forRowAtIndexPath:indexPath];
             [self.prototypeCellText layoutIfNeeded];
             size = [self.prototypeCellText.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            
             // *** iPad code
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
                 size.height *= 0.4;
@@ -377,10 +380,6 @@
         case monologueNotes:
             [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
             [self.prototypeCellNotes setNeedsLayout];
-            // *** iPad code OMGTB
-            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-                size.height *= 0.5;
-            }
             size = [self.prototypeCellNotes.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             
             break;
@@ -388,6 +387,10 @@
             [self configureCell:self.prototypeCellTags forRowAtIndexPath:indexPath];
             [self.prototypeCellTags layoutIfNeeded];
             size = [self.prototypeCellTags.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            // *** iPad code
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+                size.height *= 2;
+            }
             break;
         default:
             size.height = [self.tableView rowHeight];

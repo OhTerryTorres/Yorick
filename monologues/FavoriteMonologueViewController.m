@@ -161,6 +161,10 @@
     if ( indexPath.section == monologueTags ) {
         NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
         cell.textLabel.text = currentTag;
+        // *** iPad code
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+            cell.textLabel.font = [UIFont systemFontOfSize:37];
+        }
         [cell.textLabel setTextColor:[YorickStyle color2]];
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
@@ -171,6 +175,10 @@
     } else if ( indexPath.section == monologueEdit ) {
         NSString *currentEdit = [self.editArray objectAtIndex:indexPath.row];
         cell.textLabel.text = currentEdit;
+        // *** iPad code
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+            cell.textLabel.font = [UIFont systemFontOfSize:37];
+        }
         [cell.textLabel setTextColor:[YorickStyle color2]];
 
         cell.userInteractionEnabled = YES;
@@ -200,22 +208,32 @@
             [self configureCell:self.prototypeCellText forRowAtIndexPath:indexPath];
             [self.prototypeCellText layoutIfNeeded];
             size = [self.prototypeCellText .contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            // *** iPad code
             if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
                 size.height *= 0.5;
             }
             break;
         case monologueNotes:
             [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
-            [self.prototypeCellNotes layoutIfNeeded];
+            [self.prototypeCellNotes setNeedsLayout];
             size = [self.prototypeCellNotes.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+
             break;
         case monologueTags:
             [self configureCell:self.prototypeCellTags forRowAtIndexPath:indexPath];
             [self.prototypeCellTags layoutIfNeeded];
             size = [self.prototypeCellTags.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            // *** iPad code
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+                size.height *= 2;
+            }
             break;
         case monologueEdit:
             size = [self.prototypeCellEdit.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            // *** iPad code
+            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+                size.height *= 2;
+            }
             //Attemp to keep a buffer zone at the bottom.
             size.height += (size.height*.1);
             break;
