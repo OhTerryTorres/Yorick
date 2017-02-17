@@ -217,7 +217,6 @@
             [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
             [self.prototypeCellNotes setNeedsLayout];
             size = [self.prototypeCellNotes.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-
             break;
         case monologueTags:
             [self configureCell:self.prototypeCellTags forRowAtIndexPath:indexPath];
