@@ -23,6 +23,12 @@
 {
     // Initialization code
     [super awakeFromNib];
+    
+    self.cellTextLabel.font = [YorickStyle defaultFont];
+    self.cellNotesLabel.font = [YorickStyle defaultFont];
+    self.cellTagsLabel.font = [YorickStyle defaultFont];
+    self.cellTitleLabel.font = [YorickStyle defaultFont];
+    self.cellCharacterLabel.font = [YorickStyle defaultFontOfSize:16];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

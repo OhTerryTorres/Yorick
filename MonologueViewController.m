@@ -273,11 +273,8 @@
     
     if ( indexPath.section == monologueTags) {
         NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
+        cell.textLabel.font = [YorickStyle defaultFont];
         cell.textLabel.text = currentTag;
-        // *** iPad code
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-            cell.textLabel.font = [UIFont systemFontOfSize:37];
-        }
         [cell.textLabel setTextColor:[YorickStyle color2]];
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
@@ -313,23 +310,17 @@
         textCell.cellTextLabel.text = self.currentMonologue.text;
         Setting *sizeSetting = self.manager.settings[3];
         NSString *textSizeString = sizeSetting.currentSetting;
-        int textSize = 17;
-        if ( [textSizeString isEqualToString:@"Normal"] ) {
-            textSize = 17;
-        }
+        CGFloat textSize = [YorickStyle defaultFontSize];
         if ( [textSizeString isEqualToString:@"Large"] ) {
-            textSize = 24;
+            textSize = [YorickStyle largeFontSize];
         }
         if ( [textSizeString isEqualToString:@"Very Large"] ) {
-            textSize = 31;
+            textSize = [YorickStyle veryLargeFontSize];
         }
         if ( [textSizeString isEqualToString:@"Largest"] ) {
-            textSize = 38;
+            textSize = [YorickStyle largestFontSize];
         }
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-            textSize *= 2;
-        }
-        textCell.cellTextLabel.font = [UIFont systemFontOfSize:textSize];
+        textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:textSize];
         // .font is defined here in cases of resizing, stylistic choices, etc
         textCell.cellNotesLabel.text = self.currentMonologue.notes;
         textCell.cellTitleLabel.text = self.currentMonologue.title;

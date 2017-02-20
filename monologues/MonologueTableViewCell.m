@@ -23,6 +23,10 @@
 {
     // Initialization code
     [super awakeFromNib];
+    
+    self.titleLabel.font = [YorickStyle defaultFontOfSize:20];
+    self.characterLabel.font = [YorickStyle defaultFontOfSize:14];
+    self.excerptLabel.font = [YorickStyle defaultFontOfSize:16];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -44,11 +44,7 @@
     self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0 + (self.view.frame.size.width * 0.03), self.headerPaddingView.frame.size.height+7, self.view.frame.size.width - (self.view.frame.size.width * 0.03), self.view.frame.size.height - (self.headerPaddingView.frame.size.height-7))];
     [self.textView setContentSize:CGSizeMake(self.textView.frame.size.width, self.textView.frame.size.height)];
     
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-        [self.textView setFont:[UIFont systemFontOfSize:34]];
-    } else {
-        [self.textView setFont:[UIFont systemFontOfSize:17]];
-    }
+    self.textView.font = [YorickStyle defaultFont];
     
     self.textView.text = self.currentMonologue.text;
     [self.view addSubview:self.textView];

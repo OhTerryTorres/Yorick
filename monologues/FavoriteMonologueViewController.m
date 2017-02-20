@@ -160,11 +160,8 @@
     // dealing with tags and edit section
     if ( indexPath.section == monologueTags ) {
         NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
+        cell.textLabel.font = [YorickStyle defaultFont];
         cell.textLabel.text = currentTag;
-        // *** iPad code
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-            cell.textLabel.font = [UIFont systemFontOfSize:37];
-        }
         [cell.textLabel setTextColor:[YorickStyle color2]];
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
@@ -174,11 +171,8 @@
         
     } else if ( indexPath.section == monologueEdit ) {
         NSString *currentEdit = [self.editArray objectAtIndex:indexPath.row];
+        cell.textLabel.font = [YorickStyle defaultFont];
         cell.textLabel.text = currentEdit;
-        // *** iPad code
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-            cell.textLabel.font = [UIFont systemFontOfSize:37];
-        }
         [cell.textLabel setTextColor:[YorickStyle color2]];
 
         cell.userInteractionEnabled = YES;
