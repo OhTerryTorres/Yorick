@@ -273,7 +273,6 @@
     
     if ( indexPath.section == monologueTags) {
         NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
-        cell.textLabel.font = [YorickStyle defaultFont];
         cell.textLabel.text = currentTag;
         [cell.textLabel setTextColor:[YorickStyle color2]];
         cell.userInteractionEnabled = YES;

@@ -59,6 +59,8 @@
         Setting *setting = self.manager.settings[i];
         
         setting.cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+        setting.cell.titleLabel.font = [YorickStyle defaultFontOfSize:20];
+        setting.cell.settingLabel.font = [YorickStyle defaultFontOfSize:20];
         setting.cell.titleLabel.text = [setting.title capitalizedString];
         setting.cell.settingLabel.text = setting.currentSetting;
         
@@ -90,7 +92,6 @@
 }
 
 
-#pragma mark: TableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -144,7 +145,26 @@
 
 #pragma mark: PickerView Methods
 
-// Picker Stuff
+
+#pragma mark: TableView Methods
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UILabel* label = (UILabel*)view;
+    if (!label){
+        label = [[UILabel alloc] init];
+        // Setup label properties - frame, font, colors etc
+        Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
+        label.text = setting.options[row];
+        label.textAlignment = NSTextAlignmentCenter;
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+            label.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize] / 2];
+        }
+    }
+    // Fill the label text here
+    
+    return label;
+}
+
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     //One column
@@ -160,14 +180,6 @@
     Setting *setting =  [self.manager.settings objectAtIndex:pickerView.tag];
         
     return setting.options.count;
-}
-
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    //set item per row
-    
-    Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
-    return setting.options[row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {

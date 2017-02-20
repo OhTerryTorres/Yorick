@@ -10,6 +10,7 @@
 		CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */; };
 		CE08FD441E521A9800A067EE /* PopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08FD431E521A9800A067EE /* PopUpView.m */; };
 		CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */; };
+		CE2BCA321E5BB010002E4C10 /* UIFont+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */; };
 		CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C11E382FF5009E6871 /* MonologueDataService.m */; };
 		CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C41E38304F009E6871 /* MonologueManager.m */; };
 		CE3FAAA51AEAD862008C28CB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA41AEAD862008C28CB /* CFNetwork.framework */; };
@@ -82,6 +83,8 @@
 		CE08FD431E521A9800A067EE /* PopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopUpView.m; sourceTree = "<group>"; };
 		CE1D57DA1E4B6E2800BB3988 /* YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YorickStyle.h; sourceTree = "<group>"; };
 		CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YorickStyle.m; sourceTree = "<group>"; };
+		CE2BCA301E5BB010002E4C10 /* UIFont+YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+YorickStyle.h"; sourceTree = "<group>"; };
+		CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+YorickStyle.m"; sourceTree = "<group>"; };
 		CE3801C01E382FF5009E6871 /* MonologueDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueDataService.h; sourceTree = "<group>"; };
 		CE3801C11E382FF5009E6871 /* MonologueDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonologueDataService.m; sourceTree = "<group>"; };
 		CE3801C31E38304F009E6871 /* MonologueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueManager.h; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				CEB00BF7196B72C30006B03F /* UYLTextCell.m */,
 				CE08FD421E521A9800A067EE /* PopUpView.h */,
 				CE08FD431E521A9800A067EE /* PopUpView.m */,
+				CE2BCA301E5BB010002E4C10 /* UIFont+YorickStyle.h */,
+				CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -460,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE18379195DC11D00FA14BA /* AppDelegate.m in Sources */,
+				CE2BCA321E5BB010002E4C10 /* UIFont+YorickStyle.m in Sources */,
 				CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */,
 				CEB00BF5196B3FA50006B03F /* MonologueViewController.m in Sources */,
 				CEAAE3191AB863390006CF95 /* Setting.m in Sources */,
