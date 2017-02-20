@@ -81,6 +81,10 @@
         setting.cell.pickerView.tag = i;
         setting.maintainFrame = setting.cell.pickerView.frame;
         
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+            [self pickerCellShow:setting];
+        }
+        
         i++;
     }
 }
@@ -151,7 +155,7 @@
 {
     //set number of rows
     
-    // Get writting the setting object by referring to the tag of the current pickerView,
+    // Get writing the setting object by referring to the tag of the current pickerView,
     // which we generated in the while loop back at loadsettings
     Setting *setting =  [self.manager.settings objectAtIndex:pickerView.tag];
         
@@ -167,8 +171,6 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    //
-    // There could be some confustion as to when to use "picker" or "setting.picker" here
     
     Setting *setting = self.manager.settings[pickerView.tag];
     setting.currentSetting = [setting.options objectAtIndex:[pickerView selectedRowInComponent:0]];
@@ -185,10 +187,7 @@
     
     CGRect rect = setting.maintainFrame;
     
-    // This makes sure that the picker is wide enough for iPad.
     rect.size.width = self.view.frame.size.width;
-    
-    //rect.size.height = rect.size.height * 3;
     rect.origin.y += 22;
     
     setting.cell.pickerView.frame = rect;
@@ -205,19 +204,21 @@
 }
 - (void)pickerCellHide:(Setting*)setting {
     
-    setting.cell.colored = NO;
-    setting.pickerCellIsShowing = NO;
-    [setting.cell.pickerView removeFromSuperview];
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
-    
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         setting.cell.pickerView.alpha = 0.0f;
-                     }
-                     completion:^(BOOL finished){
-                         setting.cell.pickerView.hidden = YES;
-                     }];
+    if ([UIDevice currentDevice].userInterfaceIdiom != UIUserInterfaceIdiomPad ) {
+        setting.cell.colored = NO;
+        setting.pickerCellIsShowing = NO;
+        [setting.cell.pickerView removeFromSuperview];
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+        
+        [UIView animateWithDuration:0.25
+                         animations:^{
+                             setting.cell.pickerView.alpha = 0.0f;
+                         }
+                         completion:^(BOOL finished){
+                             setting.cell.pickerView.hidden = YES;
+                         }];
+    }
     
 }
 

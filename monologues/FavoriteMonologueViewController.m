@@ -207,16 +207,17 @@
         case monologueText:
             [self configureCell:self.prototypeCellText forRowAtIndexPath:indexPath];
             [self.prototypeCellText layoutIfNeeded];
-            size = [self.prototypeCellText .contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [self.prototypeCellText.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             // *** iPad code
-            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-                size.height *= 0.5;
-            }
+            //if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+            //    size.height *= 0.5;
+            //}
             break;
         case monologueNotes:
             [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
             [self.prototypeCellNotes setNeedsLayout];
             size = [self.prototypeCellNotes.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            
             break;
         case monologueTags:
             [self configureCell:self.prototypeCellTags forRowAtIndexPath:indexPath];

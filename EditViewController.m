@@ -39,14 +39,21 @@
 }
 
 -(void)setUpTextView {
-    self.textView.text = self.currentMonologue.text;
     
     // All this is going to help us fit the text onto the screen, prep it for editing mode, and have it appear where it's supposed it.
-    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0,0,self.textView.superview.frame.size.width,self.textView.superview.frame.size.height)];
+    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0 + (self.view.frame.size.width * 0.03), self.headerPaddingView.frame.size.height+7, self.view.frame.size.width - (self.view.frame.size.width * 0.03), self.view.frame.size.height - (self.headerPaddingView.frame.size.height-7))];
     [self.textView setContentSize:CGSizeMake(self.textView.frame.size.width, self.textView.frame.size.height)];
     
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
+        [self.textView setFont:[UIFont systemFontOfSize:34]];
+    } else {
+        [self.textView setFont:[UIFont systemFontOfSize:17]];
+    }
+    
+    self.textView.text = self.currentMonologue.text;
+    [self.view addSubview:self.textView];
     CGRect frame = self.textView.frame;
-    frame.size.height = self.textView.contentSize.height;
+    //frame.size.height = self.textView.contentSize.height;
     self.textView.frame = frame;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -120,13 +127,7 @@
     bkgndRect.size.height += kbFrame.size.height;
     [self.textView.superview setFrame:bkgndRect];
     
-    [self.textView setContentInset:UIEdgeInsetsMake((self.textView.contentInset.top), self.textView.contentInset.left, (self.textView.contentInset.bottom + kbFrame.size.height), self.textView.contentInset.right)];
-
-    
-    // Let's see how this goes
-    UIEdgeInsets insets = self.textView.scrollIndicatorInsets;
-    insets.bottom += kbFrame.size.height;
-    self.textView.scrollIndicatorInsets = insets;
+    [self.textView setContentInset:UIEdgeInsetsMake((self.textView.contentInset.top), self.textView.contentInset.left, (self.textView.contentInset.bottom + kbFrame.size.height + (kbFrame.size.height * 0.04)), self.textView.contentInset.right)];
     
 }
 
