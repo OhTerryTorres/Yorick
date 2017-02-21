@@ -14,6 +14,7 @@
 #import "YorickStyle.h"
 #import "PopUpView.h"
 #import "TabBarController.h"
+#import "NotesTableViewCell.h"
 
 @interface MonologueViewController : UITableViewController
 
@@ -23,7 +24,7 @@
 
 @property (nonatomic) UYLTextCell *prototypeCellText;
 
-@property (nonatomic) UYLTextCell *prototypeCellNotes;
+@property (nonatomic) NotesTableViewCell *notesCell;
 
 @property (nonatomic) UYLTextCell *prototypeCellTags;
 

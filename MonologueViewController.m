@@ -57,7 +57,6 @@
     [self loadData];
     
     [self maintainView];
-    
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -246,28 +245,32 @@
 // Each section requires its own cell indentifier to start the process
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
     NSString *cellIdentifier;
     
     switch ( indexPath.section ) {
         case monologueText:
             cellIdentifier = @"UYLTextCellText";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             break;
         case monologueNotes:
-            cellIdentifier = @"UYLTextCellNotes";
+            self.notesCell = [tableView dequeueReusableCellWithIdentifier:@"notes"];
+            self.notesCell.titleLabel.text = self.currentMonologue.title;
+            self.notesCell.characterLabel.text = self.currentMonologue.character;
+            self.notesCell.notesLabel.text = self.currentMonologue.notes;
+            cell = self.notesCell;
             break;
         case monologueTags:
             cellIdentifier = @"UYLTextCellTags";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             break;
         case monologueRelated:
             cellIdentifier = @"related";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             break;
         default:
             break;
     }
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-
     
     if ( indexPath.section == monologueTags) {
         NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
@@ -309,17 +312,18 @@
         textCell.cellTextLabel.text = self.currentMonologue.text;
         Setting *sizeSetting = self.manager.settings[3];
         NSString *textSizeString = sizeSetting.currentSetting;
-        CGFloat textSize = [YorickStyle defaultFontSize];
+        if ( [textSizeString isEqualToString:@"Normal"] ) {
+            textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize]];
+        }
         if ( [textSizeString isEqualToString:@"Large"] ) {
-            textSize = [YorickStyle largeFontSize];
+            textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largeFontSize]];
         }
         if ( [textSizeString isEqualToString:@"Very Large"] ) {
-            textSize = [YorickStyle veryLargeFontSize];
+            textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle veryLargeFontSize]];
         }
         if ( [textSizeString isEqualToString:@"Largest"] ) {
-            textSize = [YorickStyle largestFontSize];
+            textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largestFontSize]];
         }
-        textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:textSize];
         // .font is defined here in cases of resizing, stylistic choices, etc
         textCell.cellNotesLabel.text = self.currentMonologue.notes;
         textCell.cellTitleLabel.text = self.currentMonologue.title;
@@ -360,15 +364,19 @@
     switch ( indexPath.section ) {
         case monologueText:
             [self configureCell:self.prototypeCellText forRowAtIndexPath:indexPath];
-            [self.prototypeCellText layoutIfNeeded];
+            [self.prototypeCellText.contentView setNeedsLayout];
+            [self.prototypeCellText.contentView layoutIfNeeded];
+            [self.prototypeCellText setNeedsUpdateConstraints];
+            [self.prototypeCellText updateConstraintsIfNeeded];
+            self.prototypeCellText.cellTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
             size = [self.prototypeCellText.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
 
             break;
         case monologueNotes:
-            [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
-            [self.prototypeCellNotes setNeedsLayout];
-            size = [self.prototypeCellNotes.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            
+            [self.notesCell.contentView setNeedsLayout];
+            [self.notesCell.contentView layoutIfNeeded];
+            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
+            size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueTags:
             [self configureCell:self.prototypeCellTags forRowAtIndexPath:indexPath];
@@ -402,13 +410,13 @@
     return _prototypeCellText;
 }
 
-- (UYLTextCell *)prototypeCellNotes
+- (NotesTableViewCell *)notesCell
 {
-    if (!_prototypeCellNotes)
+    if (!_notesCell)
     {
-        _prototypeCellNotes = [self.tableView dequeueReusableCellWithIdentifier:@"UYLTextCellNotes"];
+        _notesCell = [self.tableView dequeueReusableCellWithIdentifier:@"notes"];
     }
-    return _prototypeCellNotes;
+    return _notesCell;
 }
 
 - (UYLTextCell *)prototypeCellTags

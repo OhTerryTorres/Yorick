@@ -141,7 +141,7 @@
             cellIdentifier = @"UYLTextCellText";
             break;
         case monologueNotes:
-            cellIdentifier = @"UYLTextCellNotes";
+            cellIdentifier = @"notes";
             break;
         case monologueTags:
             cellIdentifier = @"UYLTextCellTags";
@@ -208,9 +208,9 @@
             //}
             break;
         case monologueNotes:
-            [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
-            [self.prototypeCellNotes setNeedsLayout];
-            size = [self.prototypeCellNotes.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            [self configureCell:self.notesCell forRowAtIndexPath:indexPath];
+            [self.notesCell setNeedsLayout];
+            size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             
             break;
         case monologueTags:

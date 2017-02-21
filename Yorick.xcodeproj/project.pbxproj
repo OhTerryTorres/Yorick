@@ -12,6 +12,7 @@
 		CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */; };
 		CE2BCA321E5BB010002E4C10 /* UIFont+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */; };
 		CE2BCA381E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA371E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.m */; };
+		CE2BCA3B1E5BE0E0002E4C10 /* NotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */; };
 		CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C11E382FF5009E6871 /* MonologueDataService.m */; };
 		CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C41E38304F009E6871 /* MonologueManager.m */; };
 		CE3FAAA51AEAD862008C28CB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA41AEAD862008C28CB /* CFNetwork.framework */; };
@@ -88,6 +89,8 @@
 		CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+YorickStyle.m"; sourceTree = "<group>"; };
 		CE2BCA361E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableViewCell+YorickStyle.h"; path = "../UITableViewCell+YorickStyle.h"; sourceTree = "<group>"; };
 		CE2BCA371E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+YorickStyle.m"; path = "../UITableViewCell+YorickStyle.m"; sourceTree = "<group>"; };
+		CE2BCA391E5BE0E0002E4C10 /* NotesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesTableViewCell.h; sourceTree = "<group>"; };
+		CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewCell.m; sourceTree = "<group>"; };
 		CE3801C01E382FF5009E6871 /* MonologueDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueDataService.h; sourceTree = "<group>"; };
 		CE3801C11E382FF5009E6871 /* MonologueDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonologueDataService.m; sourceTree = "<group>"; };
 		CE3801C31E38304F009E6871 /* MonologueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueManager.h; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				CEAAE3251AB9F7840006CF95 /* MonologueTableViewCell.m */,
 				CEC1C9F219BE406500D5B197 /* SettingTableViewCell.h */,
 				CEC1C9F319BE406500D5B197 /* SettingTableViewCell.m */,
+				CE2BCA391E5BE0E0002E4C10 /* NotesTableViewCell.h */,
+				CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */,
 				CEF777331A32493E003E9513 /* DTCustomColoredAccessory.h */,
 				CEF777341A32493E003E9513 /* DTCustomColoredAccessory.m */,
 				CEB00BF6196B72C30006B03F /* UYLTextCell.h */,
@@ -490,6 +495,7 @@
 				CEAAE3261AB9F7840006CF95 /* MonologueTableViewCell.m in Sources */,
 				CEAAE3231AB866C60006CF95 /* SettingsViewController.m in Sources */,
 				CEB52851197573DE0053176B /* FavoritesViewController.m in Sources */,
+				CE2BCA3B1E5BE0E0002E4C10 /* NotesTableViewCell.m in Sources */,
 				CEFC85A219CA3246003739D7 /* EditViewController.m in Sources */,
 				CEC9AA1A1A140BA100ECC830 /* TabBarController.m in Sources */,
 				CEA0FFBB1976EF97004626F1 /* FavoriteMonologueViewController.m in Sources */,
