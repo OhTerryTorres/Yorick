@@ -165,7 +165,9 @@
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
         Monologue *currentMonologue = [self getRelatedMonologueForIndexPath:indexPath];
-        
+        if ([currentMonologue.title isEqualToString:@"No related monologues"]) {
+            currentMonologue.cell.userInteractionEnabled = false;
+        }
         return currentMonologue.cell;
         
     } else if ( indexPath.section == monologueEdit ) {

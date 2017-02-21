@@ -25,5 +25,12 @@
 }
 
 
+- (void)awakeFromNib
+{
+    // Initialization code
+    [super awakeFromNib];
+    self.titleLabel.font = [YorickStyle defaultFont];
+    self.settingLabel.font = [YorickStyle defaultFont];
 
+}
 @end

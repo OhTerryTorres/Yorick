@@ -59,8 +59,6 @@
         Setting *setting = self.manager.settings[i];
         
         setting.cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
-        setting.cell.titleLabel.font = [YorickStyle defaultFontOfSize:20];
-        setting.cell.settingLabel.font = [YorickStyle defaultFontOfSize:20];
         setting.cell.titleLabel.text = [setting.title capitalizedString];
         setting.cell.settingLabel.text = setting.currentSetting;
         

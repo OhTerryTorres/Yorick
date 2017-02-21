@@ -21,9 +21,6 @@
 #define monologueTags 2
 #define monologueRelated 3
 
-#define IDIOM    UI_USER_INTERFACE_IDIOM()
-#define IPAD     UIUserInterfaceIdiomPad
-
 @interface MonologueViewController ()
 
 @end
@@ -158,6 +155,7 @@
         nullMonologue.authorLast = @"monologue, anyway";
         nullMonologue.text =@"Go figure";
         [self.relatedMonologues addObject:nullMonologue];
+        nullMonologue.cell.userInteractionEnabled = FALSE;
     }
 }
 
@@ -278,7 +276,9 @@
         cell.userInteractionEnabled = YES;
     } else if ( indexPath.section == monologueRelated ) {
         Monologue *currentMonologue = [self getRelatedMonologueForIndexPath:indexPath];
-        
+        if ([currentMonologue.title isEqualToString:@"No related monologues"]) {
+            currentMonologue.cell.userInteractionEnabled = false;
+        }
         return currentMonologue.cell;
     } else {
         [self configureCell:cell forRowAtIndexPath:indexPath];
@@ -362,10 +362,7 @@
             [self configureCell:self.prototypeCellText forRowAtIndexPath:indexPath];
             [self.prototypeCellText layoutIfNeeded];
             size = [self.prototypeCellText.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            // *** iPad code
-            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-                size.height *= 0.4;
-            }
+
             break;
         case monologueNotes:
             [self configureCell:self.prototypeCellNotes forRowAtIndexPath:indexPath];
@@ -587,59 +584,42 @@
 }
 
 -(void)monologueTransitionForIndexPath:(NSIndexPath*)indexPath {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    CGRect homeFrame = self.view.frame;
+    // Bring it off screen.
     [UIView animateWithDuration:0.20
                      animations: ^{
                          // Animate the views on and off the screen.
-                         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-                         cell.frame = CGRectMake(-cell.frame.size.width, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.height);
-                         cell.alpha = 0.0f;
-                     } completion:^(BOOL finished) {
-                         // Disable interaction to avoid glitching
-                         self.tabBarController.view.userInteractionEnabled = NO;
-                         CGRect homeFrame = self.view.frame;
-                         UIView* backView;
-                         backView.frame = self.view.frame;
-                         backView.backgroundColor = [UIColor whiteColor];
-                         [self.view.superview addSubview:backView];
-                         [self.view.superview sendSubviewToBack:backView];
-                         
-                         // Bring it off screen.
-                         [UIView animateWithDuration:0.20
-                                          animations: ^{
-                                              // Animate the views on and off the screen.
-                                              [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-                                              //fromView.frame = CGRectMake(viewSize.size.width, viewSize.origin.y, viewSize.size.width, viewSize.size.height);
-                                              self.view.frame = CGRectMake(-self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-                                          }
-                                          completion:^(BOOL finished) {
-                                              if (finished) {
-                                                  [UIView animateWithDuration:0.01
+                         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+                         //fromView.frame = CGRectMake(viewSize.size.width, viewSize.origin.y, viewSize.size.width, viewSize.size.height);
+                         self.view.frame = CGRectMake(-self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished) {
+                             [UIView animateWithDuration:0.01
+                                              animations: ^{
+                                                  // Scroll to top
+                                                  // For some reason, this has to be an animation.
+                                                  [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                                                  
+                                              } completion:^(BOOL finished) {
+                                                  self.currentMonologue = [self.relatedMonologues objectAtIndex:indexPath.row];
+                                                  [self getNewDetailIndex];
+                                                  
+                                                  [self loadData];
+                                                  
+                                                  self.view.frame = CGRectMake(self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+                                                  [UIView animateWithDuration:0.20
                                                                    animations: ^{
-                                                                       // Scroll to top
-                                                                       // For some reason, this has to be an animation.
-                                                                       [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                                                                       // Animate the views on and off the screen.
+                                                                       [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+                                                                       self.view.frame = homeFrame;
                                                                        
                                                                    } completion:^(BOOL finished) {
-                                                                       self.currentMonologue = [self.relatedMonologues objectAtIndex:indexPath.row];
-                                                                       [self getNewDetailIndex];
-                                                                       
-                                                                       [self loadData];
-                                                                       
-                                                                       self.view.frame = CGRectMake(self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-                                                                       [UIView animateWithDuration:0.20
-                                                                                        animations: ^{
-                                                                                            // Animate the views on and off the screen.
-                                                                                            [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-                                                                                            self.view.frame = homeFrame;
-                                                                                            
-                                                                                        } completion:^(BOOL finished) {
-                                                                                            if (finished) {
-                                                                                                // Restore interaction.
-                                                                                                self.tabBarController.view.userInteractionEnabled = YES;
-                                                                                                //[self loadData];
-                                                                                            }}];}];}}];
-                     }];
+                                                                       if (finished) {
+                                                                           // Restore interaction.
+                                                                           self.tabBarController.view.userInteractionEnabled = YES;
+                                                                           //[self loadData];
+                                                                       }}];}];}}];
 }
 
 
