@@ -34,8 +34,10 @@
 #pragma mark: Display Setup
 
 -(void)setUpHeader {
+    self.headerPaddingView.tintColor = [YorickStyle color1];
     self.headerPaddingView.backgroundColor = [YorickStyle color2];
     self.editNavigationBar.tintColor = [YorickStyle color1];
+    self.editNavigationBar.backgroundColor = [YorickStyle color2];
 }
 
 -(void)setUpTextView {

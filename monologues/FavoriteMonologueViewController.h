@@ -13,7 +13,7 @@
 
 @interface FavoriteMonologueViewController : MonologueViewController
 
-@property (nonatomic) UYLTextCell *prototypeCellEdit;
+@property (nonatomic) UITableViewCell *editCell;
 
 @property (nonatomic) NSArray *editArray;
 

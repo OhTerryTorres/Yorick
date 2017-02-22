@@ -10,11 +10,11 @@
 #import "Monologue.h"
 #import "MonologueManager.h"
 #import "MonologuesListViewController.h"
-#import "UYLTextCell.h"
 #import "YorickStyle.h"
 #import "PopUpView.h"
 #import "TabBarController.h"
 #import "NotesTableViewCell.h"
+#import "TextTableViewCell.h"
 
 @interface MonologueViewController : UITableViewController
 
@@ -22,13 +22,9 @@
 
 @property (nonatomic) NSMutableArray *relatedMonologues;
 
-@property (nonatomic) UYLTextCell *prototypeCellText;
-
+@property (nonatomic) TextTableViewCell *textCell;
 @property (nonatomic) NotesTableViewCell *notesCell;
-
-@property (nonatomic) UYLTextCell *prototypeCellTags;
-
-@property (nonatomic) MonologueTableViewCell *prototypeCellRelated;
+@property (nonatomic) UITableViewCell *tagCell;
 
 @property (nonatomic) NSArray *tagsArray;
 
@@ -40,7 +36,6 @@
 - (IBAction)favoriteButtonAction:(id)sender;
 
 @property (nonatomic) NSArray *detailsDataSource;
-
 @property unsigned long detailIndex;
 
 @property (weak, nonatomic) MonologueManager *manager;
@@ -54,9 +49,9 @@
 -(void)maintainView;
 -(void)passManagerToAppDelegate;
 -(Monologue*)getRelatedMonologueForIndexPath:(NSIndexPath*)indexPath;
-- (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 -(void)setFavoriteStatus;
 -(void)compileRelatedMonologuesfromArrayOfMonologues:(NSArray*)sourceMonologues;
 -(NSArray*)loadTagsIntoArray:(NSString*)tags;
+-(void)addTapGestureRecognizerToCell:(UITableViewCell*)cell;
 
 @end

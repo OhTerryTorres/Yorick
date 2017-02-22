@@ -18,18 +18,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tabBarController.tabBar.userInteractionEnabled = YES;
-
 }
 
 -(void)awakeFromNib {
     [super awakeFromNib];
     
-    [[UINavigationBar appearance] setBarTintColor:[YorickStyle color2]];
-    [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName: [YorickStyle color1],}];
-    
     // This changes the color of the back button item, and possibly other items.
     [self.navigationBar setTintColor:[YorickStyle color1]];
-    //self.navigationBar.translucent = NO;
 
     
 }

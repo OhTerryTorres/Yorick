@@ -246,12 +246,31 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    NSString *cellIdentifier;
+    Setting *sizeSetting = self.manager.settings[3];
+    NSString *textSizeString = sizeSetting.currentSetting;
+    NSString *currentTag = @"";
+    Monologue *relatedMonologue = [[Monologue alloc] init];
     
     switch ( indexPath.section ) {
         case monologueText:
-            cellIdentifier = @"UYLTextCellText";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            self.textCell = [tableView dequeueReusableCellWithIdentifier:@"text"];
+            if ( [textSizeString isEqualToString:@"Normal"] ) {
+                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize]];
+            }
+            if ( [textSizeString isEqualToString:@"Large"] ) {
+                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largeFontSize]];
+            }
+            if ( [textSizeString isEqualToString:@"Very Large"] ) {
+                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle veryLargeFontSize]];
+            }
+            if ( [textSizeString isEqualToString:@"Largest"] ) {
+                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largestFontSize]];
+            }
+            self.textCell.monologueTextLabel.numberOfLines = 0;
+            self.textCell.monologueTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            self.textCell.monologueTextLabel.text = self.currentMonologue.text;
+            cell = self.textCell;
+            [self addTapGestureRecognizerToCell:cell];
             break;
         case monologueNotes:
             self.notesCell = [tableView dequeueReusableCellWithIdentifier:@"notes"];
@@ -259,35 +278,29 @@
             self.notesCell.characterLabel.text = self.currentMonologue.character;
             self.notesCell.notesLabel.text = self.currentMonologue.notes;
             cell = self.notesCell;
+            [self addTapGestureRecognizerToCell:cell];
             break;
         case monologueTags:
-            cellIdentifier = @"UYLTextCellTags";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            self.tagCell = [tableView dequeueReusableCellWithIdentifier:@"tags"];
+            currentTag = [self.tagsArray objectAtIndex:indexPath.row];
+            self.tagCell.textLabel.text = currentTag;
+            [self.tagCell.textLabel setTextColor:[YorickStyle color2]];
+            self.tagCell.textLabel.userInteractionEnabled = YES;
+            cell = self.tagCell;
             break;
         case monologueRelated:
-            cellIdentifier = @"related";
-            cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            relatedMonologue = [self getRelatedMonologueForIndexPath:indexPath];
+            if ([relatedMonologue.title isEqualToString:@"No related monologues"]) {
+                relatedMonologue.cell.userInteractionEnabled = false;
+            }
+            cell = relatedMonologue.cell;
             break;
         default:
             break;
     }
-    
-    if ( indexPath.section == monologueTags) {
-        NSString *currentTag = [self.tagsArray objectAtIndex:indexPath.row];
-        cell.textLabel.text = currentTag;
-        [cell.textLabel setTextColor:[YorickStyle color2]];
-        cell.userInteractionEnabled = YES;
-    } else if ( indexPath.section == monologueRelated ) {
-        Monologue *currentMonologue = [self getRelatedMonologueForIndexPath:indexPath];
-        if ([currentMonologue.title isEqualToString:@"No related monologues"]) {
-            currentMonologue.cell.userInteractionEnabled = false;
-        }
-        return currentMonologue.cell;
-    } else {
-        [self configureCell:cell forRowAtIndexPath:indexPath];
-    }
 
     return cell;
+    
 }
 
 -(Monologue*)getRelatedMonologueForIndexPath:(NSIndexPath*)indexPath {
@@ -301,44 +314,11 @@
     return currentMonologue;
 }
 
-// This is used to populate each label in the table view, regardless of what cell its associated with.
-// This also makes sure the cell is of a custom table cell class (UYLTextCell).
-// This actually may not be the most efficient way of distributing the data across the appropriate cells,
-// (each cell seems to carry this information, whether or not each cell needs it) but it works.
-- (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ( [cell isKindOfClass:[UYLTextCell class]] ) {
-        UYLTextCell *textCell = (UYLTextCell *)cell;
-        textCell.cellTextLabel.text = self.currentMonologue.text;
-        Setting *sizeSetting = self.manager.settings[3];
-        NSString *textSizeString = sizeSetting.currentSetting;
-        if ( [textSizeString isEqualToString:@"Normal"] ) {
-            textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize]];
-        }
-        if ( [textSizeString isEqualToString:@"Large"] ) {
-            textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largeFontSize]];
-        }
-        if ( [textSizeString isEqualToString:@"Very Large"] ) {
-            textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle veryLargeFontSize]];
-        }
-        if ( [textSizeString isEqualToString:@"Largest"] ) {
-            textCell.cellTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largestFontSize]];
-        }
-        // .font is defined here in cases of resizing, stylistic choices, etc
-        textCell.cellNotesLabel.text = self.currentMonologue.notes;
-        textCell.cellTitleLabel.text = self.currentMonologue.title;
-        textCell.cellCharacterLabel.text = self.currentMonologue.character;
-
-        textCell.cellGenderLabel.text = self.currentMonologue.gender;
-        textCell.cellPeriodLabel.text = self.currentMonologue.period;
-        textCell.cellAgeLabel.text = self.currentMonologue.age;
-        textCell.cellLengthLabel.text = self.currentMonologue.length;
-        
-        // This adds tap gesture recognizer as well
-        textCell.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapGesture:)];
-        [textCell addGestureRecognizer:tapGestureRecognizer];
-    }
+-(void)addTapGestureRecognizerToCell:(UITableViewCell*)cell {
+    // This adds tap gesture recognizer as well
+    cell.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapGesture:)];
+    [cell addGestureRecognizer:tapGestureRecognizer];
 }
 
 // Touch related monologue cell, and go to the appropriate monologue
@@ -348,44 +328,27 @@
     }
 }
 
-// Use this to adjust the height of cells in each individual section
-//
-// This is the method that utitilizes the proper prototype cell in the appropriate section.
-// Each section requires:
-// 1) a defined indexPath.section (monologueText)
-// 2) a cellIdentifier (UYLTextCellText)
-// 3) a prototype UYLTextCell (self.prototypeCellText)
-// 4) a label identified in UYLTextCell.h (cellTextLabel)
-// in order to display properly.
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize size;
     switch ( indexPath.section ) {
         case monologueText:
-            [self configureCell:self.prototypeCellText forRowAtIndexPath:indexPath];
-            [self.prototypeCellText.contentView setNeedsLayout];
-            [self.prototypeCellText.contentView layoutIfNeeded];
-            [self.prototypeCellText setNeedsUpdateConstraints];
-            [self.prototypeCellText updateConstraintsIfNeeded];
-            self.prototypeCellText.cellTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
-            size = [self.prototypeCellText.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-
+            [self.textCell.contentView setNeedsLayout];
+            [self.textCell.contentView layoutIfNeeded];
+            self.textCell.monologueTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.textCell.monologueTextLabel.frame);
+            size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueNotes:
             [self.notesCell.contentView setNeedsLayout];
             [self.notesCell.contentView layoutIfNeeded];
-            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
+            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.notesLabel.frame);
             size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueTags:
-            [self configureCell:self.prototypeCellTags forRowAtIndexPath:indexPath];
-            [self.prototypeCellTags layoutIfNeeded];
-            size = [self.prototypeCellTags.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            // *** iPad code
-            if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-                size.height *= 2;
-            }
+            [self.tagCell.contentView setNeedsLayout];
+            [self.tagCell.contentView layoutIfNeeded];
+            self.tagCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
+            size = [self.tagCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         default:
             size.height = [self.tableView rowHeight];
@@ -401,13 +364,13 @@
     return UITableViewAutomaticDimension;
 }
 
-- (UYLTextCell *)prototypeCellText
+- (TextTableViewCell *)textCell
 {
-    if (!_prototypeCellText)
+    if (!_textCell)
     {
-        _prototypeCellText = [self.tableView dequeueReusableCellWithIdentifier:@"UYLTextCellText"];
+        _textCell = [self.tableView dequeueReusableCellWithIdentifier:@"text"];
     }
-    return _prototypeCellText;
+    return _textCell;
 }
 
 - (NotesTableViewCell *)notesCell
@@ -419,13 +382,13 @@
     return _notesCell;
 }
 
-- (UYLTextCell *)prototypeCellTags
+- (UITableViewCell *)tagCell
 {
-    if (!_prototypeCellTags)
+    if (!_tagCell)
     {
-        _prototypeCellTags = [self.tableView dequeueReusableCellWithIdentifier:@"UYLTextCellTags"];
+        _tagCell = [self.tableView dequeueReusableCellWithIdentifier:@"tags"];
     }
-    return _prototypeCellTags;
+    return _tagCell;
 }
 
 

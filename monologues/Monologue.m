@@ -40,6 +40,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     //Encode properties, other class variables, etc
+    [encoder encodeInt:self.idNumber forKey:@"idNumber"];
     [encoder encodeObject:self.title forKey:@"title"];
     [encoder encodeObject:self.sortTitle forKey:@"sortTitle"];
     [encoder encodeObject:self.authorFirst forKey:@"authorFirst"];
@@ -61,6 +62,7 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if ( self = [super init] ) {
         //decode properties, other class vars
+        self.idNumber = [decoder decodeIntForKey:@"idNumber"];
         self.title = [decoder decodeObjectForKey:@"title"];
         self.sortTitle = [decoder decodeObjectForKey:@"sortTitle"];
         self.authorFirst = [decoder decodeObjectForKey:@"authorFirst"];

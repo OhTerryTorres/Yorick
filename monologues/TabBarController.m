@@ -54,6 +54,7 @@
                                forState:UIControlStateNormal];
     [tabBarItem2 setTitleTextAttributes:@{ NSForegroundColorAttributeName : [YorickStyle color2] }
                                forState:UIControlStateSelected];
+
 }
 
 - (void)tabBar:(UITabBar *)theTabBar didSelectItem:(UITabBarItem *)item {

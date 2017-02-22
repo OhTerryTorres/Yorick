@@ -154,9 +154,6 @@
         Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
         label.text = setting.options[row];
         label.textAlignment = NSTextAlignmentCenter;
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
-            label.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize] / 2];
-        }
     }
     // Fill the label text here
     

@@ -17,6 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UINavigationBar appearance] setBarTintColor:[YorickStyle color2]];
+    [[UINavigationBar appearance] setTranslucent:false];
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName: [YorickStyle color1],}];
+    
     // Initialze or load monologueManager
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"managerData"] != nil) {
         NSData* managerData = [[NSUserDefaults standardUserDefaults] objectForKey:@"managerData"];
@@ -25,9 +29,7 @@
     } else {
         self.manager = [[MonologueManager alloc] init];
     }
-    
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+
     return YES;
 }
 							
