@@ -11,7 +11,7 @@
 		CE08FD441E521A9800A067EE /* PopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08FD431E521A9800A067EE /* PopUpView.m */; };
 		CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */; };
 		CE2BCA321E5BB010002E4C10 /* UIFont+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */; };
-		CE2BCA381E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA371E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.m */; };
+		CE2BCA381E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m */; };
 		CE2BCA3B1E5BE0E0002E4C10 /* NotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */; };
 		CE2BCA3E1E5CA649002E4C10 /* TextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA3D1E5CA649002E4C10 /* TextTableViewCell.m */; };
 		CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C11E382FF5009E6871 /* MonologueDataService.m */; };
@@ -20,7 +20,6 @@
 		CE3FAAA71AEAD871008C28CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA61AEAD871008C28CB /* SystemConfiguration.framework */; };
 		CE3FAAA91AEAD885008C28CB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA81AEAD885008C28CB /* MobileCoreServices.framework */; };
 		CE3FAAAB1AEAD8DA008C28CB /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAAA1AEAD8DA008C28CB /* libz.1.2.5.dylib */; };
-		CE3FAAAF1AEADBDB008C28CB /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3FAAAE1AEADBDB008C28CB /* MBProgressHUD.m */; };
 		CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4EF2301B0576410045C811 /* TagSelectionViewController.m */; };
 		CE659EE01974A8C200364269 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE659EDF1974A8C200364269 /* CoreData.framework */; };
 		CEA0FFBB1976EF97004626F1 /* FavoriteMonologueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */; };
@@ -36,7 +35,6 @@
 		CEE18369195DC11D00FA14BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE18368195DC11D00FA14BA /* Foundation.framework */; };
 		CEE1836B195DC11D00FA14BA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1836A195DC11D00FA14BA /* CoreGraphics.framework */; };
 		CEE1836D195DC11D00FA14BA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1836C195DC11D00FA14BA /* UIKit.framework */; };
-		CEE18373195DC11D00FA14BA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE18371195DC11D00FA14BA /* InfoPlist.strings */; };
 		CEE18375195DC11D00FA14BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18374195DC11D00FA14BA /* main.m */; };
 		CEE18379195DC11D00FA14BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18378195DC11D00FA14BA /* AppDelegate.m */; };
 		CEE1837C195DC11D00FA14BA /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE1837A195DC11D00FA14BA /* Main_iPhone.storyboard */; };
@@ -47,11 +45,8 @@
 		CEE18390195DC11D00FA14BA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1836C195DC11D00FA14BA /* UIKit.framework */; };
 		CEE18398195DC11D00FA14BA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE18396195DC11D00FA14BA /* InfoPlist.strings */; };
 		CEE1839A195DC11D00FA14BA /* monologuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18399195DC11D00FA14BA /* monologuesTests.m */; };
-		CEEB728F1C57FAEA0018BC00 /* monologueListOLD.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEEB728E1C57FAEA0018BC00 /* monologueListOLD.plist */; };
 		CEEB72971C5839AD0018BC00 /* monologueList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEEB72961C5839AD0018BC00 /* monologueList.plist */; };
 		CEF3F1FF1E53FAE800242D04 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF3F1FD1E53FAE800242D04 /* Main_iPad.storyboard */; };
-		CEF777351A32493E003E9513 /* DTCustomColoredAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF777341A32493E003E9513 /* DTCustomColoredAccessory.m */; };
-		CEF7A65A1C5B0A5800EB0059 /* monologueListID.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF7A6591C5B0A5800EB0059 /* monologueListID.plist */; };
 		CEFC85A219CA3246003739D7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFC85A119CA3246003739D7 /* EditViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -87,8 +82,8 @@
 		CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YorickStyle.m; sourceTree = "<group>"; };
 		CE2BCA301E5BB010002E4C10 /* UIFont+YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+YorickStyle.h"; sourceTree = "<group>"; };
 		CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+YorickStyle.m"; sourceTree = "<group>"; };
-		CE2BCA361E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableViewCell+YorickStyle.h"; path = "../UITableViewCell+YorickStyle.h"; sourceTree = "<group>"; };
-		CE2BCA371E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+YorickStyle.m"; path = "../UITableViewCell+YorickStyle.m"; sourceTree = "<group>"; };
+		CE2BCA361E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+YorickStyle.h"; sourceTree = "<group>"; };
+		CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YorickStyleLabel.m"; sourceTree = "<group>"; };
 		CE2BCA391E5BE0E0002E4C10 /* NotesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesTableViewCell.h; sourceTree = "<group>"; };
 		CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewCell.m; sourceTree = "<group>"; };
 		CE2BCA3C1E5CA649002E4C10 /* TextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextTableViewCell.h; sourceTree = "<group>"; };
@@ -101,8 +96,6 @@
 		CE3FAAA61AEAD871008C28CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE3FAAA81AEAD885008C28CB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CE3FAAAA1AEAD8DA008C28CB /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
-		CE3FAAAD1AEADBDB008C28CB /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		CE3FAAAE1AEADBDB008C28CB /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		CE4EF22F1B0576410045C811 /* TagSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSelectionViewController.h; sourceTree = "<group>"; };
 		CE4EF2301B0576410045C811 /* TagSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSelectionViewController.m; sourceTree = "<group>"; };
 		CE659EDF1974A8C200364269 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -114,8 +107,8 @@
 		CEAAE3221AB866C60006CF95 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		CEAAE3241AB9F7840006CF95 /* MonologueTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueTableViewCell.h; sourceTree = "<group>"; };
 		CEAAE3251AB9F7840006CF95 /* MonologueTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonologueTableViewCell.m; sourceTree = "<group>"; };
-		CEB00BF3196B3FA50006B03F /* MonologueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MonologueViewController.h; path = ../MonologueViewController.h; sourceTree = "<group>"; };
-		CEB00BF4196B3FA50006B03F /* MonologueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MonologueViewController.m; path = ../MonologueViewController.m; sourceTree = "<group>"; };
+		CEB00BF3196B3FA50006B03F /* MonologueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueViewController.h; sourceTree = "<group>"; };
+		CEB00BF4196B3FA50006B03F /* MonologueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonologueViewController.m; sourceTree = "<group>"; };
 		CEB528491975667E0053176B /* Monologue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Monologue.h; sourceTree = "<group>"; };
 		CEB5284A1975667E0053176B /* Monologue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Monologue.m; sourceTree = "<group>"; };
 		CEB5284F197573DE0053176B /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
@@ -131,7 +124,6 @@
 		CEE1836A195DC11D00FA14BA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CEE1836C195DC11D00FA14BA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CEE18370195DC11D00FA14BA /* Yorick-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Yorick-Info.plist"; sourceTree = "<group>"; };
-		CEE18372195DC11D00FA14BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CEE18374195DC11D00FA14BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEE18376195DC11D00FA14BA /* Yorick-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Yorick-Prefix.pch"; sourceTree = "<group>"; };
 		CEE18377195DC11D00FA14BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -145,14 +137,10 @@
 		CEE18395195DC11D00FA14BA /* YorickTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YorickTests-Info.plist"; sourceTree = "<group>"; };
 		CEE18397195DC11D00FA14BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CEE18399195DC11D00FA14BA /* monologuesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = monologuesTests.m; sourceTree = "<group>"; };
-		CEEB728E1C57FAEA0018BC00 /* monologueListOLD.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueListOLD.plist; sourceTree = "<group>"; };
 		CEEB72961C5839AD0018BC00 /* monologueList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueList.plist; sourceTree = "<group>"; };
 		CEF3F1FE1E53FAE800242D04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		CEF777331A32493E003E9513 /* DTCustomColoredAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCustomColoredAccessory.h; sourceTree = "<group>"; };
-		CEF777341A32493E003E9513 /* DTCustomColoredAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCustomColoredAccessory.m; sourceTree = "<group>"; };
-		CEF7A6591C5B0A5800EB0059 /* monologueListID.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueListID.plist; sourceTree = "<group>"; };
-		CEFC85A019CA3246003739D7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditViewController.h; path = ../EditViewController.h; sourceTree = "<group>"; };
-		CEFC85A119CA3246003739D7 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditViewController.m; path = ../EditViewController.m; sourceTree = "<group>"; };
+		CEFC85A019CA3246003739D7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
+		CEFC85A119CA3246003739D7 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,14 +222,12 @@
 				CE2BCA3D1E5CA649002E4C10 /* TextTableViewCell.m */,
 				CE2BCA391E5BE0E0002E4C10 /* NotesTableViewCell.h */,
 				CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */,
-				CEF777331A32493E003E9513 /* DTCustomColoredAccessory.h */,
-				CEF777341A32493E003E9513 /* DTCustomColoredAccessory.m */,
 				CE08FD421E521A9800A067EE /* PopUpView.h */,
 				CE08FD431E521A9800A067EE /* PopUpView.m */,
 				CE2BCA301E5BB010002E4C10 /* UIFont+YorickStyle.h */,
 				CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */,
 				CE2BCA361E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.h */,
-				CE2BCA371E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.m */,
+				CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -273,19 +259,9 @@
 			name = Contollers;
 			sourceTree = "<group>";
 		};
-		CE3FAAAC1AEADBCD008C28CB /* MBProgress */ = {
-			isa = PBXGroup;
-			children = (
-				CE3FAAAD1AEADBDB008C28CB /* MBProgressHUD.h */,
-				CE3FAAAE1AEADBDB008C28CB /* MBProgressHUD.m */,
-			);
-			name = MBProgress;
-			sourceTree = "<group>";
-		};
 		CEE1835C195DC11D00FA14BA = {
 			isa = PBXGroup;
 			children = (
-				CE3FAAAC1AEADBCD008C28CB /* MBProgress */,
 				CEE1836E195DC11D00FA14BA /* monologues */,
 				CEE18393195DC11D00FA14BA /* monologuesTests */,
 				CEE18367195DC11D00FA14BA /* Frameworks */,
@@ -341,9 +317,6 @@
 			children = (
 				CEE18370195DC11D00FA14BA /* Yorick-Info.plist */,
 				CEEB72961C5839AD0018BC00 /* monologueList.plist */,
-				CEF7A6591C5B0A5800EB0059 /* monologueListID.plist */,
-				CEEB728E1C57FAEA0018BC00 /* monologueListOLD.plist */,
-				CEE18371195DC11D00FA14BA /* InfoPlist.strings */,
 				CEE18374195DC11D00FA14BA /* main.m */,
 				CEE18376195DC11D00FA14BA /* Yorick-Prefix.pch */,
 			);
@@ -451,11 +424,8 @@
 			files = (
 				CEE18387195DC11D00FA14BA /* Images.xcassets in Resources */,
 				CEEB72971C5839AD0018BC00 /* monologueList.plist in Resources */,
-				CEEB728F1C57FAEA0018BC00 /* monologueListOLD.plist in Resources */,
 				CEE1837C195DC11D00FA14BA /* Main_iPhone.storyboard in Resources */,
-				CEE18373195DC11D00FA14BA /* InfoPlist.strings in Resources */,
 				CEF3F1FF1E53FAE800242D04 /* Main_iPad.storyboard in Resources */,
-				CEF7A65A1C5B0A5800EB0059 /* monologueListID.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,17 +447,15 @@
 				CEE18379195DC11D00FA14BA /* AppDelegate.m in Sources */,
 				CE2BCA321E5BB010002E4C10 /* UIFont+YorickStyle.m in Sources */,
 				CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */,
-				CE2BCA381E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.m in Sources */,
+				CE2BCA381E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m in Sources */,
 				CEB00BF5196B3FA50006B03F /* MonologueViewController.m in Sources */,
 				CEAAE3191AB863390006CF95 /* Setting.m in Sources */,
 				CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */,
 				CEE18382195DC11D00FA14BA /* MonologuesListViewController.m in Sources */,
 				CEC9AA1D1A144C2500ECC830 /* NavigationController.m in Sources */,
 				CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */,
-				CEF777351A32493E003E9513 /* DTCustomColoredAccessory.m in Sources */,
 				CEE18375195DC11D00FA14BA /* main.m in Sources */,
 				CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */,
-				CE3FAAAF1AEADBDB008C28CB /* MBProgressHUD.m in Sources */,
 				CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */,
 				CE08FD441E521A9800A067EE /* PopUpView.m in Sources */,
 				CEC1C9F419BE406500D5B197 /* SettingTableViewCell.m in Sources */,
@@ -522,14 +490,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CEE18371195DC11D00FA14BA /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CEE18372195DC11D00FA14BA /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		CEE1837A195DC11D00FA14BA /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -17,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.window.backgroundColor = [YorickStyle color1];
     [[UINavigationBar appearance] setBarTintColor:[YorickStyle color2]];
     [[UINavigationBar appearance] setTranslucent:false];
     [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName: [YorickStyle color1],}];
