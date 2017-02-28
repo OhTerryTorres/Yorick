@@ -34,11 +34,13 @@
     [self checkUpdates];
 }
 
+// Yorick accesses a MySQL database that contains a table of monologue entries much like those in monologueList.plist.
+// The entries in the table are use to replace older versions of the same monolouge on the device.
+// This is how user-defined tags are updated, but it's also use to fix typoes or reclassifcations.
 -(void) checkUpdates {
     NSLog(@"checkUpdates");
     NSString *strURL = [NSString stringWithFormat:@"http://www.terry-torres.com/yorick/api/api.php?method=checkUpdates"];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:strURL]];
-    //
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
@@ -49,7 +51,6 @@
                                    NSLog(@"connection error");
                                } else if (response != nil) {
                                    
-                                   // receive returned value
                                    NSString *strResults = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                                    int databaseUpdateCount = [strResults intValue];
 
@@ -117,7 +118,7 @@
                                    NSLog(@"%@", strResults);
                                    
                                    [self.manager updateMonologuesWithArrayOfMonologues:updatedMonologues];
-                                   self.manager.latestUpdateCount = updatedMonologues.count;
+                                   self.manager.latestUpdateCount = (int)updatedMonologues.count;
                                    
                                    NSLog(@"here we go!!");
                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{

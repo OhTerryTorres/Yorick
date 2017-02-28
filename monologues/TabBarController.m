@@ -72,7 +72,7 @@
     }
 }
 
-
+// Called when screen is tapped on detail views.
 - (void)hideTabBar {
     UITabBar *tabBar = self.tabBar;
     UIView *parent = tabBar.superview; // UILayoutContainerView

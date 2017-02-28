@@ -58,15 +58,13 @@
     [super viewWillAppear:animated];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"%@: async", self.title);
+        // Get info
         [self getManagerFromAppDelegate];
         [self updateDisplayArrayForFilters];
-        NSLog(@"%@: async DONE", self.title);
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%@: main", self.title);
+            // Upate UI
             [self setHeaderTitle];
             [self.tableView reloadData];
-            NSLog(@"%@: main DONE", self.title);
         });
     });
     
@@ -114,7 +112,7 @@
     // Add the UISearchBar to the top header of the table view
     self.tableView.tableHeaderView = self.searchController.searchBar;
     
-    // Hides search bar initially.  When the user pulls down on the list, the search bar is revealed.
+    // Hides search bar initially.  When the user scrolls up, the search bar is revealed.
     [self.tableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
     
     self.definesPresentationContext = YES;
@@ -124,8 +122,9 @@
 // When the user types in the search bar, this method gets called.
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *searchString = searchController.searchBar.text;
+        // tempArray is used to avoid interrupting the tableview source
         NSArray *tempArray = [[NSArray alloc] init];
+        NSString *searchString = searchController.searchBar.text;
         // Check if the user cancelled or deleted the search term so we can display the full list instead.
         if (![searchString isEqualToString:@""]) {
             tempArray = [self.manager filterMonologues:[self.manager filterMonologuesForSettings:self.manager.monologues] forSearchString:searchString];
@@ -158,33 +157,24 @@
 {
     
     // This prepares the monologue to appear in the monologue screen.
-    // Get the new view controller using [segue destinationViewController].
     MonologueViewController *mvc = [segue destinationViewController];
-    // Pass the selected object to the new view controller.
-    // What's the selected cell.
     NSIndexPath *path = sender;
-    // indexPathForSelectedRow loads two variables into path: section and row.
-    // Now we ask for just the row and set that to c.
-    Monologue *c = nil;
+    Monologue *m = nil;
     if ( self.dataService.searchActive || self.dataService.isForFavorites ) {
-        c = self.dataService.displayArray[path.row];
+        m = self.dataService.displayArray[path.row];
         // For swipe gesture
         mvc.detailsDataSource = [[NSArray alloc] initWithArray:self.dataService.displayArray];
         // For swipe gesture
-        mvc.detailIndex = [self.dataService.displayArray indexOfObject:c];
+        mvc.detailIndex = [self.dataService.displayArray indexOfObject:m];
     } else {
-        // Use the same code from cellForRowAtIndexPath to access the appropriate monologue from self.masterlist.sections
-        c = [[self.dataService.sections valueForKey:[[[self.dataService.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:path.section]] objectAtIndex:path.row];
+        m = [[self.dataService.sections valueForKey:[[[self.dataService.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:path.section]] objectAtIndex:path.row];
+        
         // For swipe gesture
         mvc.detailsDataSource = [[NSArray alloc] initWithArray:self.dataService.displayArray];
-        // For swipe gesture
-        mvc.detailIndex = [self.dataService.displayArray indexOfObject:c];
+        mvc.detailIndex = [self.dataService.displayArray indexOfObject:m];
     }
-    // Make sure the manager is being passed to
-    mvc.manager = self.manager;
     
-    mvc.currentMonologue = c;
-    
+    mvc.currentMonologue = m;
     
     // This keeps the MonologueViewController from skipping any lines in the monologue when accessed from the Browse Screen.
     mvc.edgesForExtendedLayout = UIRectEdgeNone;

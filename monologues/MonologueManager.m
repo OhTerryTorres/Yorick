@@ -13,7 +13,7 @@
 
 # pragma mark: INITIALIZING METHODS
 
-// Manager created for the first time
+// This will only ever be run the first time the app is used.
 -(id)init {
     self = [super init];
     if (self) {
@@ -45,7 +45,7 @@
     return self;
 }
 
--(NSMutableArray*)loadMonologuesFromDisk {
+-(NSArray*)loadMonologuesFromDisk {
     
     // Create dictionary to access plist
     NSString *documentPath = [[NSBundle mainBundle] pathForResource:@"monologueList" ofType:@"plist"];
@@ -54,8 +54,7 @@
     NSArray *keys = [sourceDictionary allKeys];
     NSMutableArray *monologuesArray = [[NSMutableArray alloc] init];
     
-    int i = 0;
-    while ( i < keys.count ) {
+    for (int i = 0; i < keys.count; i++) {
         
         NSDictionary *currentMonologueDictionary = [[NSMutableDictionary alloc] initWithDictionary:[sourceDictionary objectForKey:[NSString stringWithFormat:@"%d",i]]];
         
@@ -75,11 +74,7 @@
                                                                tags:[currentMonologueDictionary objectForKey:@"tags"]];
         
         [monologuesArray addObject:monologue];
-        
-        monologue = nil;
-        
-        i++;
-        
+
     }
 
     return [self sortMonologues: monologuesArray];
@@ -119,11 +114,8 @@
 
 -(NSArray*)filterMonologuesForSettings:(NSArray*)monologuesArray {
     for(Setting* setting in self.settings) {
-        if (setting.currentSetting != setting.options[0] && ![setting.title isEqualToString:@"size"]) { // Size does not work for this filter
-            // %K was very important here
-            // This allows us to seperate Male and Female monolouges more completely
-            // any monologue with the gender "female male" is include in both
-            NSPredicate *predicate;
+        if (setting.currentSetting != setting.options[0] && ![setting.title isEqualToString:@"size"]) {
+            NSPredicate *predicate = nil;
             if ( [setting.title isEqualToString:@"gender"] ) {
                 if ( ([setting.currentSetting rangeOfString:@"male" options:NSCaseInsensitiveSearch].location != NSNotFound && [setting.currentSetting  rangeOfString:@"female" options:NSCaseInsensitiveSearch].location == NSNotFound) )  {
                     
@@ -137,7 +129,6 @@
             
             monologuesArray = [monologuesArray filteredArrayUsingPredicate:predicate];
             
-            predicate = nil;
         }
         
     }
@@ -177,8 +168,10 @@
             NSString *q11 = [NSString stringWithFormat:@"%@?",q];
             NSString *q12 = [NSString stringWithFormat:@"%@!",q];
             NSString *q13 = [NSString stringWithFormat:@"%@:",q];
-            NSPredicate* textPredicate = [NSPredicate predicateWithFormat:@"text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@",q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13];
-            NSPredicate* notesPredicate = [NSPredicate predicateWithFormat:@"notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR text contains[cd] %@",q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13];
+            NSString *q14 = [NSString stringWithFormat:@"%@ing",q];
+            NSString *q15 = [NSString stringWithFormat:@"%@in'",q];
+            NSPredicate* textPredicate = [NSPredicate predicateWithFormat:@"text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@",q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15];
+            NSPredicate* notesPredicate = [NSPredicate predicateWithFormat:@"notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR notes contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@ OR text contains[cd] %@",q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15];
             
             NSCompoundPredicate *orCompoundPredicate = [[NSCompoundPredicate alloc] initWithType:NSOrPredicateType subpredicates:[NSArray arrayWithObjects:titlePredicate, characterPredicate, genderPredicate, tonePredicate, notesPredicate, tagsPredicate, textPredicate, nil]];
             
@@ -220,7 +213,7 @@
     }
     return nil;
 }
--(Monologue*)getFavoritesMonologueForIDNumber:(int)idNumber {
+-(Monologue*)getFavoriteMonologueForIDNumber:(int)idNumber {
     for (Monologue* monologue in self.favoriteMonologues) {
         if ( monologue.idNumber == idNumber ) {
             return monologue;
@@ -290,7 +283,6 @@
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ( self = [super init] ) {
-        //decode properties, other class vars
         self.monologues = [decoder decodeObjectForKey:@"monologues"];
         self.favoriteMonologues = [decoder decodeObjectForKey:@"favoriteMonologues"];
         self.allTags = [decoder decodeObjectForKey:@"allTags"];
@@ -301,7 +293,6 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    //Encode properties, other class variables, etc
     [encoder encodeObject:self.monologues forKey:@"monologues"];
     [encoder encodeObject:self.favoriteMonologues forKey:@"favoriteMonologues"];
     [encoder encodeObject:self.allTags forKey:@"allTags"];

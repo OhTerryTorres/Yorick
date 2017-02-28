@@ -114,8 +114,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    Setting *setting = nil;
-    setting = [self.manager.settings objectAtIndex:indexPath.row];
+    Setting *setting = [self.manager.settings objectAtIndex:indexPath.row];
     CGFloat height = setting.pickerCellIsShowing ? setting.cell.pickerView.frame.size.height : self.tableView.rowHeight;
 
     return height;
@@ -153,6 +152,7 @@
         // Setup label properties - frame, font, colors etc
         Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
         label.text = setting.options[row];
+        label.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize] * 1.5];
         label.textAlignment = NSTextAlignmentCenter;
     }
     // Fill the label text here

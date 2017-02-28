@@ -11,6 +11,9 @@
 @implementation PopUpView
 
 
+// The PopUpView should display a title over a colored field with rounded corners,
+// then disappear.
+
 - (id)initWithFrame:(CGRect)frame andTitle:(NSString*)title {
     if ((self = [super initWithFrame:frame])) {
         self.backgroundColor = [YorickStyle color1];

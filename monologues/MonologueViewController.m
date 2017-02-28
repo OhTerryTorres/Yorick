@@ -8,14 +8,8 @@
 
 #import "MonologueViewController.h"
 
-// These definitions will make creating the table view much simpler
-// numberOfSections corresponds to each section in the table
-// (that is, each individual component of the selected monologue)
-// This needs to be updated each time a new section is added
 
 #define numberOfSections 4
-
-// This defines the order of individual sections
 #define monologueNotes 0
 #define monologueText 1
 #define monologueTags 2
@@ -46,6 +40,7 @@
     [super viewDidLoad];
     self.barsHidden = 0;
     [self addSwipeGestureRecognizers];
+    self.relatedMonologues = [[NSMutableArray alloc] init];
 }
 
 // Refreshes data, if needed
@@ -88,15 +83,11 @@
     return [tags componentsSeparatedByCharactersInSet:set];
 }
 
-// Here, we'll go through the entire database, and make a new dictinoary ordered from the most "matches" to least"
+// Here, we'll go through the entire database, and make a new dictinoary ordered from the most "matches" to least
 // In the end, just the top 3 will be displayed.
 -(void)compileRelatedMonologuesfromArrayOfMonologues:(NSArray*)sourceMonologues {
-    self.relatedMonologues = [[NSMutableArray alloc] init];
-    // relatedMonologuesDictionary will store the number of matches each monologue has to the current monologue
-    // under the key: "%@ %d", comparativeMonologue.title, numberOfMatches
-    
-    int i = 0;
-    while ( i < sourceMonologues.count ) {
+
+    for (int i = 0; i < sourceMonologues.count; i++) {
         int matches = 0;
         Monologue *comparativeMonologue = [sourceMonologues objectAtIndex:i];;
         NSArray *comparativeMonologueTags = [[NSArray alloc] initWithArray:[self loadTagsIntoArray:comparativeMonologue.tags]];
@@ -112,12 +103,10 @@
             matches++;
         }
         
-        int t = 0;
-        while ( t < comparativeMonologueTags.count ) {
+        for (int t = 0; t < comparativeMonologueTags.count; t++) {
             if ( [self.tagsArray containsObject:comparativeMonologueTags[t]] ) {
                 matches++;
             }
-            t++;
         }
         
         comparativeMonologue.matches = matches;
@@ -127,7 +116,6 @@
             [self.relatedMonologues addObject:comparativeMonologue];
         }
         
-        i++;
     }
     NSMutableArray *sortedRelatedMonologues;
     sortedRelatedMonologues = [[self.relatedMonologues sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
@@ -183,12 +171,10 @@
     
 }
 
-
 #pragma mark: TableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     // Defined at the top
     return numberOfSections;
 }
@@ -196,11 +182,8 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
 
-    // Text Color
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    
-    // Another way to set the background color
-    // Note: does not preserve gradient effect of original header
+
     header.contentView.backgroundColor = [YorickStyle color1];
 
 }
@@ -226,7 +209,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     if ( section == monologueTags ) {
         return self.tagsArray.count;
     } else if ( section == monologueRelated ) {
@@ -241,8 +223,7 @@
     }
 }
 
-// Several steps need to be taken so that each piece of data from the current monologue is displayed properly.
-// Each section requires its own cell indentifier to start the process
+// Each section makes use of a protoype cell, which is used to help deal with varying height depending on the lenght of the monologue an the size of the display text.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -373,7 +354,6 @@
 {
     self.navigationController.navigationBarHidden = NO;
     
-    // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     MonologuesListViewController *mlvc = [segue destinationViewController];
     NSIndexPath *path = [self.tableView indexPathForSelectedRow];
@@ -412,7 +392,7 @@
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
         // This makes it so that a monologue can be removed from Digs in both the Digs and Boneyard screen.
-        [self.manager.favoriteMonologues removeObject:[self.manager getFavoritesMonologueForIDNumber:self.currentMonologue.idNumber]];
+        [self.manager.favoriteMonologues removeObject:[self.manager getFavoriteMonologueForIDNumber:self.currentMonologue.idNumber]];
         
         PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Removed from Digs"];
         [self.tabBarController.view addSubview:popUp];
@@ -523,7 +503,7 @@
                                                                            self.tabBarController.view.userInteractionEnabled = YES;
                                                                            //[self loadData];
                                                                        }}];}];}}];
-    backView = nil;
+    [backView removeFromSuperview];
                     
                              
 }
@@ -535,7 +515,6 @@
                      animations: ^{
                          // Animate the views on and off the screen.
                          [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-                         //fromView.frame = CGRectMake(viewSize.size.width, viewSize.origin.y, viewSize.size.width, viewSize.size.height);
                          self.view.frame = CGRectMake(-self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
                      }
                      completion:^(BOOL finished) {
@@ -543,7 +522,6 @@
                              [UIView animateWithDuration:0.01
                                               animations: ^{
                                                   // Scroll to top
-                                                  // For some reason, this has to be an animation.
                                                   [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                                                   
                                               } completion:^(BOOL finished) {
@@ -566,9 +544,8 @@
                                                                        }}];}];}}];
 }
 
-
+// Used to define the current monologue's position in the array of monologue being displayed on the previous screen.
 -(void)getNewDetailIndex {
-    NSLog(@"self.detailDataSource.count is %lu",(unsigned long)self.detailsDataSource.count);
     int i = 0;
     
     while ( i < self.detailsDataSource.count ) {
@@ -576,7 +553,6 @@
 
         if ( monologue.idNumber == self.currentMonologue.idNumber ) {
             self.detailIndex = i;
-            NSLog(@"self.detailIndex is %lu",self.detailIndex);
         }
         
         i++;

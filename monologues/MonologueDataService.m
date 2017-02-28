@@ -10,68 +10,10 @@
 
 @implementation MonologueDataService
 
-// GET SOME TABLEVIEW SHENANIGANS IN HERE!!
-// Design this document WITHOUT UISearchController in mind
-
-
-/*
- Suppose each viewcontroller has a MonologueDataService.
- Each DataService talks to one MonologueManager object.
- This object would be created by the AppDelegate when the 
- app is launched for the very first time. After that, it
- wil be stored in memory.
- This Manager will be passed to the first screen (Favorites).
- Then, any time the ViewWillDisappear, the Manager is passed to
- each different ViewController.
- That should look like this:
- 
-               ____MANAGER____
-             _/       |       \_____
-           _/         |             \___
-DATASERVICE       DATASERVICE          |
-     |                |                |
- FAVORITES  <---->  BROWSE  <----> SETTINGS
-      ^-------------------------------^
- 
- Here it looks like the Manager is in charge of everything.
- Actually, the manager is more like the power source for everything.
- The Manager can be passed along all of the axises to give each class access.
- 
- Here are actions we want to be able to do, and the things that need
- to be done in order to do them:
-
-Browse all monologues:
-    Load all monologues from disk into array. (MonologueManager.init)
-    Create tableview delegate/datasource. (BrowseViewController.viewDidLoad)
-    Send that array to a tableview delegate for display. (BrowseViewController.dataService.displayArray = self.manager.monologues)
-Browse all favorited monologues:
-    Allow user to add monologues to favorites. (self.manager.addObject: monologue)
-    Receive manager reference from other view. (http://stackoverflow.com/questions/2191594/send-and-receive-messages-through-nsnotificationcenter-in-objective-c)
-        Perhaps make a protocol that every class can receive such a notification.
-    Send favorites array to tableview delegate for display. (FavoritesViewController.dataService.displayArray = self.manager.favoriteMonologues)
-Filter monologues in tableview using Settings:
-    Change global filter settings. (MonologueManager.settings)
-    Filter browse monologues for settings. (in ViewWillDisappear, send notification to Browse controller that triggers filterMonologuesForSettings, set THAT to dataSerice.displayArray)
-Filter monologues in tableview with Search:
-    Tell dataService search is active to change display properties. (in UISearchController delgate method, self.dataService.searchActive = TRUE)
-    Filter current displayArray with searchString. (self.dataService.displayArray = [manager filterMonologues:[self.manager.filterMonologuesForsettings:self.manager.monologues] forSearchString:self.UISearchController.searchBar.text]
- 
- Knowing this: which classes needs to hold what information?
- The Manager needs:
-    all the monologues
-    all of the favorited monlogues
- The Data Service needs:
-    the monologues being displayed
- The ViewControllers needs:
-    a tableview
-    a UISearchController
-    reference to the Manager
-    a data service, initialized with a set of monologues from the manager
- 
- */
 
 #pragma mark: Initializer and Setter
 
+// Initialization varies between Browse and Favorites controllers
 -(id)initWithManager:(MonologueManager*)manager andDisplayArray:(NSMutableArray*)displayArray {
     self.manager = manager;
     _displayArray = displayArray;
@@ -80,7 +22,7 @@ Filter monologues in tableview with Search:
     return self;
 }
 
-// This should automatically update the alphabetical sections when the array is upated.
+// This will automatically update the alphabetical sections when the array is upated.
 - (void) setDisplayArray:(NSArray *)displayArray {
     _displayArray = displayArray;
     if (!_searchActive) {
@@ -90,6 +32,7 @@ Filter monologues in tableview with Search:
 
 
 #pragma mark: TableView Methods
+// Methods vary between Browse and Favorites controllers
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -101,8 +44,7 @@ Filter monologues in tableview with Search:
     
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSString *title;
     if (_searchActive || _isForFavorites) {
         return nil;
@@ -142,7 +84,7 @@ Filter monologues in tableview with Search:
         NSArray *sectionTitles = [[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
         if ( section < sectionTitles.count) {
             NSArray *monologueArray = [self.sections valueForKey:[sectionTitles objectAtIndex:section]];
-            rows = monologueArray.count;
+            rows = (int)monologueArray.count;
         }
         return rows;
     }
@@ -180,14 +122,9 @@ Filter monologues in tableview with Search:
     if (_searchActive || _isForFavorites) {
         currentMonologue = [_displayArray objectAtIndex:indexPath.row];
     } else {
-        // This is in keeping all all the alphabetical shit we're trying to do
-        // Thanks again to icodeblog for the help!!!!!!!
+
         currentMonologue = [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     }
-    
-    // Make sure the reuse identifier in the Prototype Cell says "cell"
-    // self.tableView (as opposed to just tableView) below was crucial to stop crashing during searches
-    //currentMonologue.cell = [[MonologueTableViewCell alloc] init];
     
     currentMonologue.cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 
@@ -210,34 +147,33 @@ Filter monologues in tableview with Search:
     NSMutableDictionary* sections = [[NSMutableDictionary alloc] init];
     
     int i = 0;
-    // Loop through the books and create our keys
+    // Go through the monologues and create our section keys
     for (Monologue *monologue in monologuesArray) {
-        
-        NSString *c = [monologue.sortTitle substringToIndex:1];
-        
         found = NO;
         
-        // An attempt to put the magnifiying glass at the top of the index to lead to the search bar.
+        NSString *firstLetter = [monologue.sortTitle substringToIndex:1];
+        
+        // Put the magnifiying glass at the top of the index to lead to the search bar.
         [sections setValue:[[NSMutableArray alloc] init] forKey:UITableViewIndexSearch];
         
         for (NSString *str in [sections allKeys])
         {
-            if ([str isEqualToString:c])
+            if ([str isEqualToString:firstLetter])
             {
                 found = YES;
             }
         }
         
-        // Makes sure there isn't a NULL value
-        if (!found && c)
+        // Makes sure first letter isn't a nil value
+        if (!found && firstLetter)
         {
-            [sections setValue:[[NSMutableArray alloc] init] forKey:c];
+            [sections setValue:[[NSMutableArray alloc] init] forKey:firstLetter];
         }
         i++;
     }
     int o = 0;
 
-    // Loop again and sort the books into their respective keys
+    // Go through again and sort monologues into their respective sections
     for (Monologue *monologue in monologuesArray)
     {
         [[sections objectForKey:[monologue.sortTitle substringToIndex:1]] addObject:monologue];

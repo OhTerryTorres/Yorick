@@ -15,7 +15,7 @@
 }
 
 +(UIColor *) color2 {
-    return [UIColor colorWithRed:36.0/255.0 green:95.0/255.0 blue:104.0/255.0 alpha:1.0];
+    return [UIColor colorWithRed:68.0/255.0 green:118.0/255.0 blue:125.0/255.0 alpha:1.0];
 }
 
 +(UIColor *) color3 {

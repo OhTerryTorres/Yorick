@@ -10,9 +10,6 @@
 
 @implementation Setting
 
--(id)init {
-    return self;
-}
 
 -(id)initWithTitle:(NSString*)title {
     self = [super init];
@@ -63,8 +60,8 @@
     //Encode properties, other class variables, etc
     [encoder encodeObject:self.options forKey:@"options"];
     //[encoder encodeObject:self.cell forKey:@"cell"];   // I have no interest in separating the cell
-                                                         // functionality from the class,  but I also
-                                                        // see no need to save a UIElement to defaults.
+                                                         // functionality from the class, but I also
+                                                        // see no need to save a UI element to defaults.
     [encoder encodeObject:self.title forKey:@"title"];
     [encoder encodeObject:self.currentSetting forKey:@"currentSetting"];
 }

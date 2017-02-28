@@ -19,7 +19,6 @@
 @property (nonatomic) CGRect maintainFrame;
 @property (nonatomic) BOOL pickerCellIsShowing;
 
--(id)init;
 -(id)initWithTitle:(NSString*)title;
 -(int)indexOfCurrentSetting;
 

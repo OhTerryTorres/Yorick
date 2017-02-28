@@ -30,7 +30,7 @@
 @implementation FavoriteMonologueViewController 
 
 
-//THIS allows for unwind segues, would should save time and space.
+// unwind segues
 - (IBAction)cancelEdit:(UIStoryboardSegue *)segue {}
 - (IBAction)saveEdit:(UIStoryboardSegue *)segue {
     PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Monolouge Updated"];
@@ -248,8 +248,8 @@
     // Dealing with tags
     // This will perform a tag search in the Browse screen.
     if ( indexPath.section == monologueTags ) {
-        NSString *c = self.tagsArray[path.row];
-        NSString *tag = [NSString stringWithFormat:@"!%@",c];
+        NSString *t = self.tagsArray[path.row];
+        NSString *tag = [NSString stringWithFormat:@"!%@",t];
         NSLog(@"tag in Favorites is %@",tag);
         [self.tabBarController setSelectedIndex:1];
         [self passManagerToAppDelegate];
@@ -259,12 +259,12 @@
     
     // Dealing with edit options
     if ( indexPath.section == monologueEdit ) {
-        NSString *c = self.editArray[path.row];
-        if ( [c isEqual:@"Add Tag"] ) {
+        NSString *e = self.editArray[path.row];
+        if ( [e isEqual:@"Add Tag"] ) {
             [self addTag];
-        } else if ( [c isEqual:@"Edit"] ) {
+        } else if ( [e isEqual:@"Edit"] ) {
             [self editMonologue];
-        } else if ( [c isEqual:@"Restore"] ) {
+        } else if ( [e isEqual:@"Restore"] ) {
             [self restoreMonologue];
         }
     }
@@ -344,7 +344,6 @@
 -(void)restoreMonologue {
     self.currentMonologue = [[self.manager getMonologueForIDNumber:self.currentMonologue.idNumber] copy];
     
-    self.editArray = nil;
     self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", nil];
     [self maintainView];
     
