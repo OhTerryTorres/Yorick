@@ -179,12 +179,11 @@
             cell = self.tagCell;
             break;
         case monologueRelated:
-            cell = [tableView dequeueReusableCellWithIdentifier:@"related"];
-            relatedMonologue = [self getRelatedMonologueForIndexPath:indexPath];
+            relatedMonologue = self.relatedMonologues[indexPath.row];
+            cell = [self getCellForRelatedMonologue:relatedMonologue atIndexPath:indexPath];
             if ([relatedMonologue.title isEqualToString:@"No related monologues"]) {
-                relatedMonologue.cell.userInteractionEnabled = false;
+                cell.userInteractionEnabled = false;
             }
-            cell = relatedMonologue.cell;
             break;
         case monologueEdit:
             self.editCell = [tableView dequeueReusableCellWithIdentifier:@"edit"];

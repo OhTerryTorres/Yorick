@@ -140,9 +140,8 @@
         nullMonologue.title = @"No related monologues";
         nullMonologue.authorFirst = @"For this";
         nullMonologue.authorLast = @"monologue, anyway";
-        nullMonologue.text =@"Go figure";
+        nullMonologue.text = @"Go figure";
         [self.relatedMonologues addObject:nullMonologue];
-        nullMonologue.cell.userInteractionEnabled = FALSE;
     }
 }
 
@@ -270,11 +269,11 @@
             cell = self.tagCell;
             break;
         case monologueRelated:
-            relatedMonologue = [self getRelatedMonologueForIndexPath:indexPath];
+            relatedMonologue = self.relatedMonologues[indexPath.row];
+            cell = [self getCellForRelatedMonologue:relatedMonologue atIndexPath:indexPath];
             if ([relatedMonologue.title isEqualToString:@"No related monologues"]) {
-                relatedMonologue.cell.userInteractionEnabled = false;
+                cell.userInteractionEnabled = false;
             }
-            cell = relatedMonologue.cell;
             break;
         default:
             break;
@@ -284,15 +283,13 @@
     
 }
 
--(Monologue*)getRelatedMonologueForIndexPath:(NSIndexPath*)indexPath {
-    Monologue *currentMonologue = [self.relatedMonologues objectAtIndex:indexPath.row];
+-(MonologueTableViewCell*)getCellForRelatedMonologue:(Monologue*)monologue atIndexPath:(NSIndexPath*)indexPath {
+    MonologueTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"related"forIndexPath:indexPath];
+    cell.titleLabel.text = monologue.title;
+    cell.characterLabel.text = monologue.character;
+    [cell setExcerptLabelWithString: monologue.text];
     
-    currentMonologue.cell = [self.tableView dequeueReusableCellWithIdentifier:@"related"forIndexPath:indexPath];
-    currentMonologue.cell.titleLabel.text = currentMonologue.title;
-    currentMonologue.cell.characterLabel.text = currentMonologue.character;
-    [currentMonologue.cell setExcerptLabelWithString: currentMonologue.text];
-    
-    return currentMonologue;
+    return cell;
 }
 
 -(void)addTapGestureRecognizerToCell:(UITableViewCell*)cell {

@@ -126,13 +126,13 @@
         currentMonologue = [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     }
     
-    currentMonologue.cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    MonologueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 
-    currentMonologue.cell.titleLabel.text = currentMonologue.title;
-    currentMonologue.cell.characterLabel.text = currentMonologue.character;
-    [currentMonologue.cell setExcerptLabelWithString: currentMonologue.text];
+    cell.titleLabel.text = currentMonologue.title;
+    cell.characterLabel.text = currentMonologue.character;
+    [cell setExcerptLabelWithString: currentMonologue.text];
     
-    return currentMonologue.cell;
+    return cell;
     
 }
 

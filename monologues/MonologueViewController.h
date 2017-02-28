@@ -48,7 +48,7 @@
 -(void)monologueTransitionForIndexPath:(NSIndexPath*)indexPath;
 -(void)maintainView;
 -(void)passManagerToAppDelegate;
--(Monologue*)getRelatedMonologueForIndexPath:(NSIndexPath*)indexPath;
+-(MonologueTableViewCell*)getCellForRelatedMonologue:(Monologue*)monologue atIndexPath:(NSIndexPath*)indexPath;
 -(void)setFavoriteStatus;
 -(void)compileRelatedMonologuesfromArrayOfMonologues:(NSArray*)sourceMonologues;
 -(NSArray*)loadTagsIntoArray:(NSString*)tags;

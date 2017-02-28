@@ -27,8 +27,6 @@
 @property (nonatomic, copy) NSString *notes;
 @property (nonatomic, copy) NSString *tags;
 
-@property (strong, nonatomic) MonologueTableViewCell *cell;
-
 // This allows for alphabetical sorting when dealing with titles starting with "a", "the", etc.
 // Trying to minimize the proliferation of this value to reduce headaches, but I may have to reverse that thought
 @property (nonatomic, copy) NSString *sortTitle;
