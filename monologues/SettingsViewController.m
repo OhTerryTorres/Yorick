@@ -50,11 +50,8 @@
 #pragma mark: Display Setup
 
 -(void) loadSettings {
-    //self.tableView.separatorInset = UIEdgeInsetsZero;
-    
-    // Here, we'll attempt to load all of the values of each setting
-    int i = 0;
-    while ( i < self.manager.settings.count )  {
+
+    for (int i = 0; i < self.manager.settings.count; i++) {
         
         Setting *setting = self.manager.settings[i];
         
@@ -85,11 +82,11 @@
             [self pickerCellShow:setting];
         }
         
-        i++;
     }
 }
 
 
+#pragma mark: TableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -143,19 +140,15 @@
 #pragma mark: PickerView Methods
 
 
-#pragma mark: TableView Methods
-
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     UILabel* label = (UILabel*)view;
-    if (!label){
+    if (!label) {
         label = [[UILabel alloc] init];
-        // Setup label properties - frame, font, colors etc
         Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
         label.text = setting.options[row];
-        label.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize] * 1.5];
+        label.font = [YorickStyle defaultFont];
         label.textAlignment = NSTextAlignmentCenter;
     }
-    // Fill the label text here
     
     return label;
 }

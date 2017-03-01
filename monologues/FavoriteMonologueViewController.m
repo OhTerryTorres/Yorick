@@ -172,7 +172,7 @@
             break;
         case monologueTags:
             self.tagCell = [tableView dequeueReusableCellWithIdentifier:@"tags"];
-            currentTag = [self.tagsArray objectAtIndex:indexPath.row];
+            currentTag = self.tagsArray[indexPath.row];
             self.tagCell.textLabel.text = currentTag;
             [self.tagCell.textLabel setTextColor:[YorickStyle color2]];
             self.tagCell.textLabel.userInteractionEnabled = YES;
@@ -187,7 +187,7 @@
             break;
         case monologueEdit:
             self.editCell = [tableView dequeueReusableCellWithIdentifier:@"edit"];
-            currentEdit = [self.editArray objectAtIndex:indexPath.row];
+            currentEdit = self.editArray[indexPath.row];
             self.editCell.textLabel.text = currentEdit;
             [self.editCell.textLabel setTextColor:[YorickStyle color2]];
             self.editCell.userInteractionEnabled = YES;

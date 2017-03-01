@@ -10,6 +10,12 @@
 
 @implementation MonologueTableViewCell
 
+-(void)setStyle {
+    self.titleLabel.font = [YorickStyle defaultFontOfSize:20];
+    self.characterLabel.font = [YorickStyle defaultFontOfSize:14];
+    self.excerptLabel.font = [YorickStyle defaultFontOfSize:16];
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -24,9 +30,7 @@
     // Initialization code
     [super awakeFromNib];
     
-    self.titleLabel.font = [YorickStyle defaultFontBoldOfSize:20];
-    self.characterLabel.font = [YorickStyle defaultFontOfSize:14];
-    self.excerptLabel.font = [YorickStyle defaultFontOfSize:16];
+    [self setStyle];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -53,6 +57,8 @@
     string = [string substringWithRange:stringRange];
     
     self.excerptLabel.text = string;
+
+    [self setStyle];
 }
 
 @end

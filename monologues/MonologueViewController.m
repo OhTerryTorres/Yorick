@@ -89,7 +89,7 @@
 
     for (int i = 0; i < sourceMonologues.count; i++) {
         int matches = 0;
-        Monologue *comparativeMonologue = [sourceMonologues objectAtIndex:i];;
+        Monologue *comparativeMonologue = sourceMonologues[i];
         NSArray *comparativeMonologueTags = [[NSArray alloc] initWithArray:[self loadTagsIntoArray:comparativeMonologue.tags]];
         
         
@@ -262,7 +262,7 @@
             break;
         case monologueTags:
             self.tagCell = [tableView dequeueReusableCellWithIdentifier:@"tags"];
-            currentTag = [self.tagsArray objectAtIndex:indexPath.row];
+            currentTag = self.tagsArray[indexPath.row];
             self.tagCell.textLabel.text = currentTag;
             [self.tagCell.textLabel setTextColor:[YorickStyle color2]];
             self.tagCell.textLabel.userInteractionEnabled = YES;
@@ -484,7 +484,7 @@
                                                   [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                                                   
                                               } completion:^(BOOL finished) {
-                                                  self.currentMonologue = [self.detailsDataSource objectAtIndex:self.detailIndex];
+                                                  self.currentMonologue = self.detailsDataSource [self.detailIndex];
                                                   [self loadData];
                                                   
                                                   self.view.frame = CGRectMake((swipeRight ? -self.view.frame.size.width : self.view.frame.size.width), self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
@@ -522,7 +522,7 @@
                                                   [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                                                   
                                               } completion:^(BOOL finished) {
-                                                  self.currentMonologue = [self.relatedMonologues objectAtIndex:indexPath.row];
+                                                  self.currentMonologue = self.relatedMonologues[indexPath.row];
                                                   [self getNewDetailIndex];
                                                   
                                                   [self loadData];

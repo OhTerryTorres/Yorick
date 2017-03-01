@@ -30,9 +30,9 @@
     // For Tab bar buttons
     self.tabBar.tintColor = [YorickStyle color1];
     
-    UITabBarItem *tabBarItem0 = [self.tabBar.items objectAtIndex:0];
-    UITabBarItem *tabBarItem1 = [self.tabBar.items objectAtIndex:1];
-    UITabBarItem *tabBarItem2 = [self.tabBar.items objectAtIndex:2];
+    UITabBarItem *tabBarItem0 = self.tabBar.items[0];
+    UITabBarItem *tabBarItem1 = self.tabBar.items[1];
+    UITabBarItem *tabBarItem2 = self.tabBar.items[2];
     
     
     [tabBarItem0 setImage: [[UIImage imageNamed:@"favorites-unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
@@ -66,8 +66,8 @@
 
 -(void)scrollToTop {
     if (self.indexOfNewTab == 1) {
-        NavigationController *nc = [self.viewControllers objectAtIndex:1];
-        MonologueViewController *vc = [nc.viewControllers objectAtIndex:0];
+        NavigationController *nc = self.viewControllers[1];
+        MonologueViewController *vc = nc.viewControllers[0];
         [vc.tableView setContentOffset:CGPointMake(0, 0 - vc.tableView.contentInset.top) animated:YES];
     }
 }

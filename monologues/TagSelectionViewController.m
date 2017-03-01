@@ -75,7 +75,7 @@
     if ( indexPath.row == 0 ) {
         cell.textLabel.text = @"+ new tag";
     } else if ( indexPath.row >= 1 ) {
-    cell.textLabel.text = [self.manager.allTags objectAtIndex:indexPath.row];
+    cell.textLabel.text = self.manager.allTags[indexPath.row];
     }
     
     return cell;

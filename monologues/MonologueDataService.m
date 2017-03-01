@@ -120,7 +120,7 @@
 {
     Monologue *currentMonologue = nil;
     if (_searchActive || _isForFavorites) {
-        currentMonologue = [_displayArray objectAtIndex:indexPath.row];
+        currentMonologue = _displayArray[indexPath.row];
     } else {
 
         currentMonologue = [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
