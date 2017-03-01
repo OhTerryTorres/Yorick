@@ -10,8 +10,7 @@
 		CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0803801E3BD6A9005EDDAF /* BrowseViewController.m */; };
 		CE08FD441E521A9800A067EE /* PopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE08FD431E521A9800A067EE /* PopUpView.m */; };
 		CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */; };
-		CE2BCA321E5BB010002E4C10 /* UIFont+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */; };
-		CE2BCA381E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m */; };
+		CE2BCA381E5BB7B0002E4C10 /* UILabel+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyle.m */; };
 		CE2BCA3B1E5BE0E0002E4C10 /* NotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */; };
 		CE2BCA3E1E5CA649002E4C10 /* TextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA3D1E5CA649002E4C10 /* TextTableViewCell.m */; };
 		CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C11E382FF5009E6871 /* MonologueDataService.m */; };
@@ -20,6 +19,7 @@
 		CE3FAAA71AEAD871008C28CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA61AEAD871008C28CB /* SystemConfiguration.framework */; };
 		CE3FAAA91AEAD885008C28CB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA81AEAD885008C28CB /* MobileCoreServices.framework */; };
 		CE3FAAAB1AEAD8DA008C28CB /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAAA1AEAD8DA008C28CB /* libz.1.2.5.dylib */; };
+		CE4BB3541E665A62006A21E9 /* UITableViewCell+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4BB3531E665A62006A21E9 /* UITableViewCell+YorickStyle.m */; };
 		CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4EF2301B0576410045C811 /* TagSelectionViewController.m */; };
 		CE659EE01974A8C200364269 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE659EDF1974A8C200364269 /* CoreData.framework */; };
 		CEA0FFBB1976EF97004626F1 /* FavoriteMonologueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */; };
@@ -80,10 +80,8 @@
 		CE08FD431E521A9800A067EE /* PopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopUpView.m; sourceTree = "<group>"; };
 		CE1D57DA1E4B6E2800BB3988 /* YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YorickStyle.h; sourceTree = "<group>"; };
 		CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YorickStyle.m; sourceTree = "<group>"; };
-		CE2BCA301E5BB010002E4C10 /* UIFont+YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+YorickStyle.h"; sourceTree = "<group>"; };
-		CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+YorickStyle.m"; sourceTree = "<group>"; };
 		CE2BCA361E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+YorickStyle.h"; sourceTree = "<group>"; };
-		CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YorickStyleLabel.m"; sourceTree = "<group>"; };
+		CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YorickStyle.m"; sourceTree = "<group>"; };
 		CE2BCA391E5BE0E0002E4C10 /* NotesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesTableViewCell.h; sourceTree = "<group>"; };
 		CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewCell.m; sourceTree = "<group>"; };
 		CE2BCA3C1E5CA649002E4C10 /* TextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextTableViewCell.h; sourceTree = "<group>"; };
@@ -96,6 +94,8 @@
 		CE3FAAA61AEAD871008C28CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE3FAAA81AEAD885008C28CB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CE3FAAAA1AEAD8DA008C28CB /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		CE4BB3531E665A62006A21E9 /* UITableViewCell+YorickStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+YorickStyle.m"; sourceTree = "<group>"; };
+		CE4BB3551E665A85006A21E9 /* UILabel+YorickStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+YorickStyle.h"; sourceTree = "<group>"; };
 		CE4EF22F1B0576410045C811 /* TagSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSelectionViewController.h; sourceTree = "<group>"; };
 		CE4EF2301B0576410045C811 /* TagSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSelectionViewController.m; sourceTree = "<group>"; };
 		CE659EDF1974A8C200364269 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -224,10 +224,10 @@
 				CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */,
 				CE08FD421E521A9800A067EE /* PopUpView.h */,
 				CE08FD431E521A9800A067EE /* PopUpView.m */,
-				CE2BCA301E5BB010002E4C10 /* UIFont+YorickStyle.h */,
-				CE2BCA311E5BB010002E4C10 /* UIFont+YorickStyle.m */,
+				CE4BB3551E665A85006A21E9 /* UILabel+YorickStyle.h */,
+				CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyle.m */,
 				CE2BCA361E5BB7B0002E4C10 /* UITableViewCell+YorickStyle.h */,
-				CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m */,
+				CE4BB3531E665A62006A21E9 /* UITableViewCell+YorickStyle.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -445,9 +445,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE18379195DC11D00FA14BA /* AppDelegate.m in Sources */,
-				CE2BCA321E5BB010002E4C10 /* UIFont+YorickStyle.m in Sources */,
 				CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */,
-				CE2BCA381E5BB7B0002E4C10 /* UILabel+YorickStyleLabel.m in Sources */,
+				CE2BCA381E5BB7B0002E4C10 /* UILabel+YorickStyle.m in Sources */,
 				CEB00BF5196B3FA50006B03F /* MonologueViewController.m in Sources */,
 				CEAAE3191AB863390006CF95 /* Setting.m in Sources */,
 				CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */,
@@ -459,6 +458,7 @@
 				CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */,
 				CE08FD441E521A9800A067EE /* PopUpView.m in Sources */,
 				CEC1C9F419BE406500D5B197 /* SettingTableViewCell.m in Sources */,
+				CE4BB3541E665A62006A21E9 /* UITableViewCell+YorickStyle.m in Sources */,
 				CEAAE3261AB9F7840006CF95 /* MonologueTableViewCell.m in Sources */,
 				CEAAE3231AB866C60006CF95 /* SettingsViewController.m in Sources */,
 				CEB52851197573DE0053176B /* FavoritesViewController.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  UILabel+YorickStyleLabel.h
+//  UILabel+YorickStyle.h
 //  Yorick
 //
 //  Created by TerryTorres on 2/20/17.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "YorickStyle.h"
 
-@interface UILabel (YorickStyleLabel)
+@interface UILabel (YorickStyle)
 
 @end
