@@ -17,4 +17,5 @@
 @property (nonatomic) Monologue *currentMonologue;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 
+
 @end

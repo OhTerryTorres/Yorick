@@ -25,7 +25,6 @@
     
     // This changes the color of the back button item, and other potential items.
     [self.navigationBar setTintColor:[YorickStyle color1]];
-
     
 }
 

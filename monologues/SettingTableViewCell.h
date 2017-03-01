@@ -16,5 +16,4 @@
 @property (weak, nonatomic) IBOutlet UILabel *settingLabel;
 @property (strong, nonatomic) IBOutlet UIPickerView *pickerView;
 
-
 @end
