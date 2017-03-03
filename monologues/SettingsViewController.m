@@ -199,7 +199,7 @@
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     UIView *view = gestureRecognizer.view;
     if ( [view isKindOfClass:[UIPickerView class]]) {
-        if ( [self anySubViewScrolling:view ] ) {
+        if ( [self isViewScrolling:view ] ) {
             return false;
         }
     }
@@ -207,10 +207,10 @@
 }
 
 // Keeps the gesture from selecting tags willy-nilly
--(bool) anySubViewScrolling:(UIView*)view {
+-(bool) isViewScrolling:(UIView*)view {
     if ( [view isKindOfClass:[ UIScrollView class]] ) {
-        UIScrollView* scroll_view = (UIScrollView*) view;
-        if ( scroll_view.dragging || scroll_view.decelerating ) {
+        UIScrollView* scrollView = (UIScrollView*) view;
+        if ( scrollView.dragging || scrollView.decelerating ) {
             return true;
         }
     }
@@ -232,7 +232,7 @@
     }
     setting.cell.settingLabel.text = [NSString stringWithFormat:@"%d",self.manager.activeTags.count];
     [setting.cell.pickerView reloadAllComponents]; //This is also called in didSelectRow
-
+    
     //[setting.cell.pickerView selectRow: row inComponent: 0 animated:true];
     NSLog(@"B selected row is %d", row);
 }
