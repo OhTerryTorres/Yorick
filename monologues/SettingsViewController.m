@@ -32,13 +32,26 @@
 - (void)viewDidLoad
 {
     [self getManagerFromAppDelegate];
-    self.title = @"Settings";
     
     [self loadSettings];
     
+    // Create frame for tables
+    CGRect frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.x, self.view.frame.size.width, self.view.frame.size.height/3);
+    // Set up active tags table
+    TagSettingDataService* dataService = [[TagSettingDataService alloc] initWithManager:self.manager andTags:self.manager.allTags];
+    self.tagsTable.delegate = dataService;
+    self.tagsTable.dataSource = dataService;
+    self.tagsTable.frame = frame;
+    [self.tagsTable reloadData];
+    
+    
+    // Set up settings table
     // This will remove extra separators from tableview
-    self.tableView.tableFooterView = [UIView new];
-    [self.tableView reloadData];
+    self.settingTable.tableFooterView = [UIView new];
+    frame.origin.y += frame.size.height;
+    self.settingTable.frame = frame;
+    [self.settingTable reloadData];
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self getManagerFromAppDelegate];
@@ -55,7 +68,7 @@
         
         Setting *setting = self.manager.settings[i];
         
-        setting.cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+        setting.cell = [self.settingTable dequeueReusableCellWithIdentifier:@"cell"];
         setting.cell.titleLabel.text = [setting.title capitalizedString];
         setting.cell.settingLabel.text = setting.currentSetting;
         
@@ -94,6 +107,10 @@
     return 1;
 }
 
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Filters";
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
@@ -112,7 +129,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     Setting *setting = [self.manager.settings objectAtIndex:indexPath.row];
-    CGFloat height = setting.pickerCellIsShowing ? setting.cell.pickerView.frame.size.height : self.tableView.rowHeight;
+    CGFloat height = setting.pickerCellIsShowing ? setting.cell.pickerView.frame.size.height : tableView.rowHeight;
 
     return height;
 }
@@ -134,26 +151,13 @@
         
     }
     
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark: PickerView Methods
 
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    // TAG SELECT
-    // Add a gesture recognizer to the TAGS picker
-    Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
-    if ( [setting.title isEqualToString:@"tags"] ) {
-        if (pickerView.gestureRecognizers.count < 1) {
-            UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tagSelect:)];
-            tapGestureRecognizer.delegate = self;
-            tapGestureRecognizer.numberOfTouchesRequired = 1;
-            tapGestureRecognizer.numberOfTapsRequired = 1;
-            [pickerView addGestureRecognizer:tapGestureRecognizer];
-            pickerView.userInteractionEnabled = true;
-        }
-    }
     return 1;
 }
 
@@ -174,19 +178,6 @@
         Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
         
         label.text = setting.options[row];
-        
-        // TAG SELECT
-        // Differentiate ACTIVE TAGS from other tags
-        if ( [setting.title isEqualToString:@"tags"] ) {
-            if ( [self.manager.activeTags containsObject: setting.options[row]] ) {
-                label.text = [NSString stringWithFormat:@"[%@]", setting.options[row]];
-                label.textColor = [YorickStyle color2];
-            } else {
-                label.text = setting.options[row];
-                label.textColor = [UIColor blackColor];
-            }
-        }
-        
         label.font = [YorickStyle defaultFont];
         label.textAlignment = NSTextAlignmentCenter;
     }
@@ -194,60 +185,12 @@
     return label;
 }
 
-
-// This allows TAG SELECT to work properly.
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    UIView *view = gestureRecognizer.view;
-    if ( [view isKindOfClass:[UIPickerView class]]) {
-        if ( [self isViewScrolling:view ] ) {
-            return false;
-        }
-    }
-    return true;
-}
-
-// Keeps the gesture from selecting tags willy-nilly
--(bool) isViewScrolling:(UIView*)view {
-    if ( [view isKindOfClass:[ UIScrollView class]] ) {
-        UIScrollView* scrollView = (UIScrollView*) view;
-        if ( scrollView.dragging || scrollView.decelerating ) {
-            return true;
-        }
-    }
-    
-    return false;
-}
-
-- (void) tagSelect:(id*) sender {
-    // TAG SELECT
-    Setting *setting = self.manager.settings[3];
-    int row = [setting.cell.pickerView selectedRowInComponent:0];
-    NSLog(@"A selected row is %d", row);
-    NSString *currentTag = [setting.options objectAtIndex: row];
-    
-    if ( [self.manager.activeTags containsObject: currentTag] ) {
-        [self.manager.activeTags removeObject: currentTag];
-    } else {
-        [self.manager.activeTags addObject: currentTag];
-    }
-    setting.cell.settingLabel.text = [NSString stringWithFormat:@"%d",self.manager.activeTags.count];
-    [setting.cell.pickerView reloadAllComponents]; //This is also called in didSelectRow
-    
-    //[setting.cell.pickerView selectRow: row inComponent: 0 animated:true];
-    NSLog(@"B selected row is %d", row);
-}
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     Setting *setting = self.manager.settings[pickerView.tag];
     NSString *rowItem = [setting.options objectAtIndex:[pickerView selectedRowInComponent:0]];
     
-    // TAG SELECT
-    if ( [setting.title isEqualToString:@"tags"] ) {
-
-    } else {
-        setting.cell.settingLabel.text = rowItem;
-    }
+    setting.cell.settingLabel.text = rowItem;
     setting.currentSetting = rowItem;
     [pickerView reloadAllComponents];
     
@@ -256,8 +199,8 @@
 - (void)pickerCellShow:(Setting*)setting  {
     
     setting.pickerCellIsShowing = YES;
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
+    [self.settingTable beginUpdates];
+    [self.settingTable endUpdates];
     setting.cell.pickerView.hidden = NO;
     setting.cell.colored = YES;
     
@@ -284,8 +227,8 @@
         setting.cell.colored = NO;
         setting.pickerCellIsShowing = NO;
         [setting.cell.pickerView removeFromSuperview];
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
+        [self.settingTable beginUpdates];
+        [self.settingTable endUpdates];
         
         [UIView animateWithDuration:0.25
                          animations:^{
@@ -308,7 +251,9 @@
         
         i++;
     }
-    [self.tableView reloadData];
+    [self.manager.activeTags removeAllObjects];
+    [self.tagsTable reloadData];
+    [self.settingTable reloadData];
 }
 
 
