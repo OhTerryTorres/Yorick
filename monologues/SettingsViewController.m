@@ -148,6 +148,8 @@
         if (pickerView.gestureRecognizers.count < 1) {
             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tagSelect:)];
             tapGestureRecognizer.delegate = self;
+            tapGestureRecognizer.numberOfTouchesRequired = 1;
+            tapGestureRecognizer.numberOfTapsRequired = 1;
             [pickerView addGestureRecognizer:tapGestureRecognizer];
             pickerView.userInteractionEnabled = true;
         }
@@ -216,16 +218,6 @@
     return false;
 }
 
-// This adds a delay to the gesture so that the user doesn't accidentally
-// select th tag they're scrolling AWAY from.
--(void) tagSelectTimer {
-    [NSTimer scheduledTimerWithTimeInterval:0.1
-                                     target:self
-                                   selector:@selector(tagSelect:)
-                                   userInfo:nil
-                                    repeats:NO];
-}
-
 - (void) tagSelect:(id*) sender {
     // TAG SELECT
     Setting *setting = self.manager.settings[3];
@@ -239,9 +231,9 @@
         [self.manager.activeTags addObject: currentTag];
     }
     setting.cell.settingLabel.text = [NSString stringWithFormat:@"%d",self.manager.activeTags.count];
-    [setting.cell.pickerView reloadAllComponents];
+    [setting.cell.pickerView reloadAllComponents]; //This is also called in didSelectRow
 
-    [setting.cell.pickerView selectRow: row inComponent: 0 animated:true];
+    //[setting.cell.pickerView selectRow: row inComponent: 0 animated:true];
     NSLog(@"B selected row is %d", row);
 }
 
@@ -257,6 +249,7 @@
         setting.cell.settingLabel.text = rowItem;
     }
     setting.currentSetting = rowItem;
+    [pickerView reloadAllComponents];
     
 }
 
