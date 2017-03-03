@@ -25,9 +25,13 @@
         if ([self.title isEqualToString:@"length"]) {
             self.options = [[NSArray alloc] initWithObjects: @"Any", @"< 1 minute", @"< 2 minutes", @"> 2 minutes", nil];
         }
+        if ([self.title isEqualToString:@"tags"]) {
+            // options are initialized in MonologueManager's loadSettings method GOWIT
+        }
         if ([self.title isEqualToString:@"size"]) {
             self.options = [[NSArray alloc] initWithObjects: @"Normal", @"Large", @"Very Large", @"Largest", nil];
         }
+        
         self.currentSetting = self.options[0];
         
     }

@@ -140,12 +140,51 @@
 #pragma mark: PickerView Methods
 
 
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    // Tag Selection
+    // Add a gesture recognizer to the TAGS picker
+    Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
+    if ( [setting.title isEqualToString:@"tags"] ) {
+        if (pickerView.gestureRecognizers.count < 1) {
+            UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tagSelect:)];
+            tapGestureRecognizer.delegate = self;
+            tapGestureRecognizer.numberOfTapsRequired = 1;
+            tapGestureRecognizer.numberOfTouchesRequired = 1;
+            [pickerView addGestureRecognizer:tapGestureRecognizer];
+            pickerView.userInteractionEnabled = true;
+        }
+    }
+    return 1;
+}
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    //set number of rows
+    
+    // Get writing the setting object by referring to the tag of the current pickerView,
+    // which we generated in the while loop back at loadsettings
+    Setting *setting =  [self.manager.settings objectAtIndex:pickerView.tag];
+
+    return setting.options.count;
+}
+
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     UILabel* label = (UILabel*)view;
     if (!label) {
         label = [[UILabel alloc] init];
         Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
+        
         label.text = setting.options[row];
+        
+        // Tag selection
+        // Differentiate ACTIVE TAGS from other tags
+        if ( [setting.title isEqualToString:@"tags"] ) {
+            if ( [self.manager.activeTags containsObject: setting.options[row]] ) {
+                label.text = [NSString stringWithFormat:@"[%@]", setting.options[row]];
+            } else {
+                label.text = setting.options[row];
+            }
+        }
+        
         label.font = [YorickStyle defaultFont];
         label.textAlignment = NSTextAlignmentCenter;
     }
@@ -153,28 +192,39 @@
     return label;
 }
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    //One column
-    return 1;
+// This allows tag select to work.
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return true;
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    //set number of rows
-    
-    // Get writing the setting object by referring to the tag of the current pickerView,
-    // which we generated in the while loop back at loadsettings
-    Setting *setting =  [self.manager.settings objectAtIndex:pickerView.tag];
-        
-    return setting.options.count;
+- (void) tagSelect:(id*) sender {
+    // Tag selection
+    Setting *setting = self.manager.settings[3];
+    NSString *currentTag = [setting.options objectAtIndex:[setting.cell.pickerView selectedRowInComponent:0]];
+    if ( [self.manager.activeTags containsObject: currentTag] ) {
+        [self.manager.activeTags removeObject: currentTag];
+    } else {
+        [self.manager.activeTags addObject: currentTag];
+    }
+    setting.cell.settingLabel.text = [NSString stringWithFormat:@"%d",self.manager.activeTags.count];
+    [setting.cell.pickerView reloadComponent:0];
+    NSLog(@"%@ selected", currentTag);
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     Setting *setting = self.manager.settings[pickerView.tag];
-    setting.currentSetting = [setting.options objectAtIndex:[pickerView selectedRowInComponent:0]];
-    setting.cell.settingLabel.text = [setting.options objectAtIndex:[pickerView selectedRowInComponent:0]];
+    NSString *rowItem = [setting.options objectAtIndex:[pickerView selectedRowInComponent:0]];
+    
+    // Tag selection
+    if ( [setting.title isEqualToString:@"tags"] ) {
+
+        NSLog(@"%d",setting.cell.pickerView.gestureRecognizers.count);
+    } else {
+        setting.cell.settingLabel.text = rowItem;
+    }
+    setting.currentSetting = rowItem;
+    
 }
 
 - (void)pickerCellShow:(Setting*)setting  {

@@ -20,6 +20,7 @@
         self.monologues = [self loadMonologuesFromDisk];
         self.favoriteMonologues = [[NSMutableArray alloc] init];
         self.allTags = [[NSMutableArray alloc] init];
+        self.activeTags = [[NSMutableSet alloc] init];
         [self addTagsFromArrayOfMonologues: self.monologues];
         // When updating from server, simply add [self getTagsFromArrayOfMonologues: monologues] directly as an object
         
@@ -102,6 +103,10 @@
     
     Setting* settingLength = [[Setting alloc] initWithTitle:@"length"];
     [settings addObject:settingLength];
+    
+    Setting* settingTags = [[Setting alloc] initWithTitle:@"tags"];
+    settingTags.options = [[NSArray alloc] initWithArray:self.allTags];
+    [settings addObject:settingTags];
     
     Setting* settingSize = [[Setting alloc] initWithTitle:@"size"];
     [settings addObject:settingSize];

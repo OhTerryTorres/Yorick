@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSMutableArray *favoriteMonologues;
 
 @property (strong, nonatomic) NSMutableArray *allTags;
+@property (strong, nonatomic) NSMutableSet *activeTags;
 @property (strong, nonatomic) NSArray *settings;
 
 @property int latestUpdateCount;

@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "YorickStyle.h"
 
-@interface SettingsViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface SettingsViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) MonologueManager *manager;
 

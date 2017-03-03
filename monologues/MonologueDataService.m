@@ -132,6 +132,11 @@
     cell.characterLabel.text = currentMonologue.character;
     [cell setExcerptLabelWithString: currentMonologue.text];
     
+    // Dealing with tutorial display
+    if ( [currentMonologue.title isEqualToString:@"Welcome to Yorick"] ) {
+        [cell setExcerptLabelWithString: @"Touch this spot right here to find out how to use Yorick."];
+    }
+    
     return cell;
     
 }
