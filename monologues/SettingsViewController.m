@@ -141,15 +141,13 @@
 
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    // Tag Selection
+    // TAG SELECT
     // Add a gesture recognizer to the TAGS picker
     Setting *setting = [self.manager.settings objectAtIndex:pickerView.tag];
     if ( [setting.title isEqualToString:@"tags"] ) {
         if (pickerView.gestureRecognizers.count < 1) {
             UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tagSelect:)];
             tapGestureRecognizer.delegate = self;
-            tapGestureRecognizer.numberOfTapsRequired = 1;
-            tapGestureRecognizer.numberOfTouchesRequired = 1;
             [pickerView addGestureRecognizer:tapGestureRecognizer];
             pickerView.userInteractionEnabled = true;
         }
@@ -175,13 +173,15 @@
         
         label.text = setting.options[row];
         
-        // Tag selection
+        // TAG SELECT
         // Differentiate ACTIVE TAGS from other tags
         if ( [setting.title isEqualToString:@"tags"] ) {
             if ( [self.manager.activeTags containsObject: setting.options[row]] ) {
                 label.text = [NSString stringWithFormat:@"[%@]", setting.options[row]];
+                label.textColor = [YorickStyle color2];
             } else {
                 label.text = setting.options[row];
+                label.textColor = [UIColor blackColor];
             }
         }
         
@@ -192,23 +192,57 @@
     return label;
 }
 
-// This allows tag select to work.
+
+// This allows TAG SELECT to work properly.
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    UIView *view = gestureRecognizer.view;
+    if ( [view isKindOfClass:[UIPickerView class]]) {
+        if ( [self anySubViewScrolling:view ] ) {
+            return false;
+        }
+    }
     return true;
 }
 
+// Keeps the gesture from selecting tags willy-nilly
+-(bool) anySubViewScrolling:(UIView*)view {
+    if ( [view isKindOfClass:[ UIScrollView class]] ) {
+        UIScrollView* scroll_view = (UIScrollView*) view;
+        if ( scroll_view.dragging || scroll_view.decelerating ) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+// This adds a delay to the gesture so that the user doesn't accidentally
+// select th tag they're scrolling AWAY from.
+-(void) tagSelectTimer {
+    [NSTimer scheduledTimerWithTimeInterval:0.1
+                                     target:self
+                                   selector:@selector(tagSelect:)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
 - (void) tagSelect:(id*) sender {
-    // Tag selection
+    // TAG SELECT
     Setting *setting = self.manager.settings[3];
-    NSString *currentTag = [setting.options objectAtIndex:[setting.cell.pickerView selectedRowInComponent:0]];
+    int row = [setting.cell.pickerView selectedRowInComponent:0];
+    NSLog(@"A selected row is %d", row);
+    NSString *currentTag = [setting.options objectAtIndex: row];
+    
     if ( [self.manager.activeTags containsObject: currentTag] ) {
         [self.manager.activeTags removeObject: currentTag];
     } else {
         [self.manager.activeTags addObject: currentTag];
     }
     setting.cell.settingLabel.text = [NSString stringWithFormat:@"%d",self.manager.activeTags.count];
-    [setting.cell.pickerView reloadComponent:0];
-    NSLog(@"%@ selected", currentTag);
+    [setting.cell.pickerView reloadAllComponents];
+
+    [setting.cell.pickerView selectRow: row inComponent: 0 animated:true];
+    NSLog(@"B selected row is %d", row);
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -216,10 +250,9 @@
     Setting *setting = self.manager.settings[pickerView.tag];
     NSString *rowItem = [setting.options objectAtIndex:[pickerView selectedRowInComponent:0]];
     
-    // Tag selection
+    // TAG SELECT
     if ( [setting.title isEqualToString:@"tags"] ) {
 
-        NSLog(@"%d",setting.cell.pickerView.gestureRecognizers.count);
     } else {
         setting.cell.settingLabel.text = rowItem;
     }
