@@ -133,7 +133,24 @@
         }
         
     }
+    
+    // Filter for active tags
+    if (self.activeTags.count > 0) {
+        monologuesArray = [self filterMonologuesForActiveTags:monologuesArray];
+    }
+    
     return monologuesArray;
+}
+
+-(NSArray*)filterMonologuesForActiveTags:(NSArray*)monologuesArray {
+    NSMutableArray *predicatesList = [NSMutableArray array];
+    for (NSString *tag in self.activeTags) {
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"tags contains[cd] %@",tag];
+        [predicatesList addObject:predicate];
+    }
+    NSCompoundPredicate *compoundPredicate = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType
+                                                                         subpredicates:predicatesList];
+    return [monologuesArray filteredArrayUsingPredicate:compoundPredicate];
 }
 
 -(NSArray*)filterMonologues:(NSArray*)monologuesArray forSearchString:(NSString*)searchString {
@@ -287,6 +304,7 @@
         self.monologues = [decoder decodeObjectForKey:@"monologues"];
         self.favoriteMonologues = [decoder decodeObjectForKey:@"favoriteMonologues"];
         self.allTags = [decoder decodeObjectForKey:@"allTags"];
+        self.activeTags = [decoder decodeObjectForKey:@"activeTags"];
         self.settings = [decoder decodeObjectForKey:@"settings"];
         self.latestUpdateCount = [decoder decodeIntForKey:@"latestUpdateCount"];
     }
@@ -297,6 +315,7 @@
     [encoder encodeObject:self.monologues forKey:@"monologues"];
     [encoder encodeObject:self.favoriteMonologues forKey:@"favoriteMonologues"];
     [encoder encodeObject:self.allTags forKey:@"allTags"];
+    [encoder encodeObject:self.activeTags forKey:@"activeTags"];
     [encoder encodeObject:self.settings forKey:@"settings"];
     [encoder encodeInt:self.latestUpdateCount forKey:@"latestUpdateCount"];
 }

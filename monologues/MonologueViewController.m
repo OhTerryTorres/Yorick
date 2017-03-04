@@ -318,14 +318,9 @@
             size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueNotes:
-            [self.notesCell.contentView setNeedsLayout];
-            [self.notesCell.contentView layoutIfNeeded];
-            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.notesLabel.frame);
             size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueTags:
-            [self.tagCell.contentView setNeedsLayout];
-            [self.tagCell.contentView layoutIfNeeded];
             self.tagCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
             size = [self.tagCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;

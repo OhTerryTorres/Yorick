@@ -32,25 +32,13 @@
 - (void)viewDidLoad
 {
     [self getManagerFromAppDelegate];
+    self.title = @"Settings";
     
     [self loadSettings];
     
-    // Create frame for tables
-    CGRect frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.x, self.view.frame.size.width, self.view.frame.size.height/3);
-    // Set up active tags table
-    TagSettingDataService* dataService = [[TagSettingDataService alloc] initWithManager:self.manager andTags:self.manager.allTags];
-    self.tagsTable.delegate = dataService;
-    self.tagsTable.dataSource = dataService;
-    self.tagsTable.frame = frame;
-    [self.tagsTable reloadData];
-    
-    
-    // Set up settings table
     // This will remove extra separators from tableview
-    self.settingTable.tableFooterView = [UIView new];
-    frame.origin.y += frame.size.height;
-    self.settingTable.frame = frame;
-    [self.settingTable reloadData];
+    self.tableView.tableFooterView = [UIView new];
+    [self.tableView reloadData];
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -68,7 +56,7 @@
         
         Setting *setting = self.manager.settings[i];
         
-        setting.cell = [self.settingTable dequeueReusableCellWithIdentifier:@"cell"];
+        setting.cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
         setting.cell.titleLabel.text = [setting.title capitalizedString];
         setting.cell.settingLabel.text = setting.currentSetting;
         
@@ -79,6 +67,11 @@
         if ( [setting.title isEqualToString:@"size"] ) {
             setting.cell.titleLabel.text = @"Text Size";
 
+            UIView *separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
+            separatorLineView.backgroundColor = [YorickStyle color1];
+            [setting.cell.contentView addSubview:separatorLineView];
+        }
+        if ( [setting.title isEqualToString:@"gender"] ) {
             UIView *separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
             separatorLineView.backgroundColor = [YorickStyle color1];
             [setting.cell.contentView addSubview:separatorLineView];
@@ -107,51 +100,65 @@
     return 1;
 }
 
--(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Filters";
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return self.manager.settings.count;
+    // + 1 for TAG SEARCH!!
+    return self.manager.settings.count+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Setting *setting = [self.manager.settings objectAtIndex:indexPath.row];
-
-    [setting.cell setNeedsUpdateConstraints];
+    NSLog(@"indexPath.row is %d", indexPath.row);
+    // This method will add a special row at the top that takes the user to the tag search screen.
+    // As a result, the other rows will be off by one
+    if ( indexPath.row == 0 ) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tagSearch"];
+        cell.textLabel.text = @"Tag Search";
+        cell.textLabel.textColor = [YorickStyle color2];
+        return cell;
+    } else {
+        Setting *setting = [self.manager.settings objectAtIndex:indexPath.row-1];
+        
+        [setting.cell setNeedsUpdateConstraints];
+        
+        return setting.cell;
+    }
     
-    return setting.cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    Setting *setting = [self.manager.settings objectAtIndex:indexPath.row];
-    CGFloat height = setting.pickerCellIsShowing ? setting.cell.pickerView.frame.size.height : tableView.rowHeight;
-
-    return height;
+    if ( indexPath.row == 0 ) {
+        return tableView.rowHeight;
+    } else {
+        Setting *setting = [self.manager.settings objectAtIndex:indexPath.row-1];
+        CGFloat height = setting.pickerCellIsShowing ? setting.cell.pickerView.frame.size.height : self.tableView.rowHeight;
+        
+        return height;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Setting *setting = self.manager.settings[indexPath.row];
-    if ( setting.pickerCellIsShowing ) {
-        [self pickerCellHide:setting];
-    } else {
+    if ( indexPath.row == 0 ) {
         
-        for ( int i = 0; i < self.manager.settings.count; i++) {
-            setting = self.manager.settings[i];
-            if ( self.manager.settings[i] == self.manager.settings[indexPath.row] ) {
-                [self pickerCellShow:setting];
-            } else {
-                [self pickerCellHide:setting];
+    } else{
+        Setting *setting = self.manager.settings[indexPath.row-1];
+        if ( setting.pickerCellIsShowing ) {
+            [self pickerCellHide:setting];
+        } else {
+            
+            for ( int i = 0; i < self.manager.settings.count; i++) {
+                setting = self.manager.settings[i];
+                if ( self.manager.settings[i] == self.manager.settings[indexPath.row-1] ) {
+                    [self pickerCellShow:setting];
+                } else {
+                    [self pickerCellHide:setting];
+                }
             }
         }
-        
     }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark: PickerView Methods
@@ -185,6 +192,7 @@
     return label;
 }
 
+
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     Setting *setting = self.manager.settings[pickerView.tag];
@@ -199,8 +207,8 @@
 - (void)pickerCellShow:(Setting*)setting  {
     
     setting.pickerCellIsShowing = YES;
-    [self.settingTable beginUpdates];
-    [self.settingTable endUpdates];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
     setting.cell.pickerView.hidden = NO;
     setting.cell.colored = YES;
     
@@ -211,9 +219,9 @@
     
     setting.cell.pickerView.frame = rect;
     
+    setting.cell.pickerView.alpha = 0.0f;
     [setting.cell addSubview:setting.cell.pickerView];
     
-    setting.cell.pickerView.alpha = 0.0f;
     [UIView animateWithDuration:0.25 animations:^{
         setting.cell.pickerView.alpha = 1.0f;
     }];
@@ -227,8 +235,8 @@
         setting.cell.colored = NO;
         setting.pickerCellIsShowing = NO;
         [setting.cell.pickerView removeFromSuperview];
-        [self.settingTable beginUpdates];
-        [self.settingTable endUpdates];
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
         
         [UIView animateWithDuration:0.25
                          animations:^{
@@ -251,10 +259,17 @@
         
         i++;
     }
+    
+    // Clear active tags
     [self.manager.activeTags removeAllObjects];
-    [self.tagsTable reloadData];
-    [self.settingTable reloadData];
+    [self.tableView reloadData];
 }
 
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    TagSearchController* tsc = [segue destinationViewController];
+    tsc.manager = self.manager;
+}
 
 @end

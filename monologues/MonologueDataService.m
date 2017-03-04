@@ -134,7 +134,7 @@
     
     // Dealing with tutorial display
     if ( [currentMonologue.title isEqualToString:@"Welcome to Yorick"] ) {
-        [cell setExcerptLabelWithString: @"Touch this spot right here to find out how to use Yorick."];
+        [cell setExcerptLabelWithString: @"If you want to know how to use Yorick, select this entry."];
     }
     
     return cell;

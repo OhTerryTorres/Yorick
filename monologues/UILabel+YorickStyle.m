@@ -16,4 +16,5 @@
     self.font = [YorickStyle defaultFont];
 }
 
+
 @end

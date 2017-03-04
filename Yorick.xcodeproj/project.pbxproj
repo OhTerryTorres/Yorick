@@ -22,7 +22,7 @@
 		CE4BB3541E665A62006A21E9 /* UITableViewCell+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4BB3531E665A62006A21E9 /* UITableViewCell+YorickStyle.m */; };
 		CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4EF2301B0576410045C811 /* TagSelectionViewController.m */; };
 		CE659EE01974A8C200364269 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE659EDF1974A8C200364269 /* CoreData.framework */; };
-		CE7C495F1E69FE24000B56DB /* TagSettingDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7C495E1E69FE24000B56DB /* TagSettingDataService.m */; };
+		CE7C495F1E69FE24000B56DB /* TagSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7C495E1E69FE24000B56DB /* TagSearchController.m */; };
 		CEA0FFBB1976EF97004626F1 /* FavoriteMonologueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */; };
 		CEAAE3191AB863390006CF95 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE3181AB863390006CF95 /* Setting.m */; };
 		CEAAE3231AB866C60006CF95 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAAE3221AB866C60006CF95 /* SettingsViewController.m */; };
@@ -100,8 +100,8 @@
 		CE4EF22F1B0576410045C811 /* TagSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSelectionViewController.h; sourceTree = "<group>"; };
 		CE4EF2301B0576410045C811 /* TagSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSelectionViewController.m; sourceTree = "<group>"; };
 		CE659EDF1974A8C200364269 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		CE7C495D1E69FE24000B56DB /* TagSettingDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSettingDataService.h; sourceTree = "<group>"; };
-		CE7C495E1E69FE24000B56DB /* TagSettingDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSettingDataService.m; sourceTree = "<group>"; };
+		CE7C495D1E69FE24000B56DB /* TagSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSearchController.h; sourceTree = "<group>"; };
+		CE7C495E1E69FE24000B56DB /* TagSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSearchController.m; sourceTree = "<group>"; };
 		CEA0FFB91976EF97004626F1 /* FavoriteMonologueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteMonologueViewController.h; sourceTree = "<group>"; };
 		CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteMonologueViewController.m; sourceTree = "<group>"; };
 		CEAAE3171AB863390006CF95 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
@@ -204,8 +204,8 @@
 		CE0803851E42D94C005EDDAF /* UtilityViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				CE7C495D1E69FE24000B56DB /* TagSettingDataService.h */,
-				CE7C495E1E69FE24000B56DB /* TagSettingDataService.m */,
+				CE7C495D1E69FE24000B56DB /* TagSearchController.h */,
+				CE7C495E1E69FE24000B56DB /* TagSearchController.m */,
 				CEAAE3211AB866C60006CF95 /* SettingsViewController.h */,
 				CEAAE3221AB866C60006CF95 /* SettingsViewController.m */,
 				CEFC85A019CA3246003739D7 /* EditViewController.h */,
@@ -461,7 +461,7 @@
 				CEE18375195DC11D00FA14BA /* main.m in Sources */,
 				CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */,
 				CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */,
-				CE7C495F1E69FE24000B56DB /* TagSettingDataService.m in Sources */,
+				CE7C495F1E69FE24000B56DB /* TagSearchController.m in Sources */,
 				CE08FD441E521A9800A067EE /* PopUpView.m in Sources */,
 				CEC1C9F419BE406500D5B197 /* SettingTableViewCell.m in Sources */,
 				CE4BB3541E665A62006A21E9 /* UITableViewCell+YorickStyle.m in Sources */,

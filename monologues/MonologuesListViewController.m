@@ -108,6 +108,7 @@
     self.searchController.searchBar.delegate = self;
     
     [self.searchController.searchBar sizeToFit];
+    self.extendedLayoutIncludesOpaqueBars = YES;
     
     // Add the UISearchBar to the top header of the table view
     self.tableView.tableHeaderView = self.searchController.searchBar;
