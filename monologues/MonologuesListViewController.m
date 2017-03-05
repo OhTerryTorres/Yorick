@@ -33,6 +33,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    
     [self getManagerFromAppDelegate];
     
     // Initialize the data service for this tableview.

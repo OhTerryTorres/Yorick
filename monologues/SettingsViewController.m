@@ -269,6 +269,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     TagSearchController* tsc = [segue destinationViewController];
     tsc.manager = self.manager;
+    tsc.sections = [tsc getAlphabeticalSections:self.manager.allTags];
 }
 
 @end

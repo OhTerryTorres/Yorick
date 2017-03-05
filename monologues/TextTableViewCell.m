@@ -21,4 +21,12 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    [self.contentView layoutIfNeeded];
+    self.monologueTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.monologueTextLabel.frame);
+}
+
 @end

@@ -23,6 +23,7 @@
 @property (nonatomic) NSMutableArray *relatedMonologues;
 
 @property (nonatomic) TextTableViewCell *textCell;
+@property (nonatomic) NSArray *textArray;
 @property (nonatomic) NotesTableViewCell *notesCell;
 @property (nonatomic) UITableViewCell *tagCell;
 
@@ -53,5 +54,9 @@
 -(void)compileRelatedMonologuesfromArrayOfMonologues:(NSArray*)sourceMonologues;
 -(NSArray*)loadTagsIntoArray:(NSString*)tags;
 -(void)addTapGestureRecognizerToCell:(UITableViewCell*)cell;
+
+// TextArrya stuff
+-(NSArray*)splitTextIntoArray:(NSString*)text;
+- (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

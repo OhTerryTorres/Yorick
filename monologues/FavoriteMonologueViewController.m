@@ -48,6 +48,7 @@
 
 - (void)loadData {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
         self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
         NSArray* tempSource = [[NSArray alloc] initWithArray:self.detailsDataSource];
         self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
@@ -114,7 +115,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if ( section == monologueTags ) {
+    if ( section == monologueText ) {
+        return self.textArray.count;
+    } else if ( section == monologueTags ) {
         return self.tagsArray.count;
     } else if ( section == monologueRelated ) {
         if ( self.relatedMonologues.count > 3) {
@@ -204,29 +207,25 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ( indexPath.section == monologueText ) {
+        [self configureCell:self.textCell forRowAtIndexPath:indexPath];
+    }
     CGSize size;
     switch ( indexPath.section ) {
         case monologueText:
-            [self.textCell.contentView setNeedsLayout];
-            [self.textCell.contentView layoutIfNeeded];
-            self.textCell.monologueTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.textCell.monologueTextLabel.frame);
+            self.textCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), CGRectGetHeight(self.textCell.bounds));
+            [self.textCell layoutIfNeeded];
             size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueNotes:
-            [self.notesCell.contentView setNeedsLayout];
-            [self.notesCell.contentView layoutIfNeeded];
             self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.textLabel.frame);
             size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueTags:
-            [self.tagCell.contentView setNeedsLayout];
-            [self.tagCell.contentView layoutIfNeeded];
             self.tagCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.tagCell.textLabel.frame);
             size = [self.tagCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueEdit:
-            [self.editCell.contentView setNeedsLayout];
-            [self.editCell.contentView layoutIfNeeded];
             self.editCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.editCell.textLabel.bounds);
             size = [self.editCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;

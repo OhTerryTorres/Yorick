@@ -65,6 +65,7 @@
 
 - (void)loadData {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
         self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
         [self compileRelatedMonologuesfromArrayOfMonologues: self.detailsDataSource];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -73,6 +74,13 @@
             [self setFavoriteStatus];
         });
     });
+}
+
+-(NSArray*)splitTextIntoArray:(NSString*)text {
+    NSString *sep = @"\n";
+    NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:sep];
+    NSArray *textArray = [text componentsSeparatedByCharactersInSet:set];
+    return textArray;
 }
 
 -(NSArray*)loadTagsIntoArray:(NSString*)tags {
@@ -208,7 +216,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ( section == monologueTags ) {
+    if ( section == monologueText ) {
+        return self.textArray.count;
+    } else if ( section == monologueTags ) {
         return self.tagsArray.count;
     } else if ( section == monologueRelated ) {
         if ( self.relatedMonologues.count > 3) {
@@ -226,31 +236,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    Setting *sizeSetting = self.manager.settings[3];
-    NSString *textSizeString = sizeSetting.currentSetting;
     NSString *currentTag = @"";
     Monologue *relatedMonologue = [[Monologue alloc] init];
     
     switch ( indexPath.section ) {
         case monologueText:
-            self.textCell = [tableView dequeueReusableCellWithIdentifier:@"text"];
-            if ( [textSizeString isEqualToString:@"Normal"] ) {
-                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize]];
-            }
-            if ( [textSizeString isEqualToString:@"Large"] ) {
-                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largeFontSize]];
-            }
-            if ( [textSizeString isEqualToString:@"Very Large"] ) {
-                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle veryLargeFontSize]];
-            }
-            if ( [textSizeString isEqualToString:@"Largest"] ) {
-                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largestFontSize]];
-            }
-            self.textCell.monologueTextLabel.numberOfLines = 0;
-            self.textCell.monologueTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            self.textCell.monologueTextLabel.text = self.currentMonologue.text;
-            cell = self.textCell;
-            [self addTapGestureRecognizerToCell:cell];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"text" forIndexPath:indexPath];
+            [self configureCell:cell forRowAtIndexPath:indexPath];
             break;
         case monologueNotes:
             self.notesCell = [tableView dequeueReusableCellWithIdentifier:@"notes"];
@@ -283,6 +275,38 @@
     
 }
 
+- (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    Setting *sizeSetting = self.manager.settings[3];
+    NSString *textSizeString = sizeSetting.currentSetting;
+    TextTableViewCell *textCell = (TextTableViewCell *)cell;
+    if ( [textSizeString isEqualToString:@"Normal"] ) {
+        textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize]];
+    }
+    if ( [textSizeString isEqualToString:@"Large"] ) {
+        textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largeFontSize]];
+    }
+    if ( [textSizeString isEqualToString:@"Very Large"] ) {
+        textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle veryLargeFontSize]];
+    }
+    if ( [textSizeString isEqualToString:@"Largest"] ) {
+        textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largestFontSize]];
+    }
+    textCell.monologueTextLabel.numberOfLines = 0;
+    textCell.monologueTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    textCell.monologueTextLabel.text = self.textArray[indexPath.row];
+    NSLog(@"self.textArray[%d] is \n%@", indexPath.row, self.textArray[indexPath.row]);
+    textCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self addTapGestureRecognizerToCell:textCell];
+}
+
+// Necessary for updating textcell
+-(TextTableViewCell*)textCell {
+    if (!_textCell) {
+        _textCell = [self.tableView dequeueReusableCellWithIdentifier:@"text"];
+    }
+    return _textCell;
+}
+
 -(MonologueTableViewCell*)getCellForRelatedMonologue:(Monologue*)monologue atIndexPath:(NSIndexPath*)indexPath {
     MonologueTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"related"forIndexPath:indexPath];
     cell.titleLabel.text = monologue.title;
@@ -309,40 +333,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ( indexPath.section == monologueText ) {
+        [self configureCell:self.textCell forRowAtIndexPath:indexPath];
+    }
+    
     CGSize size;
     switch ( indexPath.section ) {
         case monologueText:
-            [self.textCell.contentView setNeedsLayout];
-            [self.textCell.contentView layoutIfNeeded];
-            self.textCell.monologueTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.textCell.monologueTextLabel.frame);
+            self.textCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), CGRectGetHeight(self.textCell.bounds));
+            [self.textCell layoutIfNeeded];
             size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            
-            // In case the compression breaks the cell height
-            if (size.height < 1) {
-                size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
-                
-                Setting *sizeSetting = self.manager.settings[3];
-                NSString *textSizeString = sizeSetting.currentSetting;
-                
-                int subtractor = self.currentMonologue.text.length;
-                if ( [textSizeString isEqualToString:@"Large"] ) {
-                    subtractor = self.currentMonologue.text.length / 2;
-                }
-                if ( [textSizeString isEqualToString:@"Very Large"] ) {
-                    subtractor = self.currentMonologue.text.length / 2.75;
-                }
-                if ( [textSizeString isEqualToString:@"Largest"] ) {
-                    subtractor = -1 * (self.currentMonologue.text.length / 2.25);
-                }
-                NSLog(@"%f = %f - %d",(size.height - subtractor), size.height, subtractor);
-                size.height -= subtractor;
-            }
             break;
         case monologueNotes:
+            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.textLabel.frame);
             size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueTags:
-            self.tagCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(tableView.bounds);
+            self.tagCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.tagCell.textLabel.frame);
             size = [self.tagCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         default:
