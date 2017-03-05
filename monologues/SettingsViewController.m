@@ -109,7 +109,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"indexPath.row is %d", indexPath.row);
     // This method will add a special row at the top that takes the user to the tag search screen.
     // As a result, the other rows will be off by one
     if ( indexPath.row == 0 ) {

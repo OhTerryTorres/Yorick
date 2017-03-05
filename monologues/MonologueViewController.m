@@ -316,6 +316,27 @@
             [self.textCell.contentView layoutIfNeeded];
             self.textCell.monologueTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.textCell.monologueTextLabel.frame);
             size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            
+            // In case the compression breaks the cell height
+            if (size.height < 1) {
+                size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
+                
+                Setting *sizeSetting = self.manager.settings[3];
+                NSString *textSizeString = sizeSetting.currentSetting;
+                
+                int subtractor = self.currentMonologue.text.length;
+                if ( [textSizeString isEqualToString:@"Large"] ) {
+                    subtractor = self.currentMonologue.text.length / 2;
+                }
+                if ( [textSizeString isEqualToString:@"Very Large"] ) {
+                    subtractor = self.currentMonologue.text.length / 2.75;
+                }
+                if ( [textSizeString isEqualToString:@"Largest"] ) {
+                    subtractor = -1 * (self.currentMonologue.text.length / 2.25);
+                }
+                NSLog(@"%f = %f - %d",(size.height - subtractor), size.height, subtractor);
+                size.height -= subtractor;
+            }
             break;
         case monologueNotes:
             size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
