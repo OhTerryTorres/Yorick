@@ -125,16 +125,16 @@
 
         currentMonologue = [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     }
-    
+  
     MonologueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-
+    
     cell.titleLabel.text = currentMonologue.title;
     cell.characterLabel.text = currentMonologue.character;
     [cell setExcerptLabelWithString: currentMonologue.text];
     
     // Dealing with tutorial display
-    if ( [currentMonologue.title isEqualToString:@"Welcome to Yorick"] ) {
-        [cell setExcerptLabelWithString: @"If you want to know how to use Yorick, select this entry."];
+    if ( [currentMonologue.title isEqualToString:@"How to Use Yorick"] ) {
+        [cell setExcerptLabelWithString: @"How poor are they that do not have patience? Start here first."];
     }
     
     return cell;

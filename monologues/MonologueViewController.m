@@ -49,31 +49,39 @@
     [super viewWillAppear:animated];
     [super viewDidAppear:animated];
     
-    [self loadData];
-    
-    [self maintainView];
-}
+    [self loadData:YES];
+    }
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self passManagerToAppDelegate];
-    self.cgFloatY = self.tableView.contentOffset.y;
+    self.lastOffset = self.tableView.contentOffset;
 }
 
 
 #pragma mark: Display Setup
 
-- (void)loadData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+- (void)loadData:(BOOL)async {
+    if (async) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
+            self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
+            self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [self setHeaderTitle];
+                [self setFavoriteStatus];
+            });
+        });
+    } else {
         self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
         self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
-        [self compileRelatedMonologuesfromArrayOfMonologues: self.detailsDataSource];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [self loadHeaderTitle];
-            [self setFavoriteStatus];
-        });
-    });
+        self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
+        [self.tableView reloadData];
+        [self setHeaderTitle];
+        [self setFavoriteStatus];
+    }
+    
 }
 
 -(NSArray*)splitTextIntoArray:(NSString*)text {
@@ -93,21 +101,21 @@
 
 // Here, we'll go through the entire database, and make a new dictinoary ordered from the most "matches" to least
 // In the end, just the top 3 will be displayed.
--(void)compileRelatedMonologuesfromArrayOfMonologues:(NSArray*)sourceMonologues {
-
+-(NSMutableArray*)findMonologuesRelatedToMonologue:(Monologue*)monologue inArrayOfMonologues:(NSArray*)sourceMonologues {
+    NSMutableArray* relatedMonologues = [[NSMutableArray alloc] init];
     for (int i = 0; i < sourceMonologues.count; i++) {
         int matches = 0;
         Monologue *comparativeMonologue = sourceMonologues[i];
         NSArray *comparativeMonologueTags = [[NSArray alloc] initWithArray:[self loadTagsIntoArray:comparativeMonologue.tags]];
         
         
-        if ( [self.currentMonologue.tone isEqualToString:comparativeMonologue.tone] ) {
+        if ( [monologue.tone isEqualToString:comparativeMonologue.tone] ) {
             matches++;
         }
-        if ( [self.currentMonologue.period isEqualToString:comparativeMonologue.period] ) {
+        if ( [monologue.period isEqualToString:comparativeMonologue.period] ) {
             matches++;
         }
-        if ( [self.currentMonologue.age isEqualToString:comparativeMonologue.age] ) {
+        if ( [monologue.age isEqualToString:comparativeMonologue.age] ) {
             matches++;
         }
         
@@ -120,13 +128,12 @@
         comparativeMonologue.matches = matches;
         
         // This makes sure that the current monologue isn't added to the list
-        if ( comparativeMonologue.idNumber != self.currentMonologue.idNumber ) {
-            [self.relatedMonologues addObject:comparativeMonologue];
+        if ( comparativeMonologue.idNumber != monologue.idNumber && ![relatedMonologues containsObject:comparativeMonologue] ) {
+            [relatedMonologues addObject:comparativeMonologue];
         }
         
     }
-    NSMutableArray *sortedRelatedMonologues;
-    sortedRelatedMonologues = [[self.relatedMonologues sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+    NSMutableArray *sortedRelatedMonologues = [[relatedMonologues sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         int first = [(Monologue*)a matches];
         int second = [(Monologue*)b matches];
         if (first < second)
@@ -137,37 +144,28 @@
             return NSOrderedSame;
     }] mutableCopy];
     
-    
-    
     sortedRelatedMonologues = [[[sortedRelatedMonologues reverseObjectEnumerator] allObjects] mutableCopy];
-    self.relatedMonologues = [sortedRelatedMonologues mutableCopy];
     
     // In case there are no related monologues
-    if ( self.relatedMonologues.count == 0 ) {
+    if ( sortedRelatedMonologues.count == 0 ) {
         Monologue *nullMonologue = [[Monologue alloc] init];
         nullMonologue.title = @"No related monologues";
         nullMonologue.authorFirst = @"For this";
         nullMonologue.authorLast = @"monologue, anyway";
         nullMonologue.text = @"Go figure";
-        [self.relatedMonologues addObject:nullMonologue];
+        [sortedRelatedMonologues addObject:nullMonologue];
     }
+    
+    return sortedRelatedMonologues;
 }
 
--(void)loadHeaderTitle {
+-(void)setHeaderTitle {
     // This displays the amount of monologues currently in the list
     // +1 to adjust for the zero index
-    NSString *headerTitle = [NSString stringWithFormat:@"Boneyard (%lu/%lu)",self.detailIndex+1,(unsigned long)self.detailsDataSource.count];
+    NSString *headerTitle = [NSString stringWithFormat:@"Monologues"];
     [self.navigationItem setTitle:headerTitle];
 }
 
--(void)maintainView {
-    // This remembers the y value of the monologue screen even between tabs, so it doesn't flip out or reload improperly
-    [UIView animateWithDuration:0.0 delay:0.0 options:0 animations:^{
-        [self.tableView reloadData];
-    } completion:^(BOOL finished) {
-        self.tableView.contentOffset = CGPointMake(0, self.cgFloatY);
-    }];
-}
 
 - (BOOL)prefersStatusBarHidden {
     if ( self.barsHidden == 1 ) {
@@ -191,7 +189,7 @@
 
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
 
-    header.contentView.backgroundColor = [YorickStyle color1];
+    header.contentView.backgroundColor = [YorickStyle color3];
 
 }
 
@@ -250,7 +248,6 @@
             self.notesCell.characterLabel.text = self.currentMonologue.character;
             self.notesCell.notesLabel.text = self.currentMonologue.notes;
             cell = self.notesCell;
-            [self addTapGestureRecognizerToCell:cell];
             break;
         case monologueTags:
             self.tagCell = [tableView dequeueReusableCellWithIdentifier:@"tags"];
@@ -276,27 +273,12 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    Setting *sizeSetting = self.manager.settings[3];
-    NSString *textSizeString = sizeSetting.currentSetting;
     TextTableViewCell *textCell = (TextTableViewCell *)cell;
-    if ( [textSizeString isEqualToString:@"Normal"] ) {
-        textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize]];
-    }
-    if ( [textSizeString isEqualToString:@"Large"] ) {
-        textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largeFontSize]];
-    }
-    if ( [textSizeString isEqualToString:@"Very Large"] ) {
-        textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle veryLargeFontSize]];
-    }
-    if ( [textSizeString isEqualToString:@"Largest"] ) {
-        textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largestFontSize]];
-    }
+    textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:self.manager.textSize];
     textCell.monologueTextLabel.numberOfLines = 0;
     textCell.monologueTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     textCell.monologueTextLabel.text = self.textArray[indexPath.row];
-    NSLog(@"self.textArray[%d] is \n%@", indexPath.row, self.textArray[indexPath.row]);
     textCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [self addTapGestureRecognizerToCell:textCell];
 }
 
 // Necessary for updating textcell
@@ -316,23 +298,16 @@
     return cell;
 }
 
--(void)addTapGestureRecognizerToCell:(UITableViewCell*)cell {
-    // This adds tap gesture recognizer as well
-    cell.gestureRecognizers = nil;
-    cell.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapGesture:)];
-    [cell addGestureRecognizer:tapGestureRecognizer];
-}
 
 // Touch related monologue cell, and go to the appropriate monologue
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ( indexPath.section == monologueRelated ) {
-        [self monologueTransitionForIndexPath:indexPath];
+        self.detailIndex = [self getNewDetailIndexForMonologue:self.relatedMonologues[indexPath.row]];
+        [self swipeToNewMonologue:self.relatedMonologues[indexPath.row] willSwipeToRight:NO];
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ( indexPath.section == monologueText ) {
         [self configureCell:self.textCell forRowAtIndexPath:indexPath];
     }
@@ -345,7 +320,9 @@
             size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueNotes:
-            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.textLabel.frame);
+            self.notesCell.titleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.titleLabel.frame);
+            self.notesCell.characterLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.characterLabel.frame);
+            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.notesLabel.frame);
             size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
             break;
         case monologueTags:
@@ -382,6 +359,7 @@
     mlvc.searchController.searchBar.text = [NSString stringWithFormat:@"!%@",c];
     // Exclamation point (!) will search for monologue tags in particular
     // as opposed to just a blanket search for all text anywhere.
+    
 }
 
 
@@ -411,10 +389,10 @@
         // gray
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
         self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
-        // This makes it so that a monologue can be removed from Digs in both the Digs and Boneyard screen.
+        // This makes it so that a monologue can be removed from Favorites in both the Favorites and Browse screen.
         [self.manager.favoriteMonologues removeObject:[self.manager getFavoriteMonologueForIDNumber:self.currentMonologue.idNumber]];
         
-        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Removed from Digs"];
+        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Removed from Favorites"];
         [self.tabBarController.view addSubview:popUp];
     } else {
         self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
@@ -422,7 +400,7 @@
         Monologue *favoriteMonologue = [self.currentMonologue copy];
         [self.manager.favoriteMonologues addObject:favoriteMonologue];
         
-        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Added to Digs"];
+        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Added to Favorites"];
         [self.tabBarController.view addSubview:popUp];
     }
 }
@@ -438,26 +416,6 @@
     
 }
 
--(void)handleSingleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer{
-    if ( self.barsHidden == 0 || self.barsHidden == 2 ) {
-        self.barsHidden = 1;
-        [UIView animateWithDuration:0.2
-                         animations:^{
-                             self.navigationController.navigationBarHidden = YES;
-                             TabBarController* tbc = (TabBarController*)self.tabBarController;
-                             [tbc hideTabBar];
-                         }];
-    } else {
-        self.barsHidden = 2;
-        [UIView animateWithDuration:0.2
-                         animations:^{
-                             self.navigationController.navigationBarHidden = NO;
-                             TabBarController* tbc = (TabBarController*)self.tabBarController;
-                             [tbc showTabBar];
-                         }];
-    }
-}
-
 
 // This handles swipe gestures
 - (void)swipeDetectedRight:(UISwipeGestureRecognizer *)sender
@@ -465,7 +423,7 @@
     //Access previous cell in TableView
     if (self.detailIndex != 0) { // This way it will not go negative
         self.detailIndex--;
-        [self swipeAnimation:YES];
+        [self swipeToNewMonologue:self.detailsDataSource[self.detailIndex] willSwipeToRight:YES];
         // YES == scroll to the right
     }
 }
@@ -476,27 +434,22 @@
     // The count is always greater than the index, which is why the count is being subtracted by 1.
     if ( self.detailIndex != (self.detailsDataSource.count -1) ) { // make sure that it does not go over the number of objects in the array.
         self.detailIndex++;  // you'll need to check bounds
-        [self swipeAnimation:NO];
+        [self swipeToNewMonologue: self.detailsDataSource[self.detailIndex] willSwipeToRight:NO];
         // NO == scroll to the left
     }
 }
 
--(void)swipeAnimation:(BOOL)swipeRight {
+-(void)swipeToNewMonologue:(Monologue*)monologue willSwipeToRight:(BOOL)swipeRight {
     // Disable interaction to avoid glitching
+    self.midTransition = YES;
     self.tabBarController.view.userInteractionEnabled = NO;
     CGRect homeFrame = self.view.frame;
-    UIView* backView;
-    backView.frame = self.view.frame;
-    backView.backgroundColor = [UIColor whiteColor];
-    [self.view.superview addSubview:backView];
-    [self.view.superview sendSubviewToBack:backView];
     
     // Bring it off screen.
     [UIView animateWithDuration:0.20
                      animations: ^{
                          // Animate the views on and off the screen.
                          [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-                         //fromView.frame = CGRectMake(viewSize.size.width, viewSize.origin.y, viewSize.size.width, viewSize.size.height);
                          self.view.frame = CGRectMake((swipeRight ? self.view.frame.size.width : -self.view.frame.size.width), self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
                      }
                      completion:^(BOOL finished) {
@@ -507,8 +460,8 @@
                                                   [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                                                   
                                               } completion:^(BOOL finished) {
-                                                  self.currentMonologue = self.detailsDataSource [self.detailIndex];
-                                                  [self loadData];
+                                                  self.currentMonologue = monologue;
+                                                  [self loadData:NO];
                                                   
                                                   self.view.frame = CGRectMake((swipeRight ? -self.view.frame.size.width : self.view.frame.size.width), self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
                                                   [UIView animateWithDuration:0.20
@@ -521,64 +474,29 @@
                                                                        if (finished) {
                                                                            // Restore interaction.
                                                                            self.tabBarController.view.userInteractionEnabled = YES;
-                                                                           //[self loadData];
+                                                                           self.midTransition = NO;
+                                                                           
                                                                        }}];}];}}];
-    [backView removeFromSuperview];
-                    
+    
                              
 }
 
--(void)monologueTransitionForIndexPath:(NSIndexPath*)indexPath {
-    CGRect homeFrame = self.view.frame;
-    // Bring it off screen.
-    [UIView animateWithDuration:0.20
-                     animations: ^{
-                         // Animate the views on and off the screen.
-                         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-                         self.view.frame = CGRectMake(-self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-                     }
-                     completion:^(BOOL finished) {
-                         if (finished) {
-                             [UIView animateWithDuration:0.01
-                                              animations: ^{
-                                                  // Scroll to top
-                                                  [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                                                  
-                                              } completion:^(BOOL finished) {
-                                                  self.currentMonologue = self.relatedMonologues[indexPath.row];
-                                                  [self getNewDetailIndex];
-                                                  
-                                                  [self loadData];
-                                                  
-                                                  self.view.frame = CGRectMake(self.view.frame.size.width, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
-                                                  [UIView animateWithDuration:0.20
-                                                                   animations: ^{
-                                                                       // Animate the views on and off the screen.
-                                                                       [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-                                                                       self.view.frame = homeFrame;
-                                                                       
-                                                                   } completion:^(BOOL finished) {
-                                                                       if (finished) {
-                                                                           // Restore interaction.
-                                                                           self.tabBarController.view.userInteractionEnabled = YES;
-                                                                       }}];}];}}];
-}
 
 // Used to define the current monologue's position in the array of monologue being displayed on the previous screen.
--(void)getNewDetailIndex {
+-(int)getNewDetailIndexForMonologue:(Monologue*)monologue {
     int i = 0;
     
     while ( i < self.detailsDataSource.count ) {
         Monologue *monologue = self.detailsDataSource[i];
 
-        if ( monologue.idNumber == self.currentMonologue.idNumber ) {
-            self.detailIndex = i;
+        if ( monologue.idNumber == monologue.idNumber ) {
+            return i;
         }
         
         i++;
     }
+    return i;
 }
-
 
 
 @end

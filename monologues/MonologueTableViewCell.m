@@ -11,7 +11,7 @@
 @implementation MonologueTableViewCell
 
 -(void)setStyle {
-    self.titleLabel.font = [YorickStyle defaultFontOfSize:20];
+    self.titleLabel.font = [YorickStyle defaultFontOfSize:19];
     self.characterLabel.font = [YorickStyle defaultFontOfSize:14];
     self.excerptLabel.font = [YorickStyle defaultFontOfSize:16];
 }
@@ -43,9 +43,21 @@
 #pragma mark: Format Excerpt Label
 
 -(void)setExcerptLabelWithString:(NSString*)string {
+    // Remove text in brackets
+    while([string rangeOfString:@"["].location != NSNotFound && [string rangeOfString:@"]"].location != NSNotFound) {
+        NSRange start = [string rangeOfString:@"["];
+        NSRange end = [string rangeOfString:@"]"];
+        NSRange completeRange = NSMakeRange(start.location, (end.location - start.location + 1));
+        if (start.location != NSNotFound && end.location != NSNotFound && end.location > start.location) {
+            NSString *betweenBraces = [string substringWithRange:completeRange];
+            string = [string stringByReplacingOccurrencesOfString:betweenBraces withString:@""];
+        }
+    }
+    
     string = [string stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@" "];
     string = [string stringByReplacingOccurrencesOfString:@"\n\n" withString:@" "];
     string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    string = [string stringByReplacingOccurrencesOfString:@"  " withString:@" "];
 
     NSUInteger length = [string length];
     if (length > 300) { length = 300; };

@@ -14,7 +14,6 @@
 @interface FavoriteMonologueViewController : MonologueViewController
 
 @property (nonatomic) UITableViewCell *editCell;
-
 @property (nonatomic) NSArray *editArray;
 
 - (IBAction)favoriteButtonAction:(id)sender;

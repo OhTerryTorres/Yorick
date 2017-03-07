@@ -19,6 +19,7 @@
 +(UIFont *) defaultFontOfSize:(CGFloat)size;
 +(UIFont *) defaultFontBoldOfSize:(CGFloat)size;
 +(CGFloat) defaultFontSize;
++(CGFloat) smallFontSize;
 +(CGFloat) largeFontSize;
 +(CGFloat) veryLargeFontSize;
 +(CGFloat) largestFontSize;

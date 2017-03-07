@@ -46,27 +46,42 @@
 
 #pragma mark: OVERRIDING SUPERCLASS METHODS
 
-- (void)loadData {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+- (void)loadData:(BOOL)async {
+    if (async) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
+            self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
+            NSArray* tempSource = [[NSArray alloc] initWithArray:self.detailsDataSource];
+            self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
+            self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
+            self.detailsDataSource = [[NSArray alloc] initWithArray:tempSource];
+            [self setUpEditOptions];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [self setHeaderTitle];
+                [self setFavoriteStatus];
+            });
+        });
+    } else {
         self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
         self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
         NSArray* tempSource = [[NSArray alloc] initWithArray:self.detailsDataSource];
         self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
-        [self compileRelatedMonologuesfromArrayOfMonologues: self.detailsDataSource];
+        self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
         self.detailsDataSource = [[NSArray alloc] initWithArray:tempSource];
         [self setUpEditOptions];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [self loadHeaderTitle];
-            [self setFavoriteStatus];
-        });
-    });
+        [self.tableView reloadData];
+        [self setHeaderTitle];
+        [self setFavoriteStatus];
+
+    }
+
 }
 
--(void)loadHeaderTitle {
+-(void)setHeaderTitle {
     // This displays the amount of monologues currently in the list
     // +1 to adjust for the zero index
-    NSString *headerTitle = [NSString stringWithFormat:@"Digs (%lu/%lu)",self.detailIndex+1,(unsigned long)self.detailsDataSource.count];
+    NSString *headerTitle = [NSString stringWithFormat:@"Favorites"];
     [self.navigationItem setTitle:headerTitle];
 }
 
@@ -138,32 +153,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    Setting *sizeSetting = self.manager.settings[3];
-    NSString *textSizeString = sizeSetting.currentSetting;
     NSString *currentTag = @"";
     Monologue *relatedMonologue = [[Monologue alloc] init];
     NSString *currentEdit = @"";
     
     switch ( indexPath.section ) {
         case monologueText:
-            self.textCell = [tableView dequeueReusableCellWithIdentifier:@"text"];
-            if ( [textSizeString isEqualToString:@"Normal"] ) {
-                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle defaultFontSize]];
-            }
-            if ( [textSizeString isEqualToString:@"Large"] ) {
-                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largeFontSize]];
-            }
-            if ( [textSizeString isEqualToString:@"Very Large"] ) {
-                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle veryLargeFontSize]];
-            }
-            if ( [textSizeString isEqualToString:@"Largest"] ) {
-                self.textCell.monologueTextLabel.font = [YorickStyle defaultFontOfSize:[YorickStyle largestFontSize]];
-            }
-            self.textCell.monologueTextLabel.numberOfLines = 0;
-            self.textCell.monologueTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            self.textCell.monologueTextLabel.text = self.currentMonologue.text;
-            cell = self.textCell;
-            [self addTapGestureRecognizerToCell:cell];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"text" forIndexPath:indexPath];
+            [self configureCell:cell forRowAtIndexPath:indexPath];
             break;
         case monologueNotes:
             self.notesCell = [tableView dequeueReusableCellWithIdentifier:@"notes"];
@@ -171,7 +168,6 @@
             self.notesCell.characterLabel.text = self.currentMonologue.character;
             self.notesCell.notesLabel.text = self.currentMonologue.notes;
             cell = self.notesCell;
-            [self addTapGestureRecognizerToCell:cell];
             break;
         case monologueTags:
             self.tagCell = [tableView dequeueReusableCellWithIdentifier:@"tags"];
@@ -269,7 +265,8 @@
     
     // Selecting a related monologue
     if ( indexPath.section == monologueRelated ) {
-        [self monologueTransitionForIndexPath:indexPath];
+        self.detailIndex = [self getNewDetailIndexForMonologue:self.relatedMonologues[indexPath.row]];
+        [self swipeToNewMonologue:self.relatedMonologues[indexPath.row] willSwipeToRight:NO];
     }
 
 }
@@ -343,7 +340,6 @@
     self.currentMonologue = [[self.manager getMonologueForIDNumber:self.currentMonologue.idNumber] copy];
     
     self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", nil];
-    [self maintainView];
     
     PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Monologue Restored"];
     [self.tabBarController.view addSubview:popUp];

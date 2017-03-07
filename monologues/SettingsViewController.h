@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "YorickStyle.h"
 #import "TagSearchController.h"
+#import "PopUpView.h"
+#import "TabBarController.h"
 
 @interface SettingsViewController : UITableViewController <UIPickerViewDataSource, UIPickerViewDelegate, UIGestureRecognizerDelegate>
 

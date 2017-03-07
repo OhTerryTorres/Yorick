@@ -11,16 +11,17 @@
 @implementation YorickStyle
 
 +(UIColor *) color1 {
-    return [UIColor colorWithRed:141.0/255.0 green:171.0/255.0 blue:175.0/255.0 alpha:1];
+    return [UIColor whiteColor];
 }
 
 +(UIColor *) color2 {
-    return [UIColor colorWithRed:68.0/255.0 green:118.0/255.0 blue:125.0/255.0 alpha:1.0];
+    return [UIColor colorWithRed:12.0/255.0 green:102.0/255.0 blue:119.0/255.0 alpha:1.0];
 }
 
 +(UIColor *) color3 {
-    return [UIColor colorWithRed:100.0/255.0 green:112.0/255.0 blue:112.0/255.0 alpha:1];
+    return [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:245.0/255.0 alpha:1.0];
 }
+
 
 +(UIFont *) defaultFont {
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ) {
@@ -52,6 +53,9 @@
 
 +(CGFloat) defaultFontSize {
     return 17;
+}
++(CGFloat) smallFontSize {
+    return 13;
 }
 +(CGFloat) largeFontSize {
     return 24;

@@ -22,25 +22,26 @@
         self.allTags = [[NSMutableArray alloc] init];
         self.activeTags = [[NSMutableSet alloc] init];
         [self addTagsFromArrayOfMonologues: self.monologues];
-        // When updating from server, simply add [self getTagsFromArrayOfMonologues: monologues] directly as an object
+        // When updating from server, simply add [self addTagsFromArrayOfMonologues: monologues] directly as an object
         
         // add tutorial monologue to favorites array on first initialization
         Monologue* tutorial = [[Monologue alloc] initWithidNumber:305
-                                      title:@"Welcome to Yorick"
+                                      title:@"How to Use Yorick"
                                 authorFirst:@""
                                  authorLast:@""
-                                  character:@"Team Yorick"
-                                       text:@"This is the monologue screen. It's where you read the monologue you selected!\n\nThis monologue is in your Digs list. You can tell, because the Dig button is highlighted in the upper right.\n\nWhen you want to remove this entry from your Digs list, tap the Dig button and it will go back to the Boneyard.\n\nWhile a monologue is in your Digs list, you can touch Edit to make alterations to the monologue, like making cuts, adding line breaks, or adding your own notes. You can also add a new tag to the monologue to make it easier for you and others to search for similar monologues."
+                                  character:@"A beginner's guide"
+                                       text:@"Yorick has over a thousand monologues that you can find in All Monologues. When you find one that interests you, you can add it to your Favorites so you can enjoy it later.\nWhen a monologue is in your Favorites, you can edit it as you like by making cuts, adding notes, or marking beats. You can give it a try with this monologue once you’re done.\nYou can also add tags to a Favorite monologue to make it easier for others to find during a search.\nOptions makes finding the right monologue easier. The Type Filter lets you sort monologues by gender, tone, and length. Narrow your search further with the Tag Filter, selecting tags describing a monologue’s content and action.\nYou can also increase the size of the text to more easily practice with each line at a glance.\nWhen you wish to remove this monologue from your Favorites, touch the icon at the upper-right."
                                      gender:@""
                                        tone:@""
                                      period:@""
                                         age:@""
                                      length:@""
-                                      notes:@"How to make the best use of Yorick"
+                                      notes:@""
                                        tags:@"!caretaker !servant !giving !protecting"];
         [self.favoriteMonologues addObject:tutorial];
         
         self.settings = [self loadSettings];
+        self.textSize = [YorickStyle defaultFontSize];
     }
     
     return self;
@@ -103,9 +104,6 @@
     
     Setting* settingLength = [[Setting alloc] initWithTitle:@"length"];
     [settings addObject:settingLength];
-
-    Setting* settingSize = [[Setting alloc] initWithTitle:@"size"];
-    [settings addObject:settingSize];
     
     return settings;
 }

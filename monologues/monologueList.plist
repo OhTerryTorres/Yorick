@@ -2,6 +2,33 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>305</key>
+	<dict>
+		<key>age</key>
+		<string></string>
+		<key>authorFirst</key>
+		<string></string>
+		<key>authorLast</key>
+		<string></string>
+		<key>character</key>
+		<string>A beginner&apos;s guide</string>
+		<key>gender</key>
+		<string></string>
+		<key>length</key>
+		<string></string>
+		<key>notes</key>
+		<string></string>
+		<key>period</key>
+		<string></string>
+		<key>tags</key>
+		<string>!caretaker !servant !giving !protecting</string>
+		<key>text</key>
+		<string>Yorick has over a thousand monologues that you can find in All Monologues. When you find one that interests you, you can add it to your Favorites so you can enjoy it later.\nWhen a monologue is in your Favorites, you can edit it as you like by making cuts, adding notes, or marking beats. You can give it a try with this monologue once you’re done.\nYou can also add tags to a Favorite monologue to make it easier for others to find during a search.\nOptions makes finding the right monologue easier. The Type Filter lets you sort monologues by gender, tone, and length. Narrow your search further with the Tag Filter, selecting tags describing a monologue’s content and action.\nYou can also increase the size of the text to more easily practice with each line at a glance.\nWhen you wish to remove this monologue from your Favorites, touch the icon at the upper-right.</string>
+		<key>title</key>
+		<string>How to Use Yorick</string>
+		<key>tone</key>
+		<string></string>
+	</dict>
 	<key>1007</key>
 	<dict>
 		<key>age</key>
@@ -11280,39 +11307,6 @@ If I in thought felt not her very sorrow!</string>
 		<key>tone</key>
 		<string>comedic</string>
 	</dict>
-	<key>305</key>
-	<dict>
-		<key>age</key>
-		<string></string>
-		<key>authorFirst</key>
-		<string></string>
-		<key>authorLast</key>
-		<string></string>
-		<key>character</key>
-		<string>Team Yorick</string>
-		<key>gender</key>
-		<string></string>
-		<key>length</key>
-		<string>&lt; 1 minute</string>
-		<key>notes</key>
-		<string>How to make the best use of Yorick</string>
-		<key>period</key>
-		<string></string>
-		<key>tags</key>
-		<string>!caretaker !servant !giving !protecting</string>
-		<key>text</key>
-		<string>This is the monologue screen. It&apos;s where you read the monologue you selected!
-
-This monologue is in your Digs list. You can tell, because the Dig button is highlighted in the upper right.
-
-When you want to remove this entry from your Digs list, tap the Dig button and it will go back to the Boneyard.
-
-While a monologue is in your Digs list, you can touch Edit to make alterations to the monologue, like making cuts, adding line breaks, or adding your own notes. You can also add a new tag to the monologue to make it easier for you and others to search for similar monologues.</string>
-		<key>title</key>
-		<string>Welcome to Yorick</string>
-		<key>tone</key>
-		<string></string>
-	</dict>
 	<key>306</key>
 	<dict>
 		<key>age</key>
@@ -11469,7 +11463,9 @@ Watching his wife and friend leave together, Leontes is left with his son to con
 		<string>!ruler !royalty !lamenting !entreating</string>
 		<key>text</key>
 		<string>To your own bents dispose you: you&apos;ll be found,
-Be you beneath the sky. Aside] I am angling now,
+Be you beneath the sky.
+
+[Aside] I am angling now,
 Though you perceive me not how I give line.
 Go to, go to!
 How she holds up the neb, the bill to him! 
@@ -41443,7 +41439,7 @@ The Duke, his plan in action, relishes in his impending revenge against his rege
 		<key>period</key>
 		<string>classical</string>
 		<key>tags</key>
-		<string>!ruler !sage !inspring !boasting</string>
+		<string>!ruler !sage !inspiring !boasting</string>
 		<key>text</key>
 		<string>He who the sword of heaven will bear
 Should be as holy as severe;

@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSMutableArray *allTags;
 @property (strong, nonatomic) NSMutableSet *activeTags;
 @property (strong, nonatomic) NSArray *settings;
+@property (nonatomic) CGFloat textSize;
 
 @property int latestUpdateCount;
 

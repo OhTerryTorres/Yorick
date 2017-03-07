@@ -66,7 +66,7 @@
         [self updateDisplayArrayForFilters];
         dispatch_async(dispatch_get_main_queue(), ^{
             // Upate UI
-            [self setHeaderTitle];
+            //[self setHeaderTitle];
             [self.tableView reloadData];
         });
     });
@@ -141,7 +141,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.dataService.displayArray = tempArray;
             [self.tableView reloadData];
-            [self setHeaderTitle];
+            //[self setHeaderTitle];
         });
     });
 }

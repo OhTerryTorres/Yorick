@@ -13,6 +13,8 @@
 		CE2BCA381E5BB7B0002E4C10 /* UILabel+YorickStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA371E5BB7B0002E4C10 /* UILabel+YorickStyle.m */; };
 		CE2BCA3B1E5BE0E0002E4C10 /* NotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */; };
 		CE2BCA3E1E5CA649002E4C10 /* TextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BCA3D1E5CA649002E4C10 /* TextTableViewCell.m */; };
+		CE2F278A1E6CC3CF00D975FC /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2F27891E6CC3CF00D975FC /* OptionsViewController.m */; };
+		CE2F278D1E6CFBBA00D975FC /* SizeControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2F278C1E6CFBBA00D975FC /* SizeControlViewController.m */; };
 		CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C11E382FF5009E6871 /* MonologueDataService.m */; };
 		CE3801C51E38304F009E6871 /* MonologueManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3801C41E38304F009E6871 /* MonologueManager.m */; };
 		CE3FAAA51AEAD862008C28CB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3FAAA41AEAD862008C28CB /* CFNetwork.framework */; };
@@ -87,6 +89,10 @@
 		CE2BCA3A1E5BE0E0002E4C10 /* NotesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewCell.m; sourceTree = "<group>"; };
 		CE2BCA3C1E5CA649002E4C10 /* TextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextTableViewCell.h; sourceTree = "<group>"; };
 		CE2BCA3D1E5CA649002E4C10 /* TextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextTableViewCell.m; sourceTree = "<group>"; };
+		CE2F27881E6CC3CF00D975FC /* OptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsViewController.h; sourceTree = "<group>"; };
+		CE2F27891E6CC3CF00D975FC /* OptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsViewController.m; sourceTree = "<group>"; };
+		CE2F278B1E6CFBBA00D975FC /* SizeControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SizeControlViewController.h; sourceTree = "<group>"; };
+		CE2F278C1E6CFBBA00D975FC /* SizeControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SizeControlViewController.m; sourceTree = "<group>"; };
 		CE3801C01E382FF5009E6871 /* MonologueDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueDataService.h; sourceTree = "<group>"; };
 		CE3801C11E382FF5009E6871 /* MonologueDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonologueDataService.m; sourceTree = "<group>"; };
 		CE3801C31E38304F009E6871 /* MonologueManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonologueManager.h; sourceTree = "<group>"; };
@@ -197,6 +203,10 @@
 				CEB00BF4196B3FA50006B03F /* MonologueViewController.m */,
 				CEA0FFB91976EF97004626F1 /* FavoriteMonologueViewController.h */,
 				CEA0FFBA1976EF97004626F1 /* FavoriteMonologueViewController.m */,
+				CEFC85A019CA3246003739D7 /* EditViewController.h */,
+				CEFC85A119CA3246003739D7 /* EditViewController.m */,
+				CE4EF22F1B0576410045C811 /* TagSelectionViewController.h */,
+				CE4EF2301B0576410045C811 /* TagSelectionViewController.m */,
 			);
 			name = DetailViewControllers;
 			sourceTree = "<group>";
@@ -204,14 +214,14 @@
 		CE0803851E42D94C005EDDAF /* UtilityViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE2F27881E6CC3CF00D975FC /* OptionsViewController.h */,
+				CE2F27891E6CC3CF00D975FC /* OptionsViewController.m */,
 				CE7C495D1E69FE24000B56DB /* TagSearchController.h */,
 				CE7C495E1E69FE24000B56DB /* TagSearchController.m */,
 				CEAAE3211AB866C60006CF95 /* SettingsViewController.h */,
 				CEAAE3221AB866C60006CF95 /* SettingsViewController.m */,
-				CEFC85A019CA3246003739D7 /* EditViewController.h */,
-				CEFC85A119CA3246003739D7 /* EditViewController.m */,
-				CE4EF22F1B0576410045C811 /* TagSelectionViewController.h */,
-				CE4EF2301B0576410045C811 /* TagSelectionViewController.m */,
+				CE2F278B1E6CFBBA00D975FC /* SizeControlViewController.h */,
+				CE2F278C1E6CFBBA00D975FC /* SizeControlViewController.m */,
 			);
 			name = UtilityViewControllers;
 			sourceTree = "<group>";
@@ -457,7 +467,9 @@
 				CE3801C21E382FF5009E6871 /* MonologueDataService.m in Sources */,
 				CEE18382195DC11D00FA14BA /* MonologuesListViewController.m in Sources */,
 				CEC9AA1D1A144C2500ECC830 /* NavigationController.m in Sources */,
+				CE2F278D1E6CFBBA00D975FC /* SizeControlViewController.m in Sources */,
 				CE1D57DC1E4B6E2800BB3988 /* YorickStyle.m in Sources */,
+				CE2F278A1E6CC3CF00D975FC /* OptionsViewController.m in Sources */,
 				CEE18375195DC11D00FA14BA /* main.m in Sources */,
 				CE0803811E3BD6A9005EDDAF /* BrowseViewController.m in Sources */,
 				CE4EF2311B0576410045C811 /* TagSelectionViewController.m in Sources */,

@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad
 {
-    self.title = @"Digs";
+    self.title = @"Favorite Monologues";
     [super viewDidLoad];
     self.dataService.isForFavorites = YES;
 }

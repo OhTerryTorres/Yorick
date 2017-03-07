@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 #import "NavigationController.h"
-#import "MonologueViewController.h"
-#import "SettingsViewController.h"
+#import "MonologuesListViewController.h"
 #import "YorickStyle.h"
 
 @interface TabBarController : UITabBarController <UITabBarControllerDelegate, UITabBarDelegate>
@@ -18,5 +18,6 @@
 
 - (void)hideTabBar;
 - (void)showTabBar;
+-(void)updateBrowseBadge;
 
 @end

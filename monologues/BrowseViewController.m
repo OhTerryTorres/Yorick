@@ -19,14 +19,13 @@
 
 - (void)viewDidLoad
 {
-    self.title = @"Boneyard";
+    self.title = @"All Monologues";
     [super viewDidLoad];
     // Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(tagSearchFromFavorites:)
                                                  name:@"tagSearchFromFavorites"
                                                object:nil];
-    [self.tableView setContentOffset:CGPointMake(0, 0 - self.tableView.contentInset.top) animated:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -127,7 +126,7 @@
                                        
                                        [self updateDisplayArrayForFilters];
                                        [self.tableView reloadData];
-                                       [self setHeaderTitle];
+                                       //[self setHeaderTitle];
                                        NSLog(@"Connection complete");
                                        
                                        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Library Updated"];

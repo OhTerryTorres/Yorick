@@ -16,7 +16,6 @@
 @property (strong, nonatomic) NSString *currentSetting;
 @property (strong, nonatomic) NSArray *options;
 @property (strong, nonatomic) SettingTableViewCell *cell;
-@property (nonatomic) CGRect maintainFrame;
 @property (nonatomic) BOOL pickerCellIsShowing;
 
 -(id)initWithTitle:(NSString*)title;

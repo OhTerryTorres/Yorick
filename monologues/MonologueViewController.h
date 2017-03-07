@@ -18,45 +18,33 @@
 
 @interface MonologueViewController : UITableViewController
 
+@property (weak, nonatomic) MonologueManager *manager;
+
 @property (nonatomic) Monologue *currentMonologue;
 
 @property (nonatomic) NSMutableArray *relatedMonologues;
 
+@property (nonatomic) NotesTableViewCell *notesCell;
 @property (nonatomic) TextTableViewCell *textCell;
 @property (nonatomic) NSArray *textArray;
-@property (nonatomic) NotesTableViewCell *notesCell;
 @property (nonatomic) UITableViewCell *tagCell;
-
 @property (nonatomic) NSArray *tagsArray;
-
-@property (nonatomic) CGFloat cgFloatY;
-
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteButtonOutlet;
-
-- (IBAction)favoriteButtonAction:(id)sender;
 
 @property (nonatomic) NSArray *detailsDataSource;
 @property unsigned long detailIndex;
 
-@property (weak, nonatomic) MonologueManager *manager;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteButtonOutlet;
+- (IBAction)favoriteButtonAction:(id)sender;
 
-@property (nonatomic) int barsHidden;
-
-
-- (void)loadData;
 -(void)addMonologueToFavorites;
--(void)monologueTransitionForIndexPath:(NSIndexPath*)indexPath;
--(void)maintainView;
+-(void)swipeToNewMonologue:(Monologue*)monologue willSwipeToRight:(BOOL)swipeRight;
 -(void)passManagerToAppDelegate;
 -(MonologueTableViewCell*)getCellForRelatedMonologue:(Monologue*)monologue atIndexPath:(NSIndexPath*)indexPath;
 -(void)setFavoriteStatus;
--(void)compileRelatedMonologuesfromArrayOfMonologues:(NSArray*)sourceMonologues;
+-(NSMutableArray*)findMonologuesRelatedToMonologue:(Monologue*)monologue inArrayOfMonologues:(NSArray*)sourceMonologues;
 -(NSArray*)loadTagsIntoArray:(NSString*)tags;
--(void)addTapGestureRecognizerToCell:(UITableViewCell*)cell;
-
-// TextArrya stuff
 -(NSArray*)splitTextIntoArray:(NSString*)text;
 - (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+-(int)getNewDetailIndexForMonologue:(Monologue*)monologue;
 
 @end

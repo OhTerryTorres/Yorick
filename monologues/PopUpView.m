@@ -16,7 +16,7 @@
 
 - (id)initWithFrame:(CGRect)frame andTitle:(NSString*)title {
     if ((self = [super initWithFrame:frame])) {
-        self.backgroundColor = [YorickStyle color1];
+        self.backgroundColor = [YorickStyle color3];
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.titleLabel.text = title;
     }
@@ -28,7 +28,7 @@
     self.layer.cornerRadius = 20;
     self.alpha = 0.98;
     self.layer.masksToBounds = YES;
-    self.layer.shadowOpacity = 0.4;
+    self.layer.shadowOpacity = 0.0;
     self.center = CGPointMake(self.superview.frame.size.width/2, self.superview.frame.size.height/2);
     self.titleLabel.backgroundColor = [UIColor clearColor];
     self.titleLabel.textColor = [YorickStyle color2];
@@ -51,7 +51,7 @@
     CGFloat screenHeight = screenSize.height;
     CGRect frame = CGRectMake(0, 0, screenWidth / 1.5, screenHeight / 6);
     if ((self = [super initWithFrame:frame])) {
-        self.backgroundColor = [YorickStyle color1];
+        self.backgroundColor = [YorickStyle color3];
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.titleLabel.text = title;
     }
