@@ -24,39 +24,21 @@
 
 #pragma mark: App Delegate Access
 
--(void)passManagerToAppDelegate {
-    AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
-    appDelegate.manager = self.manager;
-}
--(void)getManagerFromAppDelegate {
-    AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
-    self.manager = appDelegate.manager;
-}
-
-
 #pragma mark: View Changing Methods
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.barsHidden = 0;
     [self addSwipeGestureRecognizers];
     self.relatedMonologues = [[NSMutableArray alloc] init];
 }
 
 // Refreshes data, if needed
 -(void)viewWillAppear:(BOOL)animated{
-    [self getManagerFromAppDelegate];
     [super viewWillAppear:animated];
     [super viewDidAppear:animated];
     
     [self loadData:YES];
     }
-
-- (void) viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self passManagerToAppDelegate];
-    self.lastOffset = self.tableView.contentOffset;
-}
 
 
 #pragma mark: Display Setup
@@ -166,15 +148,6 @@
     [self.navigationItem setTitle:headerTitle];
 }
 
-
-- (BOOL)prefersStatusBarHidden {
-    if ( self.barsHidden == 1 ) {
-        return YES;
-    } else {
-        return NO;
-    }
-    
-}
 
 #pragma mark: TableView Methods
 
@@ -441,7 +414,6 @@
 
 -(void)swipeToNewMonologue:(Monologue*)monologue willSwipeToRight:(BOOL)swipeRight {
     // Disable interaction to avoid glitching
-    self.midTransition = YES;
     self.tabBarController.view.userInteractionEnabled = NO;
     CGRect homeFrame = self.view.frame;
     
@@ -473,9 +445,7 @@
                                                                    } completion:^(BOOL finished) {
                                                                        if (finished) {
                                                                            // Restore interaction.
-                                                                           self.tabBarController.view.userInteractionEnabled = YES;
-                                                                           self.midTransition = NO;
-                                                                           
+                                                                           self.tabBarController.view.userInteractionEnabled = YES;                                                                           
                                                                        }}];}];}}];
     
                              

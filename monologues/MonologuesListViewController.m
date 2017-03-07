@@ -17,15 +17,12 @@
 
 #pragma mark: App Delegate Access
 
--(void)passManagerToAppDelegate {
-    AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
-    appDelegate.manager = self.manager;
-    NSLog(@"%@: Passed manager to app delegate", self.title);
-}
+
 -(void)getManagerFromAppDelegate {
-    AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
-    self.manager = appDelegate.manager;
-    NSLog(@"%@: Received manager from app delegate", self.title);
+    if (self.manager == nil) {
+        AppDelegate *appDelegate = (AppDelegate*)UIApplication.sharedApplication.delegate;
+        self.manager = appDelegate.manager;
+    }
 }
 
 #pragma mark: View Changing Methods
@@ -62,7 +59,6 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // Get info
-        [self getManagerFromAppDelegate];
         [self updateDisplayArrayForFilters];
         dispatch_async(dispatch_get_main_queue(), ^{
             // Upate UI
@@ -71,10 +67,6 @@
         });
     });
     
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self passManagerToAppDelegate];
 }
 
 
@@ -177,7 +169,7 @@
         mvc.detailsDataSource = [[NSArray alloc] initWithArray:self.dataService.displayArray];
         mvc.detailIndex = [self.dataService.displayArray indexOfObject:m];
     }
-    
+    mvc.manager = self.manager;
     mvc.currentMonologue = m;
     
     // This keeps the MonologueViewController from skipping any lines in the monologue when accessed from the Browse Screen.

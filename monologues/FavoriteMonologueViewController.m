@@ -246,7 +246,6 @@
         NSString *tag = [NSString stringWithFormat:@"!%@",t];
         NSLog(@"tag in Favorites is %@",tag);
         [self.tabBarController setSelectedIndex:1];
-        [self passManagerToAppDelegate];
         [[NSNotificationCenter defaultCenter] postNotificationName: @"tagSearchFromFavorites" object:nil userInfo:@{@"tag": tag}];
         
     }

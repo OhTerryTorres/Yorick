@@ -38,7 +38,6 @@
 
 -(void)addMonologueToFavorites;
 -(void)swipeToNewMonologue:(Monologue*)monologue willSwipeToRight:(BOOL)swipeRight;
--(void)passManagerToAppDelegate;
 -(MonologueTableViewCell*)getCellForRelatedMonologue:(Monologue*)monologue atIndexPath:(NSIndexPath*)indexPath;
 -(void)setFavoriteStatus;
 -(NSMutableArray*)findMonologuesRelatedToMonologue:(Monologue*)monologue inArrayOfMonologues:(NSArray*)sourceMonologues;

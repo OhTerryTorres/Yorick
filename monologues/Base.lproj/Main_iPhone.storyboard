@@ -195,27 +195,30 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="104" translatesAutoresizingMaskIntoConstraints="NO" id="cQR-v0-pba">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="104" translatesAutoresizingMaskIntoConstraints="NO" id="cQR-v0-pba">
                                             <rect key="frame" x="8" y="8" width="104" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="2W0-GL-pxr"/>
+                                                <constraint firstAttribute="width" constant="104" id="vRd-0e-M78"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Setting" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="113" translatesAutoresizingMaskIntoConstraints="NO" id="RCt-Pf-TV6">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setting" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="113" translatesAutoresizingMaskIntoConstraints="NO" id="RCt-Pf-TV6">
                                             <rect key="frame" x="254" y="8" width="113" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="113" id="tyF-cl-uUW"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="cQR-v0-pba" firstAttribute="top" secondItem="Axf-B8-DfX" secondAttribute="topMargin" id="4oU-IL-bI0"/>
-                                        <constraint firstItem="cQR-v0-pba" firstAttribute="leading" secondItem="Axf-B8-DfX" secondAttribute="leadingMargin" id="5SU-ik-63M"/>
-                                        <constraint firstItem="RCt-Pf-TV6" firstAttribute="trailing" secondItem="Axf-B8-DfX" secondAttribute="trailingMargin" id="mr5-kb-YSi"/>
-                                        <constraint firstItem="RCt-Pf-TV6" firstAttribute="top" secondItem="Axf-B8-DfX" secondAttribute="topMargin" id="pod-Ts-5ly"/>
+                                        <constraint firstItem="cQR-v0-pba" firstAttribute="baseline" secondItem="RCt-Pf-TV6" secondAttribute="baseline" id="5Pk-58-xTK"/>
+                                        <constraint firstItem="cQR-v0-pba" firstAttribute="top" secondItem="Axf-B8-DfX" secondAttribute="topMargin" id="a8S-uH-8Nv"/>
+                                        <constraint firstItem="cQR-v0-pba" firstAttribute="leading" secondItem="Axf-B8-DfX" secondAttribute="leadingMargin" id="jvO-LW-tjh"/>
+                                        <constraint firstItem="RCt-Pf-TV6" firstAttribute="trailing" secondItem="Axf-B8-DfX" secondAttribute="trailingMargin" id="n0K-Zc-G86"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
