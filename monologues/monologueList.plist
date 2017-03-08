@@ -23,7 +23,12 @@
 		<key>tags</key>
 		<string>!caretaker !servant !giving !protecting</string>
 		<key>text</key>
-		<string>Yorick has over a thousand monologues that you can find in All Monologues. When you find one that interests you, you can add it to your Favorites so you can enjoy it later.\nWhen a monologue is in your Favorites, you can edit it as you like by making cuts, adding notes, or marking beats. You can give it a try with this monologue once you’re done.\nYou can also add tags to a Favorite monologue to make it easier for others to find during a search.\nOptions makes finding the right monologue easier. The Type Filter lets you sort monologues by gender, tone, and length. Narrow your search further with the Tag Filter, selecting tags describing a monologue’s content and action.\nYou can also increase the size of the text to more easily practice with each line at a glance.\nWhen you wish to remove this monologue from your Favorites, touch the icon at the upper-right.</string>
+		<string>Yorick has over a thousand monologues that you can find in All Monologues. When you find one that interests you, you can add it to your Favorites so you can enjoy it later.
+When a monologue is in your Favorites, you can edit it as you like by making cuts, adding notes, or marking beats. You can give it a try with this monologue once you’re done.
+You can also add tags to a Favorite monologue to make it easier for others to find during a search.
+Options makes finding the right monologue easier. The Type Filter lets you sort monologues by gender, tone, and length. Narrow your search further with the Tag Filter, selecting tags describing a monologue’s content and action.
+You can also increase the size of the text to more easily practice with each line at a glance.
+When you wish to remove this monologue from your Favorites, touch the icon at the upper-right.</string>
 		<key>title</key>
 		<string>How to Use Yorick</string>
 		<key>tone</key>

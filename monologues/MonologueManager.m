@@ -25,19 +25,7 @@
         // When updating from server, simply add [self addTagsFromArrayOfMonologues: monologues] directly as an object
         
         // add tutorial monologue to favorites array on first initialization
-        Monologue* tutorial = [[Monologue alloc] initWithidNumber:305
-                                      title:@"How to Use Yorick"
-                                authorFirst:@""
-                                 authorLast:@""
-                                  character:@"A beginner's guide"
-                                       text:@"Yorick has over a thousand monologues that you can find in All Monologues. When you find one that interests you, you can add it to your Favorites so you can enjoy it later.\nWhen a monologue is in your Favorites, you can edit it as you like by making cuts, adding notes, or marking beats. You can give it a try with this monologue once you’re done.\nYou can also add tags to a Favorite monologue to make it easier for others to find during a search.\nOptions makes finding the right monologue easier. The Type Filter lets you sort monologues by gender, tone, and length. Narrow your search further with the Tag Filter, selecting tags describing a monologue’s content and action.\nYou can also increase the size of the text to more easily practice with each line at a glance.\nWhen you wish to remove this monologue from your Favorites, touch the icon at the upper-right."
-                                     gender:@""
-                                       tone:@""
-                                     period:@""
-                                        age:@""
-                                     length:@""
-                                      notes:@""
-                                       tags:@"!caretaker !servant !giving !protecting"];
+        Monologue* tutorial = [self getMonologueForIDNumber:305];
         [self.favoriteMonologues addObject:tutorial];
         
         self.settings = [self loadSettings];

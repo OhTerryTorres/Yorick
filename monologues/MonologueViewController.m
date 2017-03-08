@@ -451,6 +451,16 @@
                              
 }
 
+-(UIView*)skullView {
+    UIView *baseView = [[UIView alloc] initWithFrame:self.view.frame];
+    baseView.backgroundColor = [YorickStyle color3];
+    UIImage *skull = [UIImage imageNamed:@"ColoredSkull"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:skull];
+    imageView.center = CGPointMake(baseView.frame.size.width / 2, baseView.frame.size.height / 2);
+    [baseView addSubview:imageView];
+    return baseView;
+}
+
 
 // Used to define the current monologue's position in the array of monologue being displayed on the previous screen.
 -(int)getNewDetailIndexForMonologue:(Monologue*)monologue {

@@ -101,7 +101,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "monologues/FavoriteMonologueViewController.m"
-            timestampString = "510552736.252833"
+            timestampString = "510619927.99174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
@@ -139,6 +139,22 @@
             startingLineNumber = "91"
             endingLineNumber = "91"
             landmarkName = "-showTabBar"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "monologues/FavoriteMonologueViewController.m"
+            timestampString = "510619680.341522"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "-setUpEditOptions"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
