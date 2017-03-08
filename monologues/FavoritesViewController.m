@@ -25,13 +25,11 @@
 
 
 -(void)updateDisplayArrayForFilters {
-    NSLog(@"Filtering based on searchString");
     if ( ![self.searchController.searchBar.text isEqualToString:@""] ) {
         self.dataService.displayArray = [self.manager filterMonologues: self.manager.favoriteMonologues forSearchString:self.searchController.searchBar.text];
     } else {
         self.dataService.displayArray = self.manager.favoriteMonologues;
     }
-    NSLog(@"self.dataService.displayArray.count is %lu",(unsigned long)self.dataService.displayArray.count);
 }
 
 -(void)setUpDataService {

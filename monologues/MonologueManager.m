@@ -25,7 +25,7 @@
         // When updating from server, simply add [self addTagsFromArrayOfMonologues: monologues] directly as an object
         
         // add tutorial monologue to favorites array on first initialization
-        Monologue* tutorial = [self getMonologueForIDNumber:305];
+        Monologue* tutorial = [[self getMonologueForIDNumber:305] copy];
         [self.favoriteMonologues addObject:tutorial];
         
         self.settings = [self loadSettings];
@@ -285,6 +285,7 @@
 
 #pragma mark: NSCODING
 
+
 - (id)initWithCoder:(NSCoder *)decoder {
     if ( self = [super init] ) {
         self.monologues = [decoder decodeObjectForKey:@"monologues"];
@@ -292,6 +293,7 @@
         self.allTags = [decoder decodeObjectForKey:@"allTags"];
         self.activeTags = [decoder decodeObjectForKey:@"activeTags"];
         self.settings = [decoder decodeObjectForKey:@"settings"];
+        self.textSize = [decoder decodeFloatForKey:@"textSize"];
         self.latestUpdateCount = [decoder decodeIntForKey:@"latestUpdateCount"];
     }
     return self;
@@ -303,6 +305,7 @@
     [encoder encodeObject:self.allTags forKey:@"allTags"];
     [encoder encodeObject:self.activeTags forKey:@"activeTags"];
     [encoder encodeObject:self.settings forKey:@"settings"];
+    [encoder encodeFloat:self.textSize forKey:@"textSize"];
     [encoder encodeInt:self.latestUpdateCount forKey:@"latestUpdateCount"];
 }
 

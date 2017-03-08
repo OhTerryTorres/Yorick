@@ -10,6 +10,7 @@
 #import "Monologue.h"
 #import "Setting.h"
 
+
 @interface MonologueManager : NSObject
 
 @property (strong, nonatomic) NSArray *monologues;

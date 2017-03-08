@@ -119,7 +119,7 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // tempArray is used to avoid interrupting the tableview source
-        NSArray *tempArray = [[NSArray alloc] init];
+        NSArray *tempArray;
         NSString *searchString = searchController.searchBar.text;
         // Check if the user cancelled or deleted the search term so we can display the full list instead.
         if (![searchString isEqualToString:@""]) {
@@ -133,7 +133,11 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.dataService.displayArray = tempArray;
             [self.tableView reloadData];
-            //[self setHeaderTitle];
+            UITabBarItem *tabBarItem = self.tabBarController.tabBar.items[1];
+            tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",self.dataService.displayArray.count];
+            if ([tabBarItem.badgeValue intValue] == self.manager.monologues.count) {
+                tabBarItem.badgeValue = nil;
+            }
         });
     });
 }

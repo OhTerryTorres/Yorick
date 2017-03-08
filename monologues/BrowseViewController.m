@@ -66,7 +66,6 @@
                                    }
                                    NSLog(@"Update check complete");
                                }}];
-    NSLog(@"checkUpdates DONE");
 }
 
 -(IBAction)updateMonologues:(id)sender {

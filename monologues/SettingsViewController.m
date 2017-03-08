@@ -17,8 +17,8 @@
 
 #pragma mark: View Changing Methods
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    [super viewDidLoad];
     self.title = @"Settings";
     
     [self loadSettings];
@@ -209,7 +209,7 @@
     }
     
     [self.tableView reloadData];
-    PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Filters reset"];
+    PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Type filters reset"];
     [self.tabBarController.view addSubview:popUp];
     TabBarController* tbc = (TabBarController*)self.tabBarController;
     [tbc updateBrowseBadge];

@@ -30,15 +30,19 @@
     [super viewDidLoad];
     [self addSwipeGestureRecognizers];
     self.relatedMonologues = [[NSMutableArray alloc] init];
+    [self setHeaderTitle];
+}
+
+-(void)setHeaderTitle {
+    self.navigationItem.title = @"Monologues";
 }
 
 // Refreshes data, if needed
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [super viewDidAppear:animated];
-    
     [self loadData:YES];
-    }
+}
 
 
 #pragma mark: Display Setup
@@ -46,24 +50,29 @@
 - (void)loadData:(BOOL)async {
     if (async) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
-            self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
-            self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
+            [self updateData1];
+            [self updateData2];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                [self setHeaderTitle];
-                [self setFavoriteStatus];
+                [self updateUI];
             });
         });
     } else {
-        self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
-        self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
-        self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
-        [self.tableView reloadData];
-        [self setHeaderTitle];
-        [self setFavoriteStatus];
+        [self updateData1];
+        [self updateData2];
+        [self updateUI];
     }
-    
+}
+-(void)updateData1 {
+    self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
+    self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
+
+}
+-(void)updateData2 {
+    self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
+}
+-(void)updateUI {
+    [self.tableView reloadData];
+    [self setFavoriteStatus];
 }
 
 -(NSArray*)splitTextIntoArray:(NSString*)text {
@@ -141,14 +150,6 @@
     return sortedRelatedMonologues;
 }
 
--(void)setHeaderTitle {
-    // This displays the amount of monologues currently in the list
-    // +1 to adjust for the zero index
-    NSString *headerTitle = [NSString stringWithFormat:@"Monologues"];
-    [self.navigationItem setTitle:headerTitle];
-}
-
-
 #pragma mark: TableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -159,11 +160,8 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-
     header.contentView.backgroundColor = [YorickStyle color3];
-
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -208,7 +206,7 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     NSString *currentTag = @"";
-    Monologue *relatedMonologue = [[Monologue alloc] init];
+    Monologue *relatedMonologue;
     
     switch ( indexPath.section ) {
         case monologueText:
@@ -275,32 +273,25 @@
 // Touch related monologue cell, and go to the appropriate monologue
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ( indexPath.section == monologueRelated ) {
-        self.detailIndex = [self getNewDetailIndexForMonologue:self.relatedMonologues[indexPath.row]];
-        [self swipeToNewMonologue:self.relatedMonologues[indexPath.row] willSwipeToRight:NO];
+        [self loadRelatedMonologueForIndexPath:indexPath];
     }
+}
+-(void)loadRelatedMonologueForIndexPath:(NSIndexPath*)indexPath {
+    self.detailIndex = [self getNewDetailIndexForMonologue:self.relatedMonologues[indexPath.row]];
+    [self swipeToNewMonologue:self.relatedMonologues[indexPath.row] willSwipeToRight:NO];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ( indexPath.section == monologueText ) {
-        [self configureCell:self.textCell forRowAtIndexPath:indexPath];
-    }
-    
     CGSize size;
     switch ( indexPath.section ) {
         case monologueText:
-            self.textCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), CGRectGetHeight(self.textCell.bounds));
-            [self.textCell layoutIfNeeded];
-            size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [self sizeForTextCellAtIndexPath:indexPath];
             break;
         case monologueNotes:
-            self.notesCell.titleLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.titleLabel.frame);
-            self.notesCell.characterLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.characterLabel.frame);
-            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.notesLabel.frame);
-            size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [self sizeForNotesCellAtIndexPath:indexPath];
             break;
         case monologueTags:
-            self.tagCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.tagCell.textLabel.frame);
-            size = [self.tagCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [self sizeForTagsCellAtIndexPath:indexPath];
             break;
         default:
             size.height = [self.tableView rowHeight];
@@ -309,8 +300,20 @@
     
     return size.height+1;
 }
-
-
+-(CGSize)sizeForTextCellAtIndexPath:(NSIndexPath*)indexPath {
+    [self configureCell:self.textCell forRowAtIndexPath:indexPath];
+    self.textCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), CGRectGetHeight(self.textCell.bounds));
+    [self.textCell layoutIfNeeded];
+    return [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+}
+-(CGSize)sizeForNotesCellAtIndexPath:(NSIndexPath*)indexPath {
+    self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.textLabel.frame);
+    return [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+}
+-(CGSize)sizeForTagsCellAtIndexPath:(NSIndexPath*)indexPath {
+    self.tagCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.tagCell.textLabel.frame);
+    return [self.tagCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+}
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewAutomaticDimension;
@@ -322,9 +325,6 @@
 // The only segue from this screen is back to the Browse screen.
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    self.navigationController.navigationBarHidden = NO;
-    
-    // Pass the selected object to the new view controller.
     MonologuesListViewController *mlvc = [segue destinationViewController];
     NSIndexPath *path = [self.tableView indexPathForSelectedRow];
     NSString *c = self.tagsArray[path.row];
@@ -332,22 +332,16 @@
     mlvc.searchController.searchBar.text = [NSString stringWithFormat:@"!%@",c];
     // Exclamation point (!) will search for monologue tags in particular
     // as opposed to just a blanket search for all text anywhere.
-    
 }
 
 
 #pragma mark: User Interaction
 
 -(void)setFavoriteStatus {
-    // Decides color of Favorite button
     if ( [self.manager monologueWithIDNumberIsInFavorites:self.currentMonologue.idNumber] ) {
-        // Add image to button for normal state
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
-        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
+        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"favorites-selected"];
     } else {
-        // gray
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
-        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
+        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"favorites-unselected"];
     }
 }
 
@@ -359,17 +353,13 @@
 
 -(void)addMonologueToFavorites {
     if ( [self.manager monologueWithIDNumberIsInFavorites:self.currentMonologue.idNumber] ) {
-        // gray
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-undug"];
-        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
-        // This makes it so that a monologue can be removed from Favorites in both the Favorites and Browse screen.
+        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"favorites-unselected"];
         [self.manager.favoriteMonologues removeObject:[self.manager getFavoriteMonologueForIDNumber:self.currentMonologue.idNumber]];
         
         PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Removed from Favorites"];
         [self.tabBarController.view addSubview:popUp];
     } else {
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"dig-dug"];
-        self.favoriteButtonOutlet.tintColor = [YorickStyle color1];
+        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"favorites-selected"];
         Monologue *favoriteMonologue = [self.currentMonologue copy];
         [self.manager.favoriteMonologues addObject:favoriteMonologue];
         
@@ -397,7 +387,7 @@
     if (self.detailIndex != 0) { // This way it will not go negative
         self.detailIndex--;
         [self swipeToNewMonologue:self.detailsDataSource[self.detailIndex] willSwipeToRight:YES];
-        // YES == scroll to the right
+        // YES will scroll to the right
     }
 }
 
@@ -408,7 +398,7 @@
     if ( self.detailIndex != (self.detailsDataSource.count -1) ) { // make sure that it does not go over the number of objects in the array.
         self.detailIndex++;  // you'll need to check bounds
         [self swipeToNewMonologue: self.detailsDataSource[self.detailIndex] willSwipeToRight:NO];
-        // NO == scroll to the left
+        // NO will scroll to the left
     }
 }
 
@@ -451,25 +441,15 @@
                              
 }
 
--(UIView*)skullView {
-    UIView *baseView = [[UIView alloc] initWithFrame:self.view.frame];
-    baseView.backgroundColor = [YorickStyle color3];
-    UIImage *skull = [UIImage imageNamed:@"ColoredSkull"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:skull];
-    imageView.center = CGPointMake(baseView.frame.size.width / 2, baseView.frame.size.height / 2);
-    [baseView addSubview:imageView];
-    return baseView;
-}
-
 
 // Used to define the current monologue's position in the array of monologue being displayed on the previous screen.
 -(int)getNewDetailIndexForMonologue:(Monologue*)monologue {
     int i = 0;
     
     while ( i < self.detailsDataSource.count ) {
-        Monologue *monologue = self.detailsDataSource[i];
+        Monologue *comparativeMonologue = self.detailsDataSource[i];
 
-        if ( monologue.idNumber == monologue.idNumber ) {
+        if ( comparativeMonologue.idNumber == monologue.idNumber ) {
             return i;
         }
         

@@ -28,7 +28,6 @@
     self.layer.cornerRadius = 20;
     self.alpha = 0.98;
     self.layer.masksToBounds = YES;
-    self.layer.shadowOpacity = 0.0;
     self.center = CGPointMake(self.superview.frame.size.width/2, self.superview.frame.size.height/2);
     self.titleLabel.backgroundColor = [UIColor clearColor];
     self.titleLabel.textColor = [YorickStyle color2];
@@ -46,9 +45,8 @@
 
 - (id)initWithTitle:(NSString*)title {
     CGRect screenBound = [[UIScreen mainScreen] bounds];
-    CGSize screenSize = screenBound.size;
-    CGFloat screenWidth = screenSize.width;
-    CGFloat screenHeight = screenSize.height;
+    CGFloat screenWidth = screenBound.size.width;
+    CGFloat screenHeight = screenBound.size.height;
     CGRect frame = CGRectMake(0, 0, screenWidth / 1.5, screenHeight / 6);
     if ((self = [super initWithFrame:frame])) {
         self.backgroundColor = [YorickStyle color3];

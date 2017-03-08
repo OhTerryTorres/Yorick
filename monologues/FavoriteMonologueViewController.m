@@ -46,43 +46,16 @@
 
 #pragma mark: OVERRIDING SUPERCLASS METHODS
 
-- (void)loadData:(BOOL)async {
-    if (async) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
-            self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
-            NSArray* tempSource = [[NSArray alloc] initWithArray:self.detailsDataSource];
-            self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
-            self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
-            self.detailsDataSource = [[NSArray alloc] initWithArray:tempSource];
-            [self setUpEditOptions];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                [self setHeaderTitle];
-                [self setFavoriteStatus];
-            });
-        });
-    } else {
-        self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
-        self.tagsArray = [self loadTagsIntoArray:self.currentMonologue.tags];
-        NSArray* tempSource = [[NSArray alloc] initWithArray:self.detailsDataSource];
-        self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
-        self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
-        self.detailsDataSource = [[NSArray alloc] initWithArray:tempSource];
-        [self setUpEditOptions];
-        [self.tableView reloadData];
-        [self setHeaderTitle];
-        [self setFavoriteStatus];
-
-    }
-
+-(void)setHeaderTitle {
+    self.navigationItem.title = @"Favorites";
 }
 
--(void)setHeaderTitle {
-    // This displays the amount of monologues currently in the list
-    // +1 to adjust for the zero index
-    NSString *headerTitle = [NSString stringWithFormat:@"Favorites"];
-    [self.navigationItem setTitle:headerTitle];
+-(void)updateData2 {
+    NSArray* tempSource = [[NSArray alloc] initWithArray:self.detailsDataSource];
+    self.detailsDataSource = [self.manager filterMonologuesForSettings:self.manager.monologues];
+    self.relatedMonologues = [self findMonologuesRelatedToMonologue:self.currentMonologue inArrayOfMonologues:self.detailsDataSource];
+    self.detailsDataSource = tempSource;
+    [self setUpEditOptions];
 }
 
 // This also alters available edit options
@@ -93,7 +66,6 @@
     } else {
         self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", nil];
     }
-    [self.tableView reloadData];
 }
 
 #pragma mark: OVERRIDING TableView METHODS
@@ -123,28 +95,33 @@
             return @"Options";
             break;
         default:
-            return 0;
+            return nil;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    if ( section == monologueText ) {
-        return self.textArray.count;
-    } else if ( section == monologueTags ) {
-        return self.tagsArray.count;
-    } else if ( section == monologueRelated ) {
-        if ( self.relatedMonologues.count > 3) {
-            return 3;
-        } else {
-            return self.relatedMonologues.count;
-        }
-    } else if ( section == monologueEdit ) {
-        return self.editArray.count;
-    } else {
-        return 1;
+    switch (section) {
+        case monologueText:
+            return self.textArray.count;
+            break;
+        case monologueTags:
+            return self.tagsArray.count;
+            break;
+        case monologueRelated:
+            if ( self.relatedMonologues.count > 3) {
+                return 3;
+            } else {
+                return self.relatedMonologues.count;
+            }
+            break;
+        case monologueEdit:
+            return self.editArray.count;
+            break;
+        default:
+            return 1;
     }
+
 }
 
 
@@ -154,7 +131,7 @@
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     NSString *currentTag = @"";
-    Monologue *relatedMonologue = [[Monologue alloc] init];
+    Monologue *relatedMonologue;
     NSString *currentEdit = @"";
     
     switch ( indexPath.section ) {
@@ -203,27 +180,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ( indexPath.section == monologueText ) {
-        [self configureCell:self.textCell forRowAtIndexPath:indexPath];
-    }
     CGSize size;
     switch ( indexPath.section ) {
         case monologueText:
-            self.textCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.tableView.bounds), CGRectGetHeight(self.textCell.bounds));
-            [self.textCell layoutIfNeeded];
-            size = [self.textCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [self sizeForTextCellAtIndexPath:indexPath];
             break;
         case monologueNotes:
-            self.notesCell.notesLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.notesCell.textLabel.frame);
-            size = [self.notesCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [self sizeForNotesCellAtIndexPath:indexPath];
             break;
         case monologueTags:
-            self.tagCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.tagCell.textLabel.frame);
-            size = [self.tagCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [self sizeForTagsCellAtIndexPath:indexPath];
             break;
         case monologueEdit:
-            self.editCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.editCell.textLabel.bounds);
-            size = [self.editCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            size = [self sizeForEditCellAtIndexPath:indexPath];
             break;
         default:
             size.height = [self.tableView rowHeight];
@@ -231,6 +200,10 @@
     }
     
     return size.height+1;
+}
+-(CGSize)sizeForEditCellAtIndexPath:(NSIndexPath*)indexPath {
+    self.editCell.textLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.editCell.textLabel.bounds);
+    return [self.editCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
 }
 
 
@@ -244,7 +217,6 @@
     if ( indexPath.section == monologueTags ) {
         NSString *t = self.tagsArray[path.row];
         NSString *tag = [NSString stringWithFormat:@"!%@",t];
-        NSLog(@"tag in Favorites is %@",tag);
         [self.tabBarController setSelectedIndex:1];
         [[NSNotificationCenter defaultCenter] postNotificationName: @"tagSearchFromFavorites" object:nil userInfo:@{@"tag": tag}];
         
@@ -264,8 +236,7 @@
     
     // Selecting a related monologue
     if ( indexPath.section == monologueRelated ) {
-        self.detailIndex = [self getNewDetailIndexForMonologue:self.relatedMonologues[indexPath.row]];
-        [self swipeToNewMonologue:self.relatedMonologues[indexPath.row] willSwipeToRight:NO];
+        [self loadRelatedMonologueForIndexPath:indexPath];
     }
 
 }
@@ -273,11 +244,8 @@
 
  #pragma mark - Navigation
  
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
      if ( [segue.identifier isEqual: @"tag"] ) {
          TagSelectionViewController *tvc = [segue destinationViewController];
          tvc.manager = self.manager;
@@ -337,11 +305,13 @@
 
 -(void)restoreMonologue {
     self.currentMonologue = [[self.manager getMonologueForIDNumber:self.currentMonologue.idNumber] copy];
-    
+    self.textArray = [self splitTextIntoArray:self.currentMonologue.text];
     self.editArray = [NSArray arrayWithObjects:@"Add Tag", @"Edit", nil];
     
     PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Monologue Restored"];
     [self.tabBarController.view addSubview:popUp];
+    // Reload text section
+    [self.tableView reloadData];
 }
 
 

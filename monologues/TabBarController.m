@@ -28,25 +28,19 @@
     self.tabBar.translucent = NO;
     
     // For Tab bar buttons
-    
-    UITabBarItem *tabBarItem0 = self.tabBar.items[0];
+    NSArray *unselectedImageNames = [[NSArray alloc] initWithObjects:
+                                     @"favorites-unselected", @"browse-unselected", @"filters-unselected", nil];
+    NSArray *selectedImageNames = [[NSArray alloc] initWithObjects:
+                                   @"favorites-selected", @"browse-selected", @"filters-selected", nil];
+    for (int i = 0; i < self.tabBar.items.count; i++) {
+        UITabBarItem *tabBarItem = self.tabBar.items[i];
+        [tabBarItem setImage: [[UIImage imageNamed:unselectedImageNames[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [tabBarItem setSelectedImage: [[UIImage imageNamed:selectedImageNames[i]] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
+        [tabBarItem setTitleTextAttributes:@{ NSForegroundColorAttributeName : [YorickStyle color2] }
+                                   forState:UIControlStateSelected];
+    }
     UITabBarItem *tabBarItem1 = self.tabBar.items[1];
-    UITabBarItem *tabBarItem2 = self.tabBar.items[2];
-    
-    
-    [tabBarItem0 setImage: [[UIImage imageNamed:@"favorites-unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [tabBarItem0 setSelectedImage: [[UIImage imageNamed:@"favorites-selected"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
-    [tabBarItem1 setImage: [[UIImage imageNamed:@"browse-unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [tabBarItem1 setSelectedImage: [[UIImage imageNamed:@"browse-selected"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
-    [tabBarItem2 setImage: [[UIImage imageNamed:@"filters-unselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [tabBarItem2 setSelectedImage: [[UIImage imageNamed:@"filters-selected"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal]];
-    
-    [tabBarItem0 setTitleTextAttributes:@{ NSForegroundColorAttributeName : [YorickStyle color2] }
-                               forState:UIControlStateSelected];
-    [tabBarItem1 setTitleTextAttributes:@{ NSForegroundColorAttributeName : [YorickStyle color2] }
-                               forState:UIControlStateSelected];
-    [tabBarItem2 setTitleTextAttributes:@{ NSForegroundColorAttributeName : [YorickStyle color2] }
-                               forState:UIControlStateSelected];
+    tabBarItem1.badgeColor = [YorickStyle color2];
 
 }
 
@@ -117,15 +111,13 @@
         }
         
         UITabBarItem *tabBarItem1 = self.tabBar.items[1];
-        tabBarItem1.badgeColor = [YorickStyle color2];
         int availableMonologuesCount = (int)[vc.manager filterMonologues:[vc.manager filterMonologuesForSettings:vc.manager.monologues] forSearchString:vc.searchController.searchBar.text].count;
         dispatch_async(dispatch_get_main_queue(), ^{
             tabBarItem1.badgeValue = [NSString stringWithFormat:@"%d",availableMonologuesCount];
-            /* Remove monologue count badge
+            // Remove monologue count badge
             if ( vc.manager.monologues.count == availableMonologuesCount ) {
                 tabBarItem1.badgeValue = nil;
             }
-            */
         });
     });
 }

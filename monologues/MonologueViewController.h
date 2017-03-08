@@ -37,13 +37,18 @@
 - (IBAction)favoriteButtonAction:(id)sender;
 
 -(void)addMonologueToFavorites;
--(void)swipeToNewMonologue:(Monologue*)monologue willSwipeToRight:(BOOL)swipeRight;
+-(void)updateData2;
+
 -(MonologueTableViewCell*)getCellForRelatedMonologue:(Monologue*)monologue atIndexPath:(NSIndexPath*)indexPath;
--(void)setFavoriteStatus;
 -(NSMutableArray*)findMonologuesRelatedToMonologue:(Monologue*)monologue inArrayOfMonologues:(NSArray*)sourceMonologues;
--(NSArray*)loadTagsIntoArray:(NSString*)tags;
--(NSArray*)splitTextIntoArray:(NSString*)text;
+
 - (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
--(int)getNewDetailIndexForMonologue:(Monologue*)monologue;
+-(NSArray*)splitTextIntoArray:(NSString*)text;
+
+-(void)loadRelatedMonologueForIndexPath:(NSIndexPath*)indexPath;
+
+-(CGSize)sizeForTextCellAtIndexPath:(NSIndexPath*)indexPath;
+-(CGSize)sizeForNotesCellAtIndexPath:(NSIndexPath*)indexPath;
+-(CGSize)sizeForTagsCellAtIndexPath:(NSIndexPath*)indexPath;
 
 @end

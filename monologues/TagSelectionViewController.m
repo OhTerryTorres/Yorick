@@ -88,7 +88,6 @@
     
     if ( [[NSUserDefaults standardUserDefaults] boolForKey:@"didAcceptEULA"] ) {
         if ( [cell.textLabel.text rangeOfString:@"new tag"].location != NSNotFound ) {
-            NSLog(@"SCHWING");
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Add a tag" message:@"Add a tag that acts as a desciption, action, subject, etc." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"Submit", nil];
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
             alert.tag = 0;
@@ -130,7 +129,7 @@
                 [alert show];
             }
             BOOL badWords = NO;
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:nil message:@"There are some bad words in here. Even Shakespeare would be ashamed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:nil message:@"This is a bad tag. Even Shakespeare would be ashamed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             alert.tag = 3;
             int i = 0;
             while ( i < bannedWords.count && badWords == NO ) {
@@ -140,11 +139,9 @@
                 i++;
             }
             if (badWords == YES) {
-                NSLog(@"badWords YES");
                 [alert show];
             }
             if (badWords == NO) {
-                NSLog(@"badWords NO");
                 if ( [self.currentMonologue.tags rangeOfString:customTag].location != NSNotFound ) {
                     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:nil message:@"The monologue already has this tag. Try another." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
                     alert.tag = 4;
@@ -164,16 +161,7 @@
 #pragma mark: Connection Methods
 
 -(void)updateTags:(NSString*)tag {
-    // This uploads the default text, and not the user's edited version
-    NSString *restoreKey = [NSString stringWithFormat:@"%@ restore",self.currentMonologue.title];
-    NSLog(@"restoreKey in tags is %@",restoreKey);
-    NSString *restoreText = [[NSUserDefaults standardUserDefaults] objectForKey:restoreKey];
-    if ( [[NSUserDefaults standardUserDefaults] objectForKey:restoreKey] ) {
-        self.currentMonologue.text = restoreText;
-        NSLog(@"restoreText in tags is %@",restoreText);
-    }
-    
-    // Call php file to select the appropriate monologe and add the tag
+    // Call API to select the appropriate monologe and add the tag
     if ( tag != nil ) {
         self.currentMonologue.tags = [self.currentMonologue.tags stringByAppendingString:[NSString stringWithFormat:@" !%@",tag]];
         NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
@@ -191,7 +179,6 @@
         safeTitle = [safeTitle stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
         
         // Transfer monologue values and UUID via php
-        NSLog(@"in updateTags");
         NSString *strURL = @"http://www.terry-torres.com/yorick/api/api.php?method=updateMonologue";
         strURL = [strURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:strURL]];

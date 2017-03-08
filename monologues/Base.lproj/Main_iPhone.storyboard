@@ -883,11 +883,11 @@
             </objects>
             <point key="canvasLocation" x="1320.5" y="429.5"/>
         </scene>
-        <!--Search Options-->
+        <!--Options-->
         <scene sceneID="9tg-go-vt6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nWB-ze-02v" customClass="NavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search Options" image="filters-selected" id="UJe-o0-CaS"/>
+                    <tabBarItem key="tabBarItem" title="Options" image="filters-selected" id="UJe-o0-CaS"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="wHV-S8-ig3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oZO-3y-QkT">

@@ -24,8 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"self.currentMonologue.title is %@", self.currentMonologue.title);
-    NSLog(@"self.currentMonologue.text is %@", self.currentMonologue.text);
     [self setUpHeader];
     [self setUpTextView];
 }

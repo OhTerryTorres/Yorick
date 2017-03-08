@@ -250,8 +250,6 @@
 		CE3801BE1E3829DB009E6871 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				CE3801C31E38304F009E6871 /* MonologueManager.h */,
-				CE3801C41E38304F009E6871 /* MonologueManager.m */,
 				CEB528491975667E0053176B /* Monologue.h */,
 				CEB5284A1975667E0053176B /* Monologue.m */,
 				CEAAE3171AB863390006CF95 /* Setting.h */,
@@ -318,6 +316,8 @@
 				CEE18378195DC11D00FA14BA /* AppDelegate.m */,
 				CE1D57DA1E4B6E2800BB3988 /* YorickStyle.h */,
 				CE1D57DB1E4B6E2800BB3988 /* YorickStyle.m */,
+				CE3801C31E38304F009E6871 /* MonologueManager.h */,
+				CE3801C41E38304F009E6871 /* MonologueManager.m */,
 				CE3801BE1E3829DB009E6871 /* Models */,
 				CE3801BD1E38297F009E6871 /* Views */,
 				CE3801BF1E382A18009E6871 /* Contollers */,
