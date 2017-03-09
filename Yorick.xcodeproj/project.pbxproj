@@ -127,9 +127,6 @@
 		CEE18381195DC11D00FA14BA /* MonologuesListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonologuesListViewController.m; sourceTree = "<group>"; };
 		CEE18386195DC11D00FA14BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CEE1838D195DC11D00FA14BA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		CEE18395195DC11D00FA14BA /* YorickTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "YorickTests-Info.plist"; path = "monologuesTests/YorickTests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		CEE18397195DC11D00FA14BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CEE18399195DC11D00FA14BA /* monologuesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = monologuesTests.m; sourceTree = "<group>"; };
 		CEEB72961C5839AD0018BC00 /* monologueList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueList.plist; sourceTree = "<group>"; };
 		CEF3F1FE1E53FAE800242D04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		CEFC85A019CA3246003739D7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -250,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				CEE1836E195DC11D00FA14BA /* monologues */,
-				CEE18393195DC11D00FA14BA /* monologuesTests */,
 				CEE18367195DC11D00FA14BA /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -308,18 +304,8 @@
 				CEE18374195DC11D00FA14BA /* main.m */,
 				CEE18376195DC11D00FA14BA /* Yorick-Prefix.pch */,
 				CEE18366195DC11D00FA14BA /* Products */,
-				CEE18395195DC11D00FA14BA /* YorickTests-Info.plist */,
-				CEE18396195DC11D00FA14BA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		CEE18393195DC11D00FA14BA /* monologuesTests */ = {
-			isa = PBXGroup;
-			children = (
-				CEE18399195DC11D00FA14BA /* monologuesTests.m */,
-			);
-			path = monologuesTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,15 +420,6 @@
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
-		};
-		CEE18396195DC11D00FA14BA /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CEE18397195DC11D00FA14BA /* en */,
-			);
-			name = InfoPlist.strings;
-			path = monologuesTests;
-			sourceTree = SOURCE_ROOT;
 		};
 		CEF3F1FD1E53FAE800242D04 /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
