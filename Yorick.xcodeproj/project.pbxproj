@@ -126,7 +126,6 @@
 		CEE18380195DC11D00FA14BA /* MonologuesListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonologuesListViewController.h; sourceTree = "<group>"; };
 		CEE18381195DC11D00FA14BA /* MonologuesListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonologuesListViewController.m; sourceTree = "<group>"; };
 		CEE18386195DC11D00FA14BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CEE1838D195DC11D00FA14BA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CEEB72961C5839AD0018BC00 /* monologueList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueList.plist; sourceTree = "<group>"; };
 		CEF3F1FE1E53FAE800242D04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		CEFC85A019CA3246003739D7 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -271,7 +270,6 @@
 				CEE18368195DC11D00FA14BA /* Foundation.framework */,
 				CEE1836A195DC11D00FA14BA /* CoreGraphics.framework */,
 				CEE1836C195DC11D00FA14BA /* UIKit.framework */,
-				CEE1838D195DC11D00FA14BA /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
