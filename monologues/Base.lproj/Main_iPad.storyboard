@@ -543,14 +543,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="FSA-74-wLU">
-                        <barButtonItem key="rightBarButtonItem" id="w5r-8h-B3c">
-                            <connections>
-                                <action selector="favoriteButtonAction:" destination="9dB-hw-PtL" id="eWh-21-7rX"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="w5r-8h-B3c"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="favoriteButtonOutlet" destination="w5r-8h-B3c" id="6OA-3e-mbb"/>
                         <segue destination="6pc-H5-HIu" kind="unwind" identifier="searchTag" unwindAction="searchTag:" id="fj4-qQ-vdc"/>
                     </connections>
                 </tableViewController>
@@ -823,14 +818,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="QrQ-db-t1n">
-                        <barButtonItem key="rightBarButtonItem" id="ioh-lg-ttV">
-                            <connections>
-                                <action selector="favoriteButtonAction:" destination="VOJ-BB-m9E" id="Exd-Fa-zHC"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="ioh-lg-ttV"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="favoriteButtonOutlet" destination="ioh-lg-ttV" id="Beq-4U-qmh"/>
                         <segue destination="UF4-UT-YTh" kind="modal" identifier="edit" modalTransitionStyle="coverVertical" id="0fN-SC-9Ia"/>
                         <segue destination="qCQ-N0-Sxe" kind="modal" identifier="tag" modalTransitionStyle="coverVertical" id="ILX-Qn-rGx"/>
                         <segue destination="9dB-hw-PtL" kind="push" identifier="relatedSegue" id="y6n-fx-7yV"/>
@@ -894,7 +884,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVa-vE-kDQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="332" y="2093"/>
+            <point key="canvasLocation" x="331" y="2093"/>
         </scene>
     </scenes>
     <resources>

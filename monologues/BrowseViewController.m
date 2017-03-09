@@ -125,7 +125,6 @@
                                        
                                        [self updateDisplayArrayForFilters];
                                        [self.tableView reloadData];
-                                       //[self setHeaderTitle];
                                        NSLog(@"Connection complete");
                                        
                                        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Library Updated"];

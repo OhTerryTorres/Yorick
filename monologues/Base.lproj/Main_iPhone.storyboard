@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="56" width="375" height="108"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bWf-8x-AVs" id="OEf-mQ-pto">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="108"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="107"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Title" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="297" translatesAutoresizingMaskIntoConstraints="NO" id="HNC-UO-ALx">
@@ -93,7 +93,7 @@
                                 <rect key="frame" x="0.0" y="56" width="375" height="108"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kTt-E1-pop" id="bZL-pq-EXJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="108"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="107"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Title" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="297" translatesAutoresizingMaskIntoConstraints="NO" id="otQ-ts-uw3">
@@ -192,7 +192,7 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="206"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0vG-tP-LWP" id="Axf-B8-DfX">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="206"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="205"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="104" translatesAutoresizingMaskIntoConstraints="NO" id="cQR-v0-pba">
@@ -588,14 +588,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="FSA-74-wLU">
-                        <barButtonItem key="rightBarButtonItem" id="w5r-8h-B3c">
-                            <connections>
-                                <action selector="favoriteButtonAction:" destination="9dB-hw-PtL" id="eWh-21-7rX"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="w5r-8h-B3c"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="favoriteButtonOutlet" destination="w5r-8h-B3c" id="6OA-3e-mbb"/>
                         <segue destination="6pc-H5-HIu" kind="unwind" identifier="searchTag" unwindAction="searchTag:" id="fj4-qQ-vdc"/>
                     </connections>
                 </tableViewController>
@@ -635,7 +630,7 @@
                                 <rect key="frame" x="0.0" y="66" width="375" height="39"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iSq-Uo-KJR" id="2uw-oT-brA">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="38"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -865,14 +860,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="QrQ-db-t1n">
-                        <barButtonItem key="rightBarButtonItem" id="ioh-lg-ttV">
-                            <connections>
-                                <action selector="favoriteButtonAction:" destination="VOJ-BB-m9E" id="Exd-Fa-zHC"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="ioh-lg-ttV"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="favoriteButtonOutlet" destination="ioh-lg-ttV" id="Beq-4U-qmh"/>
                         <segue destination="UF4-UT-YTh" kind="modal" identifier="edit" modalTransitionStyle="coverVertical" id="0fN-SC-9Ia"/>
                         <segue destination="qCQ-N0-Sxe" kind="modal" identifier="tag" modalTransitionStyle="coverVertical" id="ILX-Qn-rGx"/>
                         <segue destination="9dB-hw-PtL" kind="push" identifier="relatedSegue" id="y6n-fx-7yV"/>

@@ -62,7 +62,6 @@
         [self updateDisplayArrayForFilters];
         dispatch_async(dispatch_get_main_queue(), ^{
             // Upate UI
-            //[self setHeaderTitle];
             [self.tableView reloadData];
         });
     });
@@ -79,7 +78,7 @@
     self.dataService.manager = self.manager;
 }
 
--(void)setHeaderTitle {
+-(void)setUpHeaderTitle {
     NSString *headerTitle = [NSString stringWithFormat:@"%@ (%lu)",self.title, (unsigned long)self.dataService.displayArray.count];
     [self.navigationItem setTitle:headerTitle];
 }
@@ -134,7 +133,7 @@
             self.dataService.displayArray = tempArray;
             [self.tableView reloadData];
             UITabBarItem *tabBarItem = self.tabBarController.tabBar.items[1];
-            tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",self.dataService.displayArray.count];
+            tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)self.dataService.displayArray.count];
             if ([tabBarItem.badgeValue intValue] == self.manager.monologues.count) {
                 tabBarItem.badgeValue = nil;
             }

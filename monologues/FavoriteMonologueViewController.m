@@ -46,7 +46,7 @@
 
 #pragma mark: OVERRIDING SUPERCLASS METHODS
 
--(void)setHeaderTitle {
+-(void)setUpHeaderTitle {
     self.navigationItem.title = @"Favorites";
 }
 
@@ -288,10 +288,6 @@
 
 
 #pragma mark: User Interaction
-
-- (IBAction)favoriteButtonAction:(id)sender {
-    [self addMonologueToFavorites];
-}
 
 // Go to Edit screen
 -(void)editMonologue {

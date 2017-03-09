@@ -43,25 +43,10 @@
 		CEE1837C195DC11D00FA14BA /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE1837A195DC11D00FA14BA /* Main_iPhone.storyboard */; };
 		CEE18382195DC11D00FA14BA /* MonologuesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18381195DC11D00FA14BA /* MonologuesListViewController.m */; };
 		CEE18387195DC11D00FA14BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEE18386195DC11D00FA14BA /* Images.xcassets */; };
-		CEE1838E195DC11D00FA14BA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1838D195DC11D00FA14BA /* XCTest.framework */; };
-		CEE1838F195DC11D00FA14BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE18368195DC11D00FA14BA /* Foundation.framework */; };
-		CEE18390195DC11D00FA14BA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE1836C195DC11D00FA14BA /* UIKit.framework */; };
-		CEE18398195DC11D00FA14BA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEE18396195DC11D00FA14BA /* InfoPlist.strings */; };
-		CEE1839A195DC11D00FA14BA /* monologuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE18399195DC11D00FA14BA /* monologuesTests.m */; };
 		CEEB72971C5839AD0018BC00 /* monologueList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEEB72961C5839AD0018BC00 /* monologueList.plist */; };
 		CEF3F1FF1E53FAE800242D04 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF3F1FD1E53FAE800242D04 /* Main_iPad.storyboard */; };
 		CEFC85A219CA3246003739D7 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFC85A119CA3246003739D7 /* EditViewController.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		CEE18391195DC11D00FA14BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CEE1835D195DC11D00FA14BA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CEE18364195DC11D00FA14BA;
-			remoteInfo = monologues;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		CE07E69D1C7769B300A95DB8 /* Embed Watch Content */ = {
@@ -141,9 +126,8 @@
 		CEE18380195DC11D00FA14BA /* MonologuesListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonologuesListViewController.h; sourceTree = "<group>"; };
 		CEE18381195DC11D00FA14BA /* MonologuesListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonologuesListViewController.m; sourceTree = "<group>"; };
 		CEE18386195DC11D00FA14BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CEE1838C195DC11D00FA14BA /* YorickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YorickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE1838D195DC11D00FA14BA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		CEE18395195DC11D00FA14BA /* YorickTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YorickTests-Info.plist"; sourceTree = "<group>"; };
+		CEE18395195DC11D00FA14BA /* YorickTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "YorickTests-Info.plist"; path = "monologuesTests/YorickTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CEE18397195DC11D00FA14BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CEE18399195DC11D00FA14BA /* monologuesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = monologuesTests.m; sourceTree = "<group>"; };
 		CEEB72961C5839AD0018BC00 /* monologueList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monologueList.plist; sourceTree = "<group>"; };
@@ -165,16 +149,6 @@
 				CEE1836B195DC11D00FA14BA /* CoreGraphics.framework in Frameworks */,
 				CEE1836D195DC11D00FA14BA /* UIKit.framework in Frameworks */,
 				CEE18369195DC11D00FA14BA /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEE18389195DC11D00FA14BA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEE1838E195DC11D00FA14BA /* XCTest.framework in Frameworks */,
-				CEE18390195DC11D00FA14BA /* UIKit.framework in Frameworks */,
-				CEE1838F195DC11D00FA14BA /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +259,6 @@
 			isa = PBXGroup;
 			children = (
 				CEE18365195DC11D00FA14BA /* Yorick.app */,
-				CEE1838C195DC11D00FA14BA /* YorickTests.xctest */,
 			);
 			name = Products;
 			path = ..;
@@ -334,6 +307,9 @@
 				CEEB72961C5839AD0018BC00 /* monologueList.plist */,
 				CEE18374195DC11D00FA14BA /* main.m */,
 				CEE18376195DC11D00FA14BA /* Yorick-Prefix.pch */,
+				CEE18366195DC11D00FA14BA /* Products */,
+				CEE18395195DC11D00FA14BA /* YorickTests-Info.plist */,
+				CEE18396195DC11D00FA14BA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -342,19 +318,8 @@
 			isa = PBXGroup;
 			children = (
 				CEE18399195DC11D00FA14BA /* monologuesTests.m */,
-				CEE18394195DC11D00FA14BA /* Supporting Files */,
 			);
 			path = monologuesTests;
-			sourceTree = "<group>";
-		};
-		CEE18394195DC11D00FA14BA /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CEE18366195DC11D00FA14BA /* Products */,
-				CEE18395195DC11D00FA14BA /* YorickTests-Info.plist */,
-				CEE18396195DC11D00FA14BA /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,24 +343,6 @@
 			productReference = CEE18365195DC11D00FA14BA /* Yorick.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CEE1838B195DC11D00FA14BA /* YorickTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CEE183A0195DC11D00FA14BA /* Build configuration list for PBXNativeTarget "YorickTests" */;
-			buildPhases = (
-				CEE18388195DC11D00FA14BA /* Sources */,
-				CEE18389195DC11D00FA14BA /* Frameworks */,
-				CEE1838A195DC11D00FA14BA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CEE18392195DC11D00FA14BA /* PBXTargetDependency */,
-			);
-			name = YorickTests;
-			productName = monologuesTests;
-			productReference = CEE1838C195DC11D00FA14BA /* YorickTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -407,9 +354,6 @@
 				TargetAttributes = {
 					CEE18364195DC11D00FA14BA = {
 						DevelopmentTeam = 4Q996R58Y9;
-					};
-					CEE1838B195DC11D00FA14BA = {
-						TestTargetID = CEE18364195DC11D00FA14BA;
 					};
 				};
 			};
@@ -427,7 +371,6 @@
 			projectRoot = "";
 			targets = (
 				CEE18364195DC11D00FA14BA /* Yorick */,
-				CEE1838B195DC11D00FA14BA /* YorickTests */,
 			);
 		};
 /* End PBXProject section */
@@ -441,14 +384,6 @@
 				CEEB72971C5839AD0018BC00 /* monologueList.plist in Resources */,
 				CEE1837C195DC11D00FA14BA /* Main_iPhone.storyboard in Resources */,
 				CEF3F1FF1E53FAE800242D04 /* Main_iPad.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CEE1838A195DC11D00FA14BA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEE18398195DC11D00FA14BA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,23 +424,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CEE18388195DC11D00FA14BA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CEE1839A195DC11D00FA14BA /* monologuesTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CEE18392195DC11D00FA14BA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CEE18364195DC11D00FA14BA /* Yorick */;
-			targetProxy = CEE18391195DC11D00FA14BA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CEE1837A195DC11D00FA14BA /* Main_iPhone.storyboard */ = {
@@ -522,7 +441,8 @@
 				CEE18397195DC11D00FA14BA /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
+			path = monologuesTests;
+			sourceTree = SOURCE_ROOT;
 		};
 		CEF3F1FD1E53FAE800242D04 /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -595,25 +515,6 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				VALID_ARCHS = "arm64 armv7 armv7s Thumb-2";
 				WRAPPER_EXTENSION = app;
-			};
-			name = "Release copy";
-		};
-		CE07E66F1C7514C300A95DB8 /* Release copy */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/monologues.app/monologues";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "monologues/monologues-Prefix.pch";
-				INFOPLIST_FILE = "monologuesTests/YorickTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.terry-torres.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = YorickTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = "Release copy";
 		};
@@ -747,48 +648,6 @@
 			};
 			name = Release;
 		};
-		CEE183A1195DC11D00FA14BA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/monologues.app/monologues";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "monologues/monologues-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "monologuesTests/YorickTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.terry-torres.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = YorickTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		CEE183A2195DC11D00FA14BA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/monologues.app/monologues";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "monologues/monologues-Prefix.pch";
-				INFOPLIST_FILE = "monologuesTests/YorickTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.terry-torres.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = YorickTests;
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -808,16 +667,6 @@
 				CEE1839E195DC11D00FA14BA /* Debug */,
 				CEE1839F195DC11D00FA14BA /* Release */,
 				CE07E66E1C7514C300A95DB8 /* Release copy */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CEE183A0195DC11D00FA14BA /* Build configuration list for PBXNativeTarget "YorickTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CEE183A1195DC11D00FA14BA /* Debug */,
-				CEE183A2195DC11D00FA14BA /* Release */,
-				CE07E66F1C7514C300A95DB8 /* Release copy */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -22,19 +22,22 @@
 @implementation MonologueViewController
 
 
-#pragma mark: App Delegate Access
-
 #pragma mark: View Changing Methods
 
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self addSwipeGestureRecognizers];
     self.relatedMonologues = [[NSMutableArray alloc] init];
-    [self setHeaderTitle];
+    [self setUpHeaderTitle];
+    [self setUpFavoriteButton];
 }
-
--(void)setHeaderTitle {
+-(void)setUpHeaderTitle {
     self.navigationItem.title = @"Monologues";
+}
+-(void)setUpFavoriteButton {
+    UIImage* image = [self imageBasedOnCurrentMonologueFavoriteStatus];
+    self.favoriteButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(addMonologueToFavorites)];
+    self.navigationItem.rightBarButtonItem = self.favoriteButton;
 }
 
 // Refreshes data, if needed
@@ -72,7 +75,7 @@
 }
 -(void)updateUI {
     [self.tableView reloadData];
-    [self setFavoriteStatus];
+    self.favoriteButton.image = [self imageBasedOnCurrentMonologueFavoriteStatus];
 }
 
 -(NSArray*)splitTextIntoArray:(NSString*)text {
@@ -337,38 +340,30 @@
 
 #pragma mark: User Interaction
 
--(void)setFavoriteStatus {
+-(UIImage*)imageBasedOnCurrentMonologueFavoriteStatus {
+    UIImage * image;
     if ( [self.manager monologueWithIDNumberIsInFavorites:self.currentMonologue.idNumber] ) {
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"favorites-selected"];
+        image = [UIImage imageNamed:@"favorites-selected"];
     } else {
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"favorites-unselected"];
+        image = [UIImage imageNamed:@"favorites-unselected"];
     }
+    return image;
 }
-
-- (IBAction)favoriteButtonAction:(id)sender {
-
-    [self addMonologueToFavorites];
-    
-}
-
 -(void)addMonologueToFavorites {
+    PopUpView* popUp;
     if ( [self.manager monologueWithIDNumberIsInFavorites:self.currentMonologue.idNumber] ) {
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"favorites-unselected"];
+        self.favoriteButton.image = [UIImage imageNamed:@"favorites-unselected"];
         [self.manager.favoriteMonologues removeObject:[self.manager getFavoriteMonologueForIDNumber:self.currentMonologue.idNumber]];
+        popUp = [[PopUpView alloc] initWithTitle:@"Removed from Favorites"];
         
-        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Removed from Favorites"];
-        [self.tabBarController.view addSubview:popUp];
     } else {
-        self.favoriteButtonOutlet.image = [UIImage imageNamed:@"favorites-selected"];
+        self.favoriteButton.image = [UIImage imageNamed:@"favorites-selected"];
         Monologue *favoriteMonologue = [self.currentMonologue copy];
         [self.manager.favoriteMonologues addObject:favoriteMonologue];
-        
-        PopUpView* popUp = [[PopUpView alloc] initWithTitle:@"Added to Favorites"];
-        [self.tabBarController.view addSubview:popUp];
+        popUp = [[PopUpView alloc] initWithTitle:@"Added to Favorites"];
     }
+    [self.tabBarController.view addSubview:popUp];
 }
-
-
 -(void)addSwipeGestureRecognizers {
     UISwipeGestureRecognizer *leftGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDetectedLeft:)];
     leftGesture.direction = UISwipeGestureRecognizerDirectionLeft;

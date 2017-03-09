@@ -22,7 +22,7 @@
 @property (weak, nonatomic) MonologueManager *manager;
 @property (strong, nonatomic) MonologueDataService *dataService;
 
--(void)setHeaderTitle;
+-(void)setUpHeaderTitle;
 -(void)updateDisplayArrayForFilters;
 
 @end

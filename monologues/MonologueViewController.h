@@ -33,8 +33,7 @@
 @property (nonatomic) NSArray *detailsDataSource;
 @property unsigned long detailIndex;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteButtonOutlet;
-- (IBAction)favoriteButtonAction:(id)sender;
+@property (nonatomic) UIBarButtonItem *favoriteButton;
 
 -(void)addMonologueToFavorites;
 -(void)updateData2;
