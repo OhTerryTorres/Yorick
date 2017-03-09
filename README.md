@@ -9,8 +9,10 @@ The monologue manager (henceforth "the manager") is what accesses the monologues
 These are the properties of the manager:</br>
 <b>monologues</b>: An array of all stored monologues. This array can be updated based on alterations from a remote server.</br>
 <b>favoriteMonologues</b>: An array of monologues that have been "favorited" by the user. These monologues can be edited by the user for their own use, but they can also be restored to their default state.</br>
-<b>allTags</b>: All monolouges have search tags, including those defined by users. This array collects all of those tags for display in the Tag Selection screen.</br>
+<b>allTags</b>: All monolouges have search tags, including those defined by users. This array collects all of those tags for display in the Tag Search screen.</br>
+<b>activeTags</b>: Tags selected from the Tag Search screen are stored in this array..</br>
 <b>settings</b>: an array of <i>Setting</i> objects. These are altered on the Settings screen to change the kinds of monologues that are displayed during a search. They are stored in the manager, most other screens will need access to that information at a given time.</br>
+<b>textSize</b>: A float, set on the Options screen, used to decide what size a monologue's text is displayed at.</br>
 <b>latestUpdateCount</b>: a simple int used to help Yorick decide if it needs to pull any upates from the server. If the the manager has fewer updated entries than the server, it retrieves the rest.</br>
 
 The manager is passed between Yorick's different screens (that is, different view controllers in Yorick's main tab bar controller) to access the same set of monologues, favorite monologues, and settings. The manager allows each screen to access monologues by returning an array filtered by advanced settings (only short monologues, only comedic monologues, monologues from female characters, etc), by search string ("Hamlet revenge blood"), or by both. Individual monologues can also be accessed by an ID number, assigned on initialization.
@@ -42,12 +44,11 @@ Two filtering functions are called here. The innermost is <b>filterMonologuesFor
 ```
 -(NSArray*)filterMonologuesForSettings:(NSArray*)monologuesArray {
     for(Setting* setting in self.settings) {
-        // The first element in settings.options[0] is the default.
-        // Settings also includes a option to change display text size, useless for the filter
         if (setting.currentSetting != setting.options[0] && ![setting.title isEqualToString:@"size"]) {
-            NSPredicate *predicate;
+            NSPredicate *predicate = nil;
             if ( [setting.title isEqualToString:@"gender"] ) {
                 if ( ([setting.currentSetting rangeOfString:@"male" options:NSCaseInsensitiveSearch].location != NSNotFound && [setting.currentSetting  rangeOfString:@"female" options:NSCaseInsensitiveSearch].location == NSNotFound) )  {
+                    
                     predicate = [NSPredicate predicateWithFormat:@"%K matches[c] %@ OR %K matches[c] %@", setting.title, setting.currentSetting , setting.title, @"any"];
                 } else {
                     predicate = [NSPredicate predicateWithFormat:@"%K contains[c] %@ OR %K matches[c] %@", setting.title,setting.currentSetting , setting.title, @"any"];
@@ -55,12 +56,31 @@ Two filtering functions are called here. The innermost is <b>filterMonologuesFor
             } else {
                 predicate = [NSPredicate predicateWithFormat:@"%K contains[c] %@", setting.title, setting.currentSetting];
             }
-            
             monologuesArray = [monologuesArray filteredArrayUsingPredicate:predicate];
-            predicate = nil;
         }
     }
+    
+    // Filter for active tags
+    if (self.activeTags.count > 0) {
+        monologuesArray = [self filterMonologuesForActiveTags:monologuesArray];
+    }
+    
     return monologuesArray;
+}
+```
+
+Within is a call to <b>filterMonologuesForActiveTags</b>, which filters out anyone monologues whose tags do not match the manager's active tags.
+
+```
+-(NSArray*)filterMonologuesForActiveTags:(NSArray*)monologuesArray {
+    NSMutableArray *predicatesList = [NSMutableArray array];
+    for (NSString *tag in self.activeTags) {
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"tags contains[cd] %@",tag];
+        [predicatesList addObject:predicate];
+    }
+    NSCompoundPredicate *compoundPredicate = [[NSCompoundPredicate alloc] initWithType:NSAndPredicateType
+                                                                         subpredicates:predicatesList];
+    return [monologuesArray filteredArrayUsingPredicate:compoundPredicate];
 }
 ```
 
@@ -120,10 +140,10 @@ The resulting array is then passed into <b>filterMonologues:forSearchString</b>.
 
 <h3>The Settings Class</h3>
 These are properties of the Setting class:</br>
-<b>title</b>: A string defining the name of the setting, necessary for initialization: gender, tone, length, or size. </br>
+<b>title</b>: A string defining the name of the setting, necessary for initialization: gender, tone, length. </br>
 <b>options</b>: An array of stringins defining setting options related to the title, assigned when the Setting is first initialized.</br>
 <b>currentSetting</b>: A string defining which of the options is currently in effect, changeable by the user on the Settings screen.</br>
 <b>cell</b>: A custom cell of the class SettingTableViewCell. This unique cell, when touched on the Settings screen, displays or hides a UIPickerView presenting the setting's options. Though defined in the class header, it isn't initialized until the user accesses the Settings screen.</br>
 <b>maintainFrame, pickerCellIsShowing</b>: A CGRect and Bool used to deal with the display of the UIPickerView in the cell.</br></br>
 
-The gender, tone, and length settings can be used by the manager to filter the monologues displayed to the user. The <i>size</i> settings is associated with the other settings because they can all changed by the user. However, the size setting, used to change the display size of text when viewing monologues, is not used to filter for searches. That's why the search methods avoid dealing with the "size" settings when iterating through the manager's settings array.
+
