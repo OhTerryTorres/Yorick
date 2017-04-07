@@ -122,7 +122,7 @@
         if (buttonIndex == 1) {
             NSString *customTag = [[alertView textFieldAtIndex:0] text];
             NSCharacterSet *doNotWant = [NSCharacterSet characterSetWithCharactersInString:@" -/:;()$&@\".,!?\'[]{}#%^*+=_|~<>€£¥•."];
-            NSMutableArray *bannedWords = [[NSMutableArray alloc] initWithObjects:@"fuck", @"shit", @"fuk", @"fuk", @"fag",@"faggot",@"faggo",@"nigger",@"nigga",@"cunt",@"asshole",@"bullshit",@"chink",@"christ",@"clit",@"cock",@"coon",@"cum",@"dick",@"dyke",@"gook",@"heeb",@"pussy",@"jizz",@"kike",@"poontang",@"spic",@"skeet",@"wetback", nil];
+            NSMutableArray *bannedWords = [[NSMutableArray alloc] initWithObjects:@"bad", @"words", @"here", nil];
             if ( [customTag rangeOfCharacterFromSet:doNotWant].location != NSNotFound ) {
                 UIAlertView * alert = [[UIAlertView alloc] initWithTitle:nil message:@"Try again without special characters." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 alert.tag = 2;
